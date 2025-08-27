@@ -1,4 +1,5 @@
 <?php
+//CHEIN SAMPLE
 header("Content-Type: application/json");
 
 ini_set('display_errors', 1);
