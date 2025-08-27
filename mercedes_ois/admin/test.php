@@ -8,7 +8,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
 
-    <script src="/mercedes_ois/admin/js/Sample.js"></script>
+    <script src="../../mercedes_ois/admin/js/Sample.js"></script>
 </head>
 
 <body class="bg-light" ng-controller="SampleController" ng-init="init()">
