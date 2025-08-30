@@ -152,7 +152,6 @@
                                         <option value="CASH">Cash Payment</option>
                                         <option value="ADV">Advance Payment</option>
                                         <option value="MISC">Misc.</option>
-                                        <option value="ADJ">Adjustments</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">

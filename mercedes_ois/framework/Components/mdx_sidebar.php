@@ -28,12 +28,12 @@
                 </a>
             </li>
             <li>
-                <a href="ledger.php" class="sidebar-sub-link">
+                <a href="mdx_ledger.php" class="sidebar-sub-link">
                     <i class="fa-solid fa-book me-2"></i> Ledger
                 </a>
             </li>
             <li>
-                <a href="adjustments.php" class="sidebar-sub-link">
+                <a href="mdx_adjustments.php" class="sidebar-sub-link">
                     <i class="fa-solid fa-sliders me-2"></i> Adjustments
                 </a>
             </li>
