@@ -7,6 +7,13 @@
   font-style: normal;
 }
 
+/* color customized */
+.mdx-bg-red-300 { background-color: #e6515a !important; }
+.mdx-bg-yellow-300 { background-color: #f6cb18 !important; }
+.mdx-bg-green-300 { background-color: #27c280 !important; }
+.mdx-bg-blue-300 { background-color: #3599dd !important; }
+
+
 .mdx-fst-tnr {
   font-family: "Times New Roman", Times, serif !important;
 }
@@ -20,6 +27,7 @@
 
 .mdx-text-scarlet {
   color: #f55355 !important;
+  background-color: inherit !important;
 }
 
 .mdx-btn-hover {
@@ -29,6 +37,27 @@
   color: aliceblue !important;
   background-color: #f55355 !important;
   transform: scale(1.1);
+}
+.mdx-square-btn{
+  border: 2px solid #e3e3e4 !important;
+  transition: all 0.2s ease
+}
+.mdx-border-bottom{
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 2px solid #e3e3e4;
+}
+.mdx-border-bottom-light{
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid #e3e3e4;
+}
+
+.mdx-square-btn:hover{
+  border: 2px solid #f55355 !important;
+  color: #f55355;
 }
 
 .mdx-text-hover {

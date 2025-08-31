@@ -13,28 +13,29 @@
         aria-expanded="false" aria-controls="transactionMenu">
         <i class="fa-solid fa-money-check-dollar sidebar-icon"></i>
         <span class="sidebar-text ms-2">Transaction</span>
-        <i class="fa-solid fa-angle-down ms-auto"></i>
+        <!-- <i class="fa-solid fa-angle-down ms-auto"></i> -->
     </a>
-    <div class="collapse ms-4" id="transactionMenu">
+    <div class="collapse" id="transactionMenu">
         <ul class="list-unstyled">
             <li>
                 <a href="../../mercedes_ois/admin/mdx_add_transactions.php" class="sidebar-sub-link">
-                    <i class="fa-solid fa-plus me-2"></i> Add New Transaction
+                    <i class="fa-solid fa-plus me-2"></i><span class="sidebar-text ms-2"> Add New Transaction</span>
                 </a>
             </li>
             <li>
                 <a href="import_transaction.php" class="sidebar-sub-link">
-                    <i class="fa-solid fa-file-import me-2"></i> Import Transaction
+                    <i class="fa-solid fa-file-import me-2"></i><span class="sidebar-text ms-2"> Import
+                        Transaction</span>
                 </a>
             </li>
             <li>
                 <a href="mdx_ledger.php" class="sidebar-sub-link">
-                    <i class="fa-solid fa-book me-2"></i> Ledger
+                    <i class="fa-solid fa-book me-2"></i> <span class="sidebar-text ms-2">Ledger</span>
                 </a>
             </li>
             <li>
                 <a href="mdx_adjustments.php" class="sidebar-sub-link">
-                    <i class="fa-solid fa-sliders me-2"></i> Adjustments
+                    <i class="fa-solid fa-sliders me-2"></i> <span class="sidebar-text ms-2">Adjustments</span>
                 </a>
             </li>
         </ul>
