@@ -35,7 +35,7 @@ app.controller("LoginController", function ($scope, API) {
       $scope.role = final_response.role;
 
       if ($scope.data.result && $scope.role == "admin") {
-        window.location.href = "../../mercedes_ois/admin/ADMIN_UI_TEMPLATE.php";
+        window.location.href = "../../mercedes_ois/admin/mdx_admin_dashboard.php";
       } else if ($scope.data.result) {
         window.location.href = "../../mercedes_ois/user/MDXUserDashboard.php";
       } else {
