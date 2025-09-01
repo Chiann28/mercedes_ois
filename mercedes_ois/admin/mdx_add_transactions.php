@@ -70,12 +70,12 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="example@email.com"
+                                    <input type="email" class="form-control" placeholder="example@gmail.com"
                                         ng-model="customer.email" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone number</label>
-                                    <input type="text" class="form-control" placeholder="+1 555 567 8901"
+                                    <input type="text" class="form-control" placeholder="+639946205660"
                                         ng-model="customer.contact_number" readonly>
                                 </div>
                                 <div class="border-bottom mb-3">
@@ -135,12 +135,18 @@
                                         style="cursor: pointer;"
                                         onclick="document.getElementById('transactionImage').click();">
 
-                                        <i class="fa-solid fa-cloud-arrow-up fa-2x mb-2 text-secondary"></i>
-                                        <p class="mb-0 text-muted">Drop your image here, or <span
-                                                class="text-primary">Click to browse</span></p>
+                                        <i class="fa-solid fa-cloud-arrow-up fa-2x mb-2 text-secondary"
+                                            id="uploadIcon"></i>
+                                        <p class="mb-0 text-muted" id="uploadText">Drop your image here, or
+                                            <span class="text-primary">Click to browse</span>
+                                        </p>
                                         <small class="text-muted">Accepted formats: .jpg, .jpeg, .png (min
                                             300x300px)</small>
+
+                                        <img id="previewImage" class="mt-3 rounded shadow d-none"
+                                            style="max-width: 200px; max-height: 200px;" />
                                     </div>
+
                                 </div>
                                 <div class="mb-3 border-bottom">
 

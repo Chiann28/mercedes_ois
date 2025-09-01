@@ -91,6 +91,27 @@ class AddTransactionsClass{
         $result = $SQL->SelectQuery($query);
         return $result;
     }
+
+    public function SaveAttachment($client, $accountnumber, $transaction_id, $fileName, $filePath, $file_type, $file_size, $user){
+        $SQL = new SQLCommands("mercedes_ois");
+
+        $params = [
+            "client" => $client,
+            "accountnumber" => $accountnumber,
+            "document_code" => $transaction_id,
+            "type" => "Payment Proof",
+            "description" => "Uploaded through POP",
+            "filename" => $fileName,
+            "filetype" => $file_type,
+            "filesize" => $file_size,
+            "filepath" => $filePath,
+            "status" => 1,
+            "modifiedby" => $user
+        ];
+
+        $result = $SQL->InsertQuery("requirements", $params);
+        return $result;
+    }
     
 }
 
