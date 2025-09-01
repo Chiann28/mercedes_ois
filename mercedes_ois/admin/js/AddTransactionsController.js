@@ -20,6 +20,38 @@ app.service("API", function ($http) {
 
 // Controller Start
 app.controller("AddTransactionsController", function ($scope, API) {
+  document
+    .getElementById("transactionImage")
+    .addEventListener("change", function (event) {
+      let file = event.target.files[0];
+      if (!file) return;
+
+      if (!["image/jpeg", "image/png"].includes(file.type)) {
+        Swal.fire("Invalid File", "Only JPG and PNG are allowed.", "warning");
+        return;
+      }
+
+      let img = new Image();
+      img.onload = function () {
+        if (img.width < 300 || img.height < 300) {
+          Swal.fire(
+            "Invalid Image",
+            "Image must be at least 300x300 pixels.",
+            "warning"
+          );
+          return;
+        }
+
+        let preview = document.getElementById("previewImage");
+        preview.src = URL.createObjectURL(file);
+        preview.classList.remove("d-none");
+
+        document.getElementById("uploadIcon").classList.add("d-none");
+        document.getElementById("uploadText").classList.add("d-none");
+      };
+      img.src = URL.createObjectURL(file);
+    });
+
   $scope.client = "mercedes";
   $scope.customer = $scope.customer || {};
   $scope.VerifySession = function () {
@@ -173,7 +205,10 @@ app.controller("AddTransactionsController", function ($scope, API) {
       $scope.result = final_response;
       console.log($scope.result);
       Swal.close();
-
+      $scope.DoUploadAttachment(
+        $scope.customer.accountnumber,
+        final_response.transaction_id
+      );
       if ($scope.result.result) {
         Swal.fire({
           title: "Success!",
@@ -194,5 +229,29 @@ app.controller("AddTransactionsController", function ($scope, API) {
         });
       }
     });
+  };
+
+  $scope.DoUploadAttachment = function (accountnumber, transaction_id) {
+    let fileInput = document.getElementById("transactionImage");
+    if (!fileInput.files.length) return;
+
+    let formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+    formData.append("client", $scope.client);
+    formData.append("accountnumber", accountnumber);
+    formData.append("transaction_id", transaction_id);
+    formData.append("request_type", "UploadAttachment");
+
+    fetch("api/AddTransactionsAPI.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Upload response:", data);
+      })
+      .catch((err) => {
+        console.error("Upload failed:", err);
+      });
   };
 });

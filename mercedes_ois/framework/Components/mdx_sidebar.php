@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li>
-                <a href="import_transaction.php" class="sidebar-sub-link">
+                <a href="mdx_import_transaction.php" class="sidebar-sub-link">
                     <i class="fa-solid fa-file-import me-2"></i><span class="sidebar-text ms-2"> Import
                         Transaction</span>
                 </a>
