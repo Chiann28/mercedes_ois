@@ -22,13 +22,24 @@ class NewApplicationClass
       'lastname' => $last_name
     ];
     $result = $SQL->InsertQuery('user_accounts',$parameters);
-    return $result;
+
+    if($result){
+            return [
+                "result" => true,
+                "message" => "Account Created",
+            ];
+        }
+        
+        return [
+            "result" => false,
+            "message" => "Account Creation Unsuccessful",
+        ];
   }
   public function InsertAccountDetails($username, $password, $role)
   {
     $SQL = new SQLCommands("mercedes_ois");
     $query = "INSERT INTO ";
-    $result = $SQL->SelectQuery($query);
+    $result = $SQL->InsertQuery( 'customer_details',$query);
     return $result;
   }
 

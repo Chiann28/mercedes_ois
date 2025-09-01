@@ -137,6 +137,10 @@ require_once "Connection.php";
 	            $query = 'INSERT INTO `'.$table.'` ('.implode(", ", $cols).') VALUES ('.implode(", ",  $values).') ';
 				
 	            $query = $this->clean_string($query);	
+
+							// echo $query;
+		  				// die();
+
 	            $result = mysqli_query($this->MySQLconnection(),$query);
 	      	            return $result;
 	            }catch (Exception $e) {
