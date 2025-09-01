@@ -6,9 +6,9 @@
             class="fa-solid fa-chart-line sidebar-icon"></i> <span class="sidebar-text ms-2">Admin Dashboard</span></a>
 
 
-    <a class="sidebar-icon" data-bs-toggle="collapse" href="#residentInformationMenu" role="button" aria-expanded="false"
-        aria-controls="residentInformationMenu"><i class="fa-solid fa-users sidebar-icon"></i> <span
-            class="sidebar-text ms-2">Resident Information</span></a>
+    <a class="sidebar-icon" data-bs-toggle="collapse" href="#residentInformationMenu" role="button"
+        aria-expanded="false" aria-controls="residentInformationMenu"><i class="fa-solid fa-users sidebar-icon"></i>
+        <span class="sidebar-text ms-2">Resident Information</span></a>
 
     <div class="collapse" id="residentInformationMenu">
         <ul class="list-unstyled">
@@ -65,5 +65,9 @@
     <!-- Transactions End -->
     <a href="#" class="sidebar-icon"><i class="fa-solid fa-calendar sidebar-icon"></i><span
             class="sidebar-text ms-2">Events and Operations</span></a>
+
+    <a class="sidebar-icon" href="mdx_incident_and_requests.php" role="button" aria-expanded="false"
+        aria-controls="residentInformationMenu"><i class="fa-solid fa-bell sidebar-icon"></i>
+        <span class="sidebar-text ms-2">Incidents and Requests</span></a>
 
 </div>
