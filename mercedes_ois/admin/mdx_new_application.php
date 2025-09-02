@@ -13,17 +13,22 @@
   <!-- FONTAWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
-  <!-- NASHIE CSS <3 -->
-  <link rel="stylesheet" href="../framework/CSS/NashieCss.css">
+
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
   <script src="../../mercedes_ois/admin/js/NewApplicationController.js"></script>
-  
+
+  <!-- INTTELINPUT -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.8.3/build/css/intlTelInput.css">
+
+  <!-- NASHIE CSS <3 -->
+  <link rel="stylesheet" href="../framework/CSS/NashieCss.css">
+
 
 </head>
 
-<body class="bg-light" ng-controller="NewApplicationController" ng-init="VerifySession()">
+<body ng-controller="NewApplicationController" ng-init="VerifySession()" class="mdx-body-color">
 
   <!-- Sidebar -->
   <?php require_once '../framework/Components/mdx_sidebar.php'; ?>
@@ -41,41 +46,145 @@
         <!-- Page Bar -->
         <div class="pb-2 mb-3 border-bottom">
           <span class="fs-12">
-            Administration • Resident Information • New Appliaction
+            Administration • Resident Information • New Application
           </span>
         </div>
 
-        <div>
-          <form class="col-3" ng-submit="DoCreateAccount()">
-            <div class="">
-              <label for="inputPassword2" class="">First Name</label>
-              <input type="text" class="form-control" id="" placeholder="first name" ng-model="first_name">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <div class="row gap-4">
+              <div class="col-12">
+                <div class="p-4 bg-light rounded border border-dark-subtle">
+
+                  <h4 class="mb-4">Overview</h4>
+                  <div class="row">
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="firstname"><span class="text-muted">First Name</span></label>
+                      <input type="text" class="form-control mt-2" id="firstname" placeholder="First Name">
+                    </div>
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="lastname"><span class="text-muted">Last Name</span></label>
+                      <input type="text" class="form-control mt-2" id="firstname" placeholder="Last Name">
+                    </div>
+
+                    <div class="col-12 my-2">
+                      <label for="email"><span class="text-muted">Email</span></label>
+                      <input type="email" class="form-control mt-2" id="email" placeholder="Email">
+                    </div>
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="phone"><span class="text-muted">Mobile Number</span></label>
+                      <div class="mt-2">
+                        <input id="phone" type="tel" placeholder="" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="telephone"><span class="text-muted">Telephone</span></label>
+                      <input type="number" class="form-control mt-2" id="telephone" placeholder="">
+                    </div>
+
+
+
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="p-4 bg-light rounded border border-dark-subtle">
+
+                  <h4 class="mb-4">Additional Information</h4>
+                  <div class="row">
+
+                    <div class="col-12 my-2">
+                      <label for="email"><span class="text-muted">Unit Type</span></label>
+                      <input type="text" class="form-control mt-2" id="email" placeholder="">
+                    </div>
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="firstname"><span class="text-muted">Lot No.</span></label>
+                      <input type="text" class="form-control mt-2" id="firstname" placeholder="">
+                    </div>
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="lastname"><span class="text-muted">House No.</span></label>
+                      <input type="text" class="form-control mt-2" id="firstname" placeholder="">
+                    </div>
+
+
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="p-4 bg-light rounded border border-dark-subtle">
+
+                  <h4 class="mb-4">Reference</h4>
+                  <div class="row">
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="firstname"><span class="text-muted">Full Name</span></label>
+                      <input type="text" class="form-control mt-2" id="firstname" placeholder="Reference Full Name">
+                    </div>
+
+                    <div class="col-12 col-md-6 my-2">
+                      <label for="phone"><span class="text-muted">Mobile Number</span></label>
+                      <div class="mt-2">
+                        <input id="phone2" type="tel" placeholder="" class="form-control">
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="p-4 bg-light rounded border border-dark-subtle">
+
+                  <div class="d-flex gap-3 justify-content-end">
+                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can small"></i>
+                      Discard</button>
+                    <button type="button" class="btn btn-success">Create</button>
+                  </div>
+
+
+
+                </div>
+              </div>
             </div>
 
-            <div class="">
-              <label for="inputPassword2" class="">Last Name</label>
-              <input type="text" class="form-control" id="" placeholder="last name" ng-model="last_name">
-            </div>
+          </div>
+          <div class="col-12 col-lg-4">
+            <div class="p-4 bg-light rounded border border-dark-subtle">
+              <h4 class="mb-4">Account Information</h4>
+              <div class="row gap-4">
+                <div class="col-12">
+                  <label for=""><span class="text-muted">Accountnumber</span></label>
+                  <input type="text" class="form-control mt-2" id="" placeholder="" disabled>
+                </div>
 
-            <div class="">
-              <label for="inputPassword2" class="">Role</label>
-              <input type="text" class="form-control" id="" placeholder="role" ng-model="role">
+                <div class="col-12">
+                  <label for=""><span class="text-muted">Username</span></label>
+                  <input type="text" class="form-control mt-2" id="" placeholder="Username">
+                </div>
+                <div class="col-12">
+                  <label for=""><span class="text-muted">Password</span></label>
+                  <input type="text" class="form-control mt-2" id="" placeholder="Password">
+                </div>
+                
+              </div>
             </div>
+          </div>
 
-            <div class="">
-              <label for="" class="">Username</label>
-              <input type="text" class="form-control" id="" placeholder="username" ng-model="username">
-            </div>
-
-            <div class="">
-              <label for="inputPassword2" class="">Password</label>
-              <input type="text" class="form-control" id="" placeholder="password" ng-model="password">
-            </div>
-
-            <div class="">
-              <button type="submit" class="btn btn-primary mb-3">Confirm</button>
-            </div>
-          </form>
+          
         </div>
 
       </div>
@@ -86,12 +195,33 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.8.3/build/js/intlTelInput.min.js"></script>
+  <script>
+
+    const input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      initialCountry: "ph",
+      onlyCountries: ["ph",],
+      separateDialCode: true,
+      loadUtils: () => import("/intl-tel-input/js/utils.js?1756816377902") // for formatting/placeholders etc
+    });
+    const input2 = document.querySelector("#phone2");
+    window.intlTelInput(input2, {
+      initialCountry: "ph",
+      onlyCountries: ["ph",],
+      separateDialCode: true,
+      loadUtils: () => import("/intl-tel-input/js/utils.js?1756816377902") // for formatting/placeholders etc
+    });
+  </script>
+
   <!-- bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
 
   <script src="../framework/JS/jsForStyling.js"></script>
+
+
 
 </body>
 
