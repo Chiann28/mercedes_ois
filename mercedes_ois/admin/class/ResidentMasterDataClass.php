@@ -106,6 +106,28 @@ class ResidentMasterDataClass
     return $result;
   }
 
+  public function DoUpdateAccount($params)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $firstname = $params['firstname'];
+    $client = $params['client'];
+    $accountnumber = $params['accountnumber'];
+    $query = "UPDATE customer_details
+                SET firstname = '$firstname'
+              WHERE client = '$client'
+                    AND accountnumber = '$accountnumber';
+                    ";
+
+    $result = $SQL->UpdateQuery($query);
+    if(!$result){
+      $response = ["result" => false, "message" => "Something Went Wrong. Account Update Failed.",];
+    }else{
+      $response = ["result" => true, "message" => "Account : $accountnumber Updated Successfuly", "accountnumber" => $accountnumber];
+    }
+    return $response;
+    ;
+  }
+
 }
 
 ?>

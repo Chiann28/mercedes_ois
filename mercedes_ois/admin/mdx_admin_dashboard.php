@@ -35,7 +35,7 @@
             <div class="col-12 pb-3">
               <div class="bg-light p-3 rounded">
                 <div class="row">
-                  <div class="col-6 col-lg-3">
+                  <div class="col-6 col-md-3">
                     <div
                       class="d-flex justify-content-between align-items-center p-3 mdx-bg-blue-300 text-light rounded">
                       <i class="fa-solid fa-house display-4" style="opacity: 40%"></i>
@@ -47,7 +47,7 @@
 
                     </div>
                   </div>
-                  <div class="col-6 col-lg-3">
+                  <div class="col-6 col-md-3">
                     <div
                       class="d-flex justify-content-between align-items-center p-3 mdx-bg-green-300 text-light rounded">
                       <i class="fa-solid fa-house-circle-check display-4" style="opacity: 40%"></i>
@@ -59,7 +59,7 @@
 
                     </div>
                   </div>
-                  <div class="col-6 col-lg-3 mt-2 mt-lg-0">
+                  <div class="col-6 col-md-3 mt-2 mt-lg-0">
                     <div
                       class="d-flex justify-content-between align-items-center p-3 mdx-bg-yellow-300 text-light rounded">
                       <i class="fa-solid fa-circle-exclamation display-4" style="opacity: 40%"></i>
@@ -71,7 +71,7 @@
 
                     </div>
                   </div>
-                  <div class="col-6 col-lg-3 mt-2 mt-lg-0">
+                  <div class="col-6 col-md-3 mt-2 mt-lg-0">
                     <div
                       class="d-flex justify-content-between align-items-center p-3 mdx-bg-red-300 text-light rounded">
                       <i class="fa-solid fa-triangle-exclamation display-4" style="opacity: 40%"></i>

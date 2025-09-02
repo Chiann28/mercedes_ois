@@ -65,9 +65,6 @@
                       <i class="fa fa-file-excel me-2"></i> Create Account
                     </button>
 
-                    <button class="btn btn-secondary" type="button" ng-click="exportData()">
-                      <i class="fa fa-file-excel me-2"></i> Export
-                    </button>
 
                   </div>
                 </div>
@@ -81,7 +78,15 @@
           <div class="col-md-12 mb-4">
             <div class="card shadow-sm border-0 rounded-3">
               <div class="card-body">
-                <h6 class="card-title fw-semibold mb-3">Account Details</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="card-title fw-semibold mb-3">Account Details</h6>
+                  <button class="btn btn-secondary btn-sm" type="button" ng-click="InitializeUpdating()">
+                    <i class="fa-solid fa-xmark" ng-if="isEditing"></i>
+                    <i class="fa-solid fa-user-pen" ng-if="!isEditing"></i>
+
+                  </button>
+                </div>
+
                 <div class="row mb-3">
 
                   <div class="col-md-3">
@@ -97,7 +102,11 @@
                   <div class="col-md-3">
                     <label class="form-label mt-3">Status</label>
                     <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.status" disabled>
+                      <select class="form-control" ng-model="mdx.status" ng-disabled="!isEditing">
+                        <option value=""></option>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                      </select>
                       <!-- <span class="fw-bold">
                         {{ customer.date_registered ? customer.date_registered : '---' }}
                       </span> -->
@@ -127,7 +136,7 @@
                   <div class="col-md-3">
                     <label class="form-label mt-3">First Name</label>
                     <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.firstname" disabled>
+                      <input type="text" class="form-control" ng-model="mdx.firstname" ng-disabled="!isEditing">
                       <!-- <span class="fw-bold">
                         {{ customer.firstname ? customer.firstname : '---' }}
                       </span> -->
@@ -137,7 +146,7 @@
                   <div class="col-md-3">
                     <label class="form-label mt-3">Middle Name</label>
                     <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.middlename" disabled>
+                      <input type="text" class="form-control" ng-model="mdx.middlename" ng-disabled="!isEditing">
                       <!-- <span class="fw-bold">
                         {{ customer.middlename ? customer.middlename : '---' }}
                       </span> -->
@@ -148,7 +157,7 @@
                   <div class="col-md-3">
                     <label class="form-label mt-3">Last Name</label>
                     <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.lastname" disabled>
+                      <input type="text" class="form-control" ng-model="mdx.lastname" ng-disabled="!isEditing">
                       <!-- <span class="fw-bold">
                         {{ customer.lastname ? customer.lastname : '---' }}
                       </span> -->
@@ -158,7 +167,7 @@
                   <div class="col-md-3">
                     <label class="form-label mt-3">Phone Number</label>
                     <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.contact_number" disabled>
+                      <input type="text" class="form-control" ng-model="mdx.contact_number" ng-disabled="!isEditing">
                       <!-- <span class="fw-bold">
                         {{ customer.contact_number ? customer.contact_number : '---' }}
                       </span> -->
@@ -168,7 +177,7 @@
                   <div class="col-md-3">
                     <label class="form-label mt-3">Email</label>
                     <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.email" disabled>
+                      <input type="text" class="form-control" ng-model="mdx.email" ng-disabled="!isEditing">
                       <!-- <span class="fw-bold">
                         {{ customer.email ? customer.email : '---' }}
                       </span> -->
@@ -206,105 +215,16 @@
                   </div>
 
 
-                  
 
-                  
+
+
 
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <!-- Transactions -->
-          <div class="col-md-12 mb-3">
-            <div class="card shadow-sm border-0 rounded-3">
-              <div class="card-body">
-                <h6 class="card-title fw-semibold mb-3">Ledger</h6>
-
-                <!-- Tabs -->
-                <ul class="nav nav-tabs" id="transactionTabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active text-dark" id="latest-tab" data-bs-toggle="tab"
-                      data-bs-target="#latest" type="button" role="tab" aria-controls="latest" aria-selected="true">
-                      Transactions
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link text-dark" id="history-tab" data-bs-toggle="tab" data-bs-target="#history"
-                      type="button" role="tab" aria-controls="history" aria-selected="false">
-                      Adjustments
-                    </button>
-                  </li>
-                </ul>
-
-                <!-- Tab Content -->
-                <div class="tab-content mt-3" id="transactionTabsContent">
-                  <!-- Latest Transactions -->
-                  <div class="tab-pane fade show active" id="latest" role="tabpanel" aria-labelledby="latest-tab">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-hover align-middle">
-                        <thead class="table-secondary">
-                          <tr>
-                            <th></th>
-                            <th>Transaction ID</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                            <th>Transaction Date</th>
-                            <th>Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr ng-repeat="t in Transactions" class="animate__animated animate__fadeIn">
-                            <td><i class="fa fa-arrow-right text-muted"></i></td>
-                            <td>{{t.transaction_id}}</td>
-                            <td>{{t.transaction_type}}</td>
-                            <td>{{t.amount_paid | number: 2}}</td>
-                            <td>{{t.sysentrydate}}</td>
-                            <td>{{t.status}}</td>
-                          </tr>
-                          <tr ng-if="!Transactions || Transactions.length === 0">
-                            <td colspan="5" class="text-center text-muted">No transactions
-                              found.</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  <!-- Full History -->
-                  <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-hover align-middle">
-                        <thead class="table-secondary">
-                          <th></th>
-                          <th>Transaction ID</th>
-                          <th>Amount</th>
-                          <th>Transaction Date</th>
-                          <th>Adjusted By</th>
-                        </thead>
-                        <tbody>
-                          <tr ng-repeat="t in Adjustments" class="animate__animated animate__fadeIn">
-                            <td><i class="fa fa-arrow-right text-muted"></i></td>
-                            <td>{{t.reference}}</td>
-                            <td>{{t.amount | number: 2}}</td>
-                            <td>{{t.sysentrydate}}</td>
-                            <td>{{t.modifiedby}}</td>
-                          </tr>
-                          <tr ng-if="!Adjustments || Adjustments.length === 0">
-                            <td colspan="5" class="text-center text-muted">No transactions
-                              found.</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                </div> <!-- End Tab Content -->
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
       </div>
 
@@ -320,15 +240,18 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="fullname" class="form-label">First Name</label>
-                  <input type="text" class="form-control" id="first_name" name="first_name" ng-model="newacc_first_name" required>
+                  <input type="text" class="form-control" id="first_name" name="first_name" ng-model="newacc_first_name"
+                    required>
                 </div>
                 <div class="mb-3">
                   <label for="fullname" class="form-label">Middle Name</label>
-                  <input type="text" class="form-control" id="middle_name" name="middle_name" ng-model="newacc_middle_name">
+                  <input type="text" class="form-control" id="middle_name" name="middle_name"
+                    ng-model="newacc_middle_name">
                 </div>
                 <div class="mb-3">
                   <label for="fullname" class="form-label">Last Name</label>
-                  <input type="text" class="form-control" id="last_name" name="last_name" ng-model="newacc_last_name" required>
+                  <input type="text" class="form-control" id="last_name" name="last_name" ng-model="newacc_last_name"
+                    required>
                 </div>
                 <div class="mb-3">
                   <label for="role" class="form-label">Role</label>
@@ -340,11 +263,13 @@
                 </div>
                 <div class="mb-3">
                   <label for="text" class="form-label">Username</label>
-                  <input type="text" class="form-control" id="username" name="username" ng-model="newacc_username" required>
+                  <input type="text" class="form-control" id="username" name="username" ng-model="newacc_username"
+                    required>
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password" name="password" ng-model="newacc_password" required>
+                  <input type="password" class="form-control" id="password" name="password" ng-model="newacc_password"
+                    required>
                 </div>
               </div>
               <div class="modal-footer">

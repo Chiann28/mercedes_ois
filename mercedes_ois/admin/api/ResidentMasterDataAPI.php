@@ -43,10 +43,11 @@ try {
       $postData = json_decode(file_get_contents("php://input"), true);
       $request_type = $postData['request_type'] ?? "";
       switch ($request_type) {
-        case "DoPostPayment":
+        case "DoUpdateAccount":
           // $user = $_SESSION['username'];
-          // $process = $LedgerClass->DoPostPayment($postData, $user);
-          // $response = base64_encode(json_encode($process));
+
+          $process = $ResidentMasterDataClass->DoUpdateAccount($postData);
+          $response = base64_encode(json_encode($process));
           break;
 
         default:

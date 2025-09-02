@@ -39,12 +39,18 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
       }
     );
   };
+  $scope.MDXSwalClose = function (delay) {
+    setTimeout(function () {
+      Swal.close();
+    }, delay);
+  };
+
+  //FLAGS
+  $scope.isEditing = false;
+
 
   $scope.DoCreateAccount = function () {
-    console.log(
-      $scope.newacc_role
-    );
-    
+    console.log($scope.newacc_role);
 
     Swal.fire({
       title: "Loading...",
@@ -68,24 +74,27 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
 
     API.getApi("api/ResidentMasterDataAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
-      console.log(final_response);
+      // console.log(final_response);
+      let modal = bootstrap.Modal.getInstance(
+        document.getElementById("newAccountModal")
+      );
 
       Swal.close();
 
       if (final_response.result) {
-        let modal =  bootstrap.Modal.getInstance(document.getElementById("newAccountModal"));
-        modal.hide();
-      
-        
-        Swal.fire({
-          icon: "success",
-          title: "Success!",
-          text: final_response.message || "Account created successfully.",
-        });
+        if ($scope.newacc_role.toLowerCase() === "user") {
+          modal.hide();
+          $scope.GetAccountDetails(final_response.accountnumber);
+        } else {
+          modal.hide();
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: final_response.message || "Account created successfully.",
+          });
+        }
       } else {
-        modal = new bootstrap.Modal(
-          document.getElementById("newAccountModal")
-        );
+        modal = new bootstrap.Modal(document.getElementById("newAccountModal"));
         modal.hide();
         Swal.fire({
           icon: "error",
@@ -120,16 +129,19 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
       let modal;
 
       if ($scope.accountlist.length > 1) {
-        Swal.close();
-        modal = new bootstrap.Modal(
-          document.getElementById("accountSearchModal")
-        );
-        modal.show();
+        $scope.MDXSwalClose(1000);
+
+        setTimeout(function () {
+          modal = new bootstrap.Modal(
+            document.getElementById("accountSearchModal")
+          );
+          modal.show();
+        }, 1300);
       } else if ($scope.accountlist.length === 1) {
         $scope.GetAccountDetails(final_response[0].accountnumber);
-        Swal.close();
+        $scope.MDXSwalClose(1000);
       } else {
-        Swal.close();
+        $scope.MDXSwalClose(1000);
         Swal.fire({
           icon: "warning",
           title: "No Results",
@@ -169,10 +181,53 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
       }
 
       if (final_response) {
-        //$scope.GetTransactionHistory($scope.customer.accountnumber);
         console.log(final_response);
       }
-      Swal.close();
+
+      //set time out, yung swal kasi ambilis mawala parang engot hahahah
+      $scope.MDXSwalClose(1000);
     });
   };
+
+  $scope.DoUpdateAccount = function () {
+    var data = {
+      client: $scope.client,
+      accountnumber: $scope.mdx.accountnumber,
+      firstname: $scope.mdx.firstname,
+      request_type: "DoUpdateAccount",
+    };
+    API.postApi("api/ResidentMasterDataAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.response = final_response;
+      console.log($scope.response);
+      Swal.close();
+
+      if ($scope.response.result) {
+        let accountnumber = $scope.response.accountnumber;
+        Swal.fire({
+          title: "Success!",
+          text: $scope.response.message,
+          icon: "success",
+          confirmButtonText: "Done",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            $scope.GetAccountDetails(accountnumber);
+            $scope.isEditing = false;
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: $scope.response.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        $scope.isEditing = false;
+      }
+    });
+  };
+
+  $scope.InitializeUpdating = function (){
+     $scope.isEditing = !$scope.isEditing;
+  }
 });
