@@ -51,9 +51,13 @@
         </div>
 
         <div class="row">
-          <div class="col-12 col-lg-8">
-            <div class="row gap-4">
-              <div class="col-12">
+          <div class="col-12">
+            <div class="row">
+
+
+
+              <!-- overview -->
+              <div class="col-12 col-lg-8">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
 
                   <h4 class="mb-4">Overview</h4>
@@ -61,29 +65,33 @@
 
                     <div class="col-12 col-md-6 my-2">
                       <label for="firstname"><span class="text-muted">First Name</span></label>
-                      <input type="text" class="form-control mt-2" id="firstname" placeholder="First Name">
+                      <input type="text" class="form-control mt-2" id="firstname" placeholder="First Name"
+                        ng-model="newapp.firstname">
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
                       <label for="lastname"><span class="text-muted">Last Name</span></label>
-                      <input type="text" class="form-control mt-2" id="firstname" placeholder="Last Name">
+                      <input type="text" class="form-control mt-2" id="firstname" placeholder="Last Name"
+                        ng-model="newapp.lastname">
                     </div>
 
                     <div class="col-12 my-2">
                       <label for="email"><span class="text-muted">Email</span></label>
-                      <input type="email" class="form-control mt-2" id="email" placeholder="Email">
+                      <input type="email" class="form-control mt-2" id="email" placeholder="Email"
+                        ng-model="newapp.email">
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
                       <label for="phone"><span class="text-muted">Mobile Number</span></label>
                       <div class="mt-2">
-                        <input id="phone" type="tel" placeholder="" class="form-control">
+                        <input id="phone" type="tel" placeholder="" class="form-control" ng-model="newapp.mobile_no">
                       </div>
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
                       <label for="telephone"><span class="text-muted">Telephone</span></label>
-                      <input type="number" class="form-control mt-2" id="telephone" placeholder="">
+                      <input type="number" class="form-control mt-2" id="telephone" placeholder=""
+                        ng-model="newapp.tel_no">
                     </div>
 
 
@@ -94,25 +102,69 @@
                 </div>
               </div>
 
-              <div class="col-12">
+
+              <!-- account information -->
+              <div class="col-12 col-lg-4 mt-4 mt-lg-0">
+                <div class="p-4 bg-light rounded border border-dark-subtle">
+                  <h4 class="mb-4">Account Information</h4>
+                  <div class="row gap-4">
+                    <div class="col-12">
+                      <label for="accountnumber"><span class="text-muted">Accountnumber</span></label>
+                      <div class="input-group mt-2">
+                        <input type="text" class="form-control" id="accountnumber" placeholder="" disabled
+                          ng-model="newapp.accountnumber">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" ng-click="DoGenerateAccountNumber()">
+                          <i class="fa-solid fa-user-gear"></i>
+                        </button>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12">
+                      <label for="username"><span class="text-muted">Username</span></label>
+                      <input type="text" class="form-control mt-2" id="username" placeholder="Username"
+                        ng-model="newapp.username">
+                    </div>
+                    <div class="col-12">
+                      <label for="password"><span class="text-muted">One Time Password</span></label>
+                      <!-- <input type="text" class="form-control mt-2" id="password" placeholder="Password"
+                        ng-model="newapp.password"> -->
+                      <div class="input-group mt-2">
+                        <input type="text" class="form-control" id="password" placeholder=""
+                          ng-model="newapp.password">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" ng-click="DoGeneratePassword()">
+                          <i class="fa-solid fa-key"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- additional info -->
+              <div class="col-12 col-lg-6 mt-4">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
 
                   <h4 class="mb-4">Additional Information</h4>
                   <div class="row">
 
                     <div class="col-12 my-2">
-                      <label for="email"><span class="text-muted">Unit Type</span></label>
-                      <input type="text" class="form-control mt-2" id="email" placeholder="">
+                      <label for="unittype"><span class="text-muted">Unit Type</span></label>
+                      <input type="text" class="form-control mt-2" id="unittype" placeholder=""
+                        ng-model="newapp.unittype">
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
-                      <label for="firstname"><span class="text-muted">Lot No.</span></label>
-                      <input type="text" class="form-control mt-2" id="firstname" placeholder="">
+                      <label for="lot_no"><span class="text-muted">Lot No.</span></label>
+                      <input type="text" class="form-control mt-2" id="lot_no" placeholder="" ng-model="newapp.lot_no">
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
-                      <label for="lastname"><span class="text-muted">House No.</span></label>
-                      <input type="text" class="form-control mt-2" id="firstname" placeholder="">
+                      <label for="houseNo"><span class="text-muted">House No.</span></label>
+                      <input type="text" class="form-control mt-2" id="houseNo" placeholder=""
+                        ng-model="newapp.house_no">
                     </div>
 
 
@@ -122,22 +174,32 @@
                 </div>
               </div>
 
-              <div class="col-12">
-                <div class="p-4 bg-light rounded border border-dark-subtle">
+
+              <!-- reference  -->
+              <div class="col-12 col-lg-6 mt-4">
+                <div class="p-4 bg-light rounded border border-dark-subtle h-100">
 
                   <h4 class="mb-4">Reference</h4>
                   <div class="row">
 
                     <div class="col-12 col-md-6 my-2">
-                      <label for="firstname"><span class="text-muted">Full Name</span></label>
-                      <input type="text" class="form-control mt-2" id="firstname" placeholder="Reference Full Name">
+                      <label for="refFullname"><span class="text-muted">Full Name</span></label>
+                      <input type="text" class="form-control mt-2" id="refFullname" placeholder="Reference Full Name"
+                        ng-model="newapp.ref_fullname">
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
-                      <label for="phone"><span class="text-muted">Mobile Number</span></label>
+                      <label for="phone2"><span class="text-muted">Mobile Number</span></label>
                       <div class="mt-2">
-                        <input id="phone2" type="tel" placeholder="" class="form-control">
+                        <input id="phone2" type="tel" placeholder="" class="form-control"
+                          ng-model="newapp.ref_mobile_no">
                       </div>
+                    </div>
+
+                    <div class="col-12 my-2">
+                      <label for="relationship"><span class="text-muted">Relationship</span></label>
+                      <input type="text" class="form-control mt-2" id="relationship" placeholder="Relationship"
+                        ng-model="newapp.ref_rel">
                     </div>
 
 
@@ -146,13 +208,15 @@
                 </div>
               </div>
 
-              <div class="col-12">
+
+              <!-- submit -->
+              <div class="col-12 mt-4">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
 
                   <div class="d-flex gap-3 justify-content-end">
                     <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can small"></i>
                       Discard</button>
-                    <button type="button" class="btn btn-success">Create</button>
+                    <button type="button" class="btn btn-success" ng-click="DoCreateAccount()">Create</button>
                   </div>
 
 
@@ -162,7 +226,8 @@
             </div>
 
           </div>
-          <div class="col-12 col-lg-4">
+
+          <!-- <div class="col-12 col-lg-4">
             <div class="p-4 bg-light rounded border border-dark-subtle">
               <h4 class="mb-4">Account Information</h4>
               <div class="row gap-4">
@@ -182,9 +247,9 @@
                 
               </div>
             </div>
-          </div>
+          </div> -->
 
-          
+
         </div>
 
       </div>

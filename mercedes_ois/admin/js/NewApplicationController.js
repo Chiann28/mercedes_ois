@@ -40,66 +40,64 @@ app.controller("NewApplicationController", function ($scope, API) {
     );
   };
 
-  $scope.GetAccountDetails = function (accountnumber) {
-    console.log(accountnumber);
-    Swal.fire({
-      title: "Loading...",
-      text: "Fetching account list, please wait.",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-
+  $scope.DoGenerateAccountNumber = function () {
     var data = {
       client: $scope.client,
-      accountnumber: accountnumber,
-      request_type: "GetAccountDetails",
+      request_type: "GenerateAccountnumber",
     };
-
-    API.getApi("api/LedgerAPI.php", data).then(function (response) {
+    API.getApi("api/NewApplicationAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
-      $scope.customer = final_response;
-
-      if (final_response) {
-        $scope.GetTransactionHistory($scope.customer.accountnumber);
-      }
-      Swal.close();
+      $scope.response = final_response;
+      $scope.newapp.accountnumber = $scope.response;
     });
+  };
+
+  $scope.DoGeneratePassword = function () {
+    const chars = "0123456789";
+    let password = "";
+
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      password += chars[randomIndex];
+    }
+
+    $scope.newapp.password = password;
+
+    console.log("Generated Password:", password);
+    return password;
   };
 
   $scope.DoCreateAccount = function () {
-    console.log($scope.first_name, $scope.last_name, $scope.role, $scope.username, $scope.password);
-    Swal.fire({
-      title: "Loading...",
-      text: "Proccessing New Application. Please Wait...",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-
     var data = {
       client: $scope.client,
-      username: $scope.username,
-      password: $scope.password,
-      role: $scope.role,
-      first_name: $scope.first_name,
-      last_name: $scope.last_name,
-      request_type: "DoCreateAccount",
-    };
-
-    API.getApi("api/NewApplicationAPI.php", data).then(function (response) {
+      params: $scope.newapp,
+      request_type: "CreateAccount",
+    }
+    API.postApi("api/NewApplicationAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
-      console.log (final_response);
-
-      if (final_response) {
-        //$scope.GetTransactionHistory($scope.customer.accountnumber);
-        console.log('Success Account Creation')
+      $scope.response = final_response;
+      if ($scope.response.result) {
+        Swal.fire({
+          title: "Success!",
+          text: $scope.response.message,
+          icon: "success",
+          confirmButtonText: "Done",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            location.reload();
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: $scope.response.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        $scope.isEditing = false;
       }
-      Swal.close();
+      
     });
-  };
+  }
 
- 
 });

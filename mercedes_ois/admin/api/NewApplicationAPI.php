@@ -20,14 +20,9 @@ try {
     case "GET":
       $request_type = $_GET['request_type'] ?? "";
       switch ($request_type) {
-        case "DoCreateAccount":
+        case "GenerateAccountnumber":
           $client = $_GET['client'] ?? "";
-          $username = $_GET ['username'];
-          $password = $_GET ['password'];
-          $role = $_GET ['role'];
-          $first_name = $_GET ['first_name'];
-          $last_name = $_GET['last_name'];
-          $process = $NewApplicationClass->CreateAccount($client, $username, $password, $role, $first_name, $last_name);
+          $process = $NewApplicationClass->GenerateAccountnumber($client);
           $response = base64_encode(json_encode($process));
           break;
 
@@ -41,9 +36,11 @@ try {
       $postData = json_decode(file_get_contents("php://input"), true);
       $request_type = $postData['request_type'] ?? "";
       switch ($request_type) {
-        case "DoPostPayment":
+        case "CreateAccount":
           $user = $_SESSION['username'];
-          $process = $LedgerClass->DoPostPayment($postData, $user);
+          $params = $postData['params'];
+          $client = $postData['client'];
+          $process = $NewApplicationClass->CreateAccount($user, $params, $client );
           $response = base64_encode(json_encode($process));
           break;
 
