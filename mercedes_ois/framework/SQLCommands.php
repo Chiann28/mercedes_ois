@@ -138,8 +138,8 @@ require_once "Connection.php";
 				
 	            $query = $this->clean_string($query);	
 
-							echo $query;
-		  				die();
+							// echo $query;
+		  				// die();
 
 	            $result = mysqli_query($this->MySQLconnection(),$query);
 	      	            return $result;

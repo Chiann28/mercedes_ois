@@ -108,12 +108,13 @@ class NewApplicationClass
         'firstname' => $firstname,
         'lastname' => $lastname,
         'type' => $unit_type,
-        'lot_no' => $lot_no ,
+        'lot_number' => $lot_no ,
         'house_no' => $house_no,
         'contact_number' => $mobile_no,
         'email' => $email,
         'status' => 'ACTIVE',
-        'registration_date' => date('Y-m-d')
+        'registration_date' => date('Y-m-d'),
+        'modifiedby' => $user
       ];
       $result = $SQL->InsertQuery('customer_details', $parameters);
       if($result){

@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-light" ng-controller="ResidentMasterDataController" ng-init="VerifySession()">
+<body class="mdx-body-color" ng-controller="ResidentMasterDataController" ng-init="VerifySession()">
 
   <!-- Sidebar -->
   <?php require_once '../framework/Components/mdx_sidebar.php'; ?>
@@ -44,52 +44,58 @@
           </span>
         </div>
 
+        <!-- Master Search -->
         <div class="row">
-          <!-- Master Search -->
-          <div class="col-md-12 mb-3">
-            <div class="card shadow-sm border-0 rounded-3">
-              <div class="card-body">
-                <h6 class="card-title fw-semibold">Master Search</h6>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="d-flex col-4">
+
+          <div class="col-md-12 mb-4">
+            <div class="border border-dark-subtle rounded p-4 bg-light">
+
+              <h6 class="card-title fw-semibold mb-3">Master Search</h6>
+              <div class="row">
+
+                <div class="d-flex col-12 col-md-8 col-lg-6">
+                  <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" ng-model="accountnumber">
-                    <button class="btn btn-outline-secondary mx-3" type="button" ng-click="openModalSearch()">
+                    <button class="btn btn-outline-secondary" type="button" ng-click="openModalSearch()">
                       <i class="fa fa-search"></i>
                     </button>
                   </div>
-
-                  <div class="d-flex gap-3">
-
-                    <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
-                      data-bs-target="#newAccountModal">
-                      <i class="fa fa-file-excel me-2"></i> Create Account
-                    </button>
-
-
-                  </div>
                 </div>
+
+                <!-- <div class="col-6 d-flex align-items-center justify-content-end">
+                  <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#newAccountModal">
+                    <i class="fa fa-file-excel me-2"></i> Create Account
+                  </button>
+                </div> -->
 
               </div>
             </div>
           </div>
         </div>
+
         <div class="row">
-          <!-- Account Details-->
-          <div class="col-md-12 mb-4">
-            <div class="card shadow-sm border-0 rounded-3">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="card-title fw-semibold mb-3">Account Details</h6>
-                  <button class="btn btn-secondary btn-sm" type="button" ng-click="InitializeUpdating()">
-                    <i class="fa-solid fa-xmark" ng-if="isEditing"></i>
-                    <i class="fa-solid fa-user-pen" ng-if="!isEditing"></i>
 
-                  </button>
+          <div class="col-md-3">
+            <div class="col-12">
+              <div class="border border-dark-subtle bg-light rounded p-4">
+                <div class="col-12 text-center">
+                  <div class="bg-secondary mx-auto"
+                    style="height: 8rem !important; width: 8rem !important; border-radius: 4rem;"></div>
                 </div>
+                <div class="col-12 mt-3">
 
-                <div class="row mb-3">
+                  <div class="col-12">
+                    <label class="form-label mt-3">Full Name</label>
+                    <div class="col-12 d-flex align-items-center">
+                      <input type="text" class="form-control" ng-model="mdx.fullname" disabled>
+                      <!-- <span class="fw-bold">
+                        {{ customer.accountnumber ? customer.accountnumber : '---' }}
+                      </span> -->
+                    </div>
+                  </div>
 
-                  <div class="col-md-3">
+                  <div class="col-12">
                     <label class="form-label mt-3">Accountnumber</label>
                     <div class="col-12 d-flex align-items-center">
                       <input type="text" class="form-control" ng-model="mdx.accountnumber" disabled>
@@ -99,21 +105,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Status</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <select class="form-control" ng-model="mdx.status" ng-disabled="!isEditing">
-                        <option value=""></option>
-                        <option value="ACTIVE">ACTIVE</option>
-                        <option value="INACTIVE">INACTIVE</option>
-                      </select>
-                      <!-- <span class="fw-bold">
-                        {{ customer.date_registered ? customer.date_registered : '---' }}
-                      </span> -->
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
+                  <div class="col-md-12">
                     <label class="form-label mt-3">Date Registered</label>
                     <div class="col-12 d-flex align-items-center">
                       <input type="date" class="form-control" ng-model="mdx.date_registered" disabled>
@@ -123,108 +115,195 @@
                     </div>
                   </div>
 
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Unit Type</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.type" disabled>
-                      <!-- <span class="fw-bold">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-12 mt-4">
+              <div class="border border-dark-subtle bg-light rounded p-4">
+                <div class="w-100 d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-0 fw-semibold">Banned</p>
+                    <p class="m-0">Disable this account</p>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" style="width: 3rem !important; height: 1.5rem !important;"
+                      type="checkbox" role="switch" id="switchCheckChecked" ng-disabled="!isEditing">
+                  </div>
+                </div>
+
+                <!-- <div class="mt-3 w-100 d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-0 fw-semibold">Account Verified</p>
+                    <p class="m-0">Disable this account</p>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" style="width: 3rem !important; height: 1.5rem !important;"
+                      type="checkbox" role="switch" id="switchCheckChecked" ng-disabled="!isEditing">
+                  </div>
+                </div> -->
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Account Details-->
+          <div class="col-md-9 mt-3 mt-md-0">
+            <div class="col-12 border border-dark-subtle bg-light rounded p-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="fw-semibold mb-3">Overview</h5>
+                <button class="btn btn-secondary btn-sm" type="button" ng-click="InitializeUpdating()">
+                  <i class="fa-solid fa-xmark" ng-if="isEditing"></i>
+                  <i class="fa-solid fa-user-pen" ng-if="!isEditing"></i>
+
+                </button>
+              </div>
+
+              <div class="row mb-3">
+
+
+
+
+
+                <div class="col-md-4">
+                  <label class="form-label mt-3">First Name</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.firstname" ng-disabled="!isEditing">
+                    <!-- <span class="fw-bold">
                         {{ customer.firstname ? customer.firstname : '---' }}
                       </span> -->
-                    </div>
                   </div>
+                </div>
 
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">First Name</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.firstname" ng-disabled="!isEditing">
-                      <!-- <span class="fw-bold">
-                        {{ customer.firstname ? customer.firstname : '---' }}
-                      </span> -->
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Middle Name</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.middlename" ng-disabled="!isEditing">
-                      <!-- <span class="fw-bold">
+                <div class="col-md-4">
+                  <label class="form-label mt-3">Middle Name</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.middlename" ng-disabled="!isEditing">
+                    <!-- <span class="fw-bold">
                         {{ customer.middlename ? customer.middlename : '---' }}
                       </span> -->
-                    </div>
                   </div>
+                </div>
 
 
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Last Name</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.lastname" ng-disabled="!isEditing">
-                      <!-- <span class="fw-bold">
+                <div class="col-md-4">
+                  <label class="form-label mt-3">Last Name</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.lastname" ng-disabled="!isEditing">
+                    <!-- <span class="fw-bold">
                         {{ customer.lastname ? customer.lastname : '---' }}
                       </span> -->
-                    </div>
                   </div>
+                </div>
 
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Phone Number</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.contact_number" ng-disabled="!isEditing">
-                      <!-- <span class="fw-bold">
+                <div class="col-md-6">
+                  <label class="form-label mt-3">Phone Number</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.contact_number" ng-disabled="!isEditing">
+                    <!-- <span class="fw-bold">
                         {{ customer.contact_number ? customer.contact_number : '---' }}
                       </span> -->
-                    </div>
                   </div>
+                </div>
 
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Email</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.email" ng-disabled="!isEditing">
-                      <!-- <span class="fw-bold">
+                <div class="col-md-6">
+                  <label class="form-label mt-3">Email</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.email" ng-disabled="!isEditing">
+                    <!-- <span class="fw-bold">
                         {{ customer.email ? customer.email : '---' }}
                       </span> -->
-                    </div>
                   </div>
+                </div>
+              </div>
 
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Lot Number</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.lot_number" disabled>
-                      <!-- <span class="fw-bold">
+
+
+            </div>
+
+            <div class="col-12 border border-dark-subtle bg-light rounded p-4 mt-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="fw-semibold mb-3">Account Details</h5>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label mt-3">Status</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <select class="form-control" ng-model="mdx.status" ng-disabled="!isEditing">
+                      <option value=""></option>
+                      <option value="ACTIVE">ACTIVE</option>
+                      <option value="INACTIVE">INACTIVE</option>
+                    </select>
+                    <!-- <span class="fw-bold">
+                        {{ customer.date_registered ? customer.date_registered : '---' }}
+                      </span> -->
+                  </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                  <label class="form-label mt-3">Unit Type</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.type" disabled>
+                    <!-- <span class="fw-bold">
+                        {{ customer.firstname ? customer.firstname : '---' }}
+                      </span> -->
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label mt-3">Lot Number</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.lot_number" disabled>
+                    <!-- <span class="fw-bold">
                         {{ customer.lot_number ? customer.lot_number : '---' }}
                       </span> -->
-                    </div>
                   </div>
-
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">House Number</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.house_no" disabled>
-                      <!-- <span class="fw-bold">
-                        {{ customer.house_no ? customer.house_no : '---' }}
-                      </span> -->
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <label class="form-label mt-3">Full Address</label>
-                    <div class="col-12 d-flex align-items-center">
-                      <input type="text" class="form-control" ng-model="mdx.address" disabled>
-                      <!-- <span class="fw-bold">
-                        {{ customer.house_no ? customer.house_no : '---' }}
-                      </span> -->
-                    </div>
-                  </div>
-
-
-
-
-
-
                 </div>
+
+                <div class="col-md-4">
+                  <label class="form-label mt-3">House Number</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.house_no" disabled>
+                    <!-- <span class="fw-bold">
+                        {{ customer.house_no ? customer.house_no : '---' }}
+                      </span> -->
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label mt-3">Full Address</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.address" disabled>
+                    <!-- <span class="fw-bold">
+                        {{ customer.house_no ? customer.house_no : '---' }}
+                      </span> -->
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+          <div class="col-12" ng-show="isEditing">
+            <div class="border border-dark-subtle bg-light rounded p-4 mt-4">
+              <div class="d-flex gap-3 justify-content-end">
+                <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can small"></i>
+                  Discard</button>
+                <button type="button" class="btn btn-success" ng-click="">Update</button>
               </div>
             </div>
           </div>
         </div>
-        
+
 
       </div>
 
