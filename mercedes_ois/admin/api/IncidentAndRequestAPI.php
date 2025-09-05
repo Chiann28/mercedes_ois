@@ -26,6 +26,13 @@ try {
                     $response =  base64_encode(json_encode($process));
                 break;
 
+                case "GetCommentById":
+                    $client = $_GET['client'] ?? "";
+                    $report_id = $_GET['id'] ?? "";
+                    $process = $IncidentAndRequestClass->GetCommentById($client, $report_id);
+                    $response =  base64_encode(json_encode($process));
+                break;
+
                 
                 default:
                     $response["error"] = "Invalid request type";
@@ -37,11 +44,20 @@ try {
             $postData = json_decode(file_get_contents("php://input"), true);
             $request_type = $postData['request_type'] ?? "";
             switch ($request_type) {
-                case "DoPostPayment":
+                case "DoPostComment":
                     $user = $_SESSION['username'];
-                    $process = $IncidentAndRequestClass->DoPostPayment($postData, $user);
+                    $client = $postData['client'];
+                    $id = $postData['id'];
+                    $comment = $postData['comment'];
+                    $process = $IncidentAndRequestClass->DoPostComment($client, $id, $comment, $user);
                     $response =  base64_encode(json_encode($process));
                     break;
+                
+                case "DoSaveChanges":
+                    $user = $_SESSION['username'];
+                    $process = $IncidentAndRequestClass->DoSaveChanges($postData, $user);
+                    $response =  base64_encode(json_encode($process));
+                break;
 
                 default:
                     $response["error"] = "Invalid request type";

@@ -531,13 +531,13 @@
                                     <div class="row mt-4">
                                         <div class="col-md-6">
                                             <label class="fw-semibold text-uppercase small">Created At</label>
-                                            <input type="date" class="form-control"
-                                                ng-model="selectedItem.sysentrydate">
+                                            <input type="date" class="form-control" ng-model="selectedItem.sysentrydate"
+                                                disabled>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="fw-semibold text-uppercase small">Last Modified</label>
-                                            <input type="date" class="form-control"
-                                                ng-model="selectedItem.modifieddate">
+                                            <input type="date" class="form-control" ng-model="selectedItem.modifieddate"
+                                                disabled>
                                         </div>
                                     </div>
 
@@ -559,22 +559,27 @@
 
                                     <!-- Comments List -->
                                     <div class="comments-box mb-3 p-2" style="max-height: 300px; overflow-y: auto;">
-                                        <div class="mb-2 p-2 border rounded bg-white shadow-sm"
-                                            ng-repeat="comment in selectedItem.comments">
-                                            <div class="text-dark">{{comment.text}}</div>
-                                        </div>
+                                        <div class="mb-2 p-2 shadow-sm" ng-repeat="c in comments">
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name={{selectedItem.requested_by}}&background=random"
+                                                    alt="Avatar" class="rounded-circle me-2" width="32" height="32">
+                                                <span ng-bind="selectedItem.requested_by"></span>
+                                                <span>: &nbsp;</span>
+                                                <div class="text-dark">{{c.description}}</div>
+                                            </div>
 
+                                        </div>
                                         <!-- If no comments -->
-                                        <div ng-if="!selectedItem.comments || selectedItem.comments.length === 0"
-                                            class="text-muted small">Be the first one to add a comment</div>
+                                        <div ng-if="!comments || comments.length === 0" class="text-muted small">
+                                            Be the first one to add a comment</div>
                                     </div>
 
                                     <!-- Comment Input -->
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Write a comment..."
-                                            ng-model="newComment">
+                                            ng-model="comment">
                                         <button class="btn btn-primary" type="button"
-                                            ng-click="addComment()">Send</button>
+                                            ng-click="DoPostComment(selectedItem.id)">Send</button>
                                     </div>
                                 </div>
 
@@ -583,7 +588,8 @@
 
                         <div class="modal-footer border-top">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" ng-click="saveChanges()">Save Changes</button>
+                            <button type="button" class="btn btn-primary" ng-click="DoSaveChanges(selectedItem)">Save
+                                Changes</button>
                         </div>
                     </div>
                 </div>

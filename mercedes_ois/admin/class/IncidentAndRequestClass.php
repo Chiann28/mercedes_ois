@@ -11,7 +11,9 @@ class IncidentAndRequestClass{
     public function GetRequestAndIncidents($client){
         $SQL = new SQLCommands("mercedes_ois");
         
-        $query = "SELECT * FROM requests_and_incidents
+        $query = "SELECT *, 
+                    DATE(sysentrydate) as sysentrydate,
+                    DATE(modifieddate) as modifieddate FROM requests_and_incidents
                 WHERE client = '$client'";
         $result = $SQL->SelectQuery($query);
 
@@ -48,6 +50,54 @@ class IncidentAndRequestClass{
         }
 
         return $dataByStatus;
+    }
+    
+    public function DoPostComment($client, $id, $comment, $user){
+        $SQL = new SQLCommands("mercedes_ois");
+
+        $params = [
+            "client" => $client,
+            "report_id" => $id,
+            "description" => $comment,
+            "modifiedby" => $user
+        ];
+
+        $result = $SQL->InsertQuery("comments", $params);
+        return $result;
+    }
+
+    public function GetCommentById($client, $report_id){
+        $SQL = new SQLCommands("mercedes_ois");
+
+        $query = "SELECT * FROM comments 
+                    WHERE client = '$client'
+                    AND report_id = '$report_id'";
+        
+        $result = $SQL->SelectQuery($query);
+        return $result;
+    }
+
+    public function DoSaveChanges($params, $user){
+        $client = $params['client'] ?? '';
+        $id = $params['id'] ?? '';
+        $description = $params['description'] ?? '';
+        $priority = $params['priority'] ?? '';
+        $status = $params['status'] ?? '';
+        $resolved_date = date('Y-m-d', strtotime($params['resolved_date'])) ?? '';
+        $user = $params['user'] ?? "";
+
+        $SQL = new SQLCommands("mercedes_ois");
+
+        $query = "UPDATE `requests_and_incidents` SET 
+                    `description` = '$description',
+                    priority = '$priority',
+                    `status` = '$status',
+                    resolved_date = '$resolved_date'
+                    WHERE client = '$client'
+                    AND id = '$id'";
+    //    echo $query;
+        $result = $SQL->UpdateQuery($query);
+        return $result;
     }
     
 }

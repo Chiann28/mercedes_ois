@@ -70,7 +70,83 @@ app.controller("IncidentAndRequestController", function ($scope, API) {
 
   $scope.openModal = function (item) {
     $scope.selectedItem = angular.copy(item);
+    $scope.GetCommentById($scope.selectedItem.id);
     var modal = new bootstrap.Modal(document.getElementById("detailsModal"));
     modal.show();
   };
+
+  $scope.DoPostComment = function (id) {
+    var data = {
+      client: $scope.client,
+      id: id,
+      comment: $scope.comment,
+      request_type: "DoPostComment",
+    };
+
+    API.postApi("api/IncidentAndRequestAPI.php", data).then(function (
+      response
+    ) {
+      var final_response = JSON.parse(atob(response.data));
+      console.log(final_response);
+      $scope.comment = "";
+      $scope.GetCommentById(id);
+    });
+  };
+
+  $scope.GetCommentById = function (id) {
+    var data = {
+      client: $scope.client,
+      id: id,
+      request_type: "GetCommentById",
+    };
+
+    API.getApi("api/IncidentAndRequestAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.comments = final_response;
+      console.log($scope.comments);
+    });
+  };
+
+  $scope.DoSaveChanges = function (item) {
+    var data = {
+      id: item.id,
+      description: item.description,
+      priority: item.priority,
+      status: item.status,
+      client: $scope.client,
+      resolved_date: item.resolved_date,
+      request_type: "DoSaveChanges",
+    };
+
+    API.postApi("api/IncidentAndRequestAPI.php", data).then(function (
+      response
+    ) {
+      var final_response = JSON.parse(atob(response.data));
+      console.log(final_response);
+      $scope.comment = "";
+
+      $scope.GetCommentById(item.id);
+
+      if (final_response) {
+        location.reload();
+      }
+    });
+  };
+
+  $scope.$watch(
+    "selectedItem",
+    function (newVal) {
+      if (!newVal) return;
+      if (typeof newVal.sysentrydate === "string") {
+        newVal.sysentrydate = new Date(newVal.sysentrydate);
+      }
+      if (typeof newVal.modifieddate === "string") {
+        newVal.modifieddate = new Date(newVal.modifieddate);
+      }
+      if (typeof newVal.resolved_date === "string" && newVal.resolved_date) {
+        newVal.resolved_date = new Date(newVal.resolved_date);
+      }
+    },
+    true
+  );
 });
