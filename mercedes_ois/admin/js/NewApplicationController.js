@@ -47,7 +47,7 @@ app.controller("NewApplicationController", function ($scope, API) {
     }
     API.getApi("api/NewApplicationAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
-      console.log(final_response);
+      //console.log(final_response);
       $scope.request_list = final_response;
 
     });
@@ -83,9 +83,11 @@ app.controller("NewApplicationController", function ($scope, API) {
   };
 
   $scope.DoCreateAccount = function () {
+    //console.log($scope.request_id);
     var data = {
       client: $scope.client,
       params: $scope.newapp,
+      request_id : $scope.request_id,
       request_type: "CreateAccount",
     }
     API.postApi("api/NewApplicationAPI.php", data).then(function (response) {
@@ -116,9 +118,9 @@ app.controller("NewApplicationController", function ($scope, API) {
   }
 
   $scope.PopulateNewAppTable = function (req) {
-    console.log('Populate')
-    console.log(req.firstname, req.lastname, req.email, req.mobile_no, req.tel_no);
+    // console.log(req.request_id);
     $scope.newapp = req;
+    $scope.request_id = req.request_id;
   }
 
   

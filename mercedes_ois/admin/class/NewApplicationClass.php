@@ -39,7 +39,7 @@ class NewApplicationClass
     return $accountNumber;
   }
 
-  public function CreateAccount($user, $params, $client)
+  public function CreateAccount($user, $params, $client, $request_id)
   {
     $SQL = new SQLCommands("mercedes_ois");
 
@@ -108,7 +108,7 @@ class NewApplicationClass
         'firstname' => $firstname,
         'lastname' => $lastname,
         'type' => $unit_type,
-        'lot_number' => $lot_no ,
+        'lot_number' => $lot_no,
         'house_no' => $house_no,
         'contact_number' => $mobile_no,
         'email' => $email,
@@ -117,19 +117,28 @@ class NewApplicationClass
         'modifiedby' => $user
       ];
       $result = $SQL->InsertQuery('customer_details', $parameters);
-      if($result){
-        return ["result" => true, "message" => "Nice one baby",];
-      }else{
+      if ($result) {
+        //update request if true
+        if (!empty($request_id)) {
+          $query = "UPDATE account_request 
+              SET req_status = 'APPROVED' 
+              WHERE client = '$client' 
+                AND request_id = '$request_id'";
+          $result = $SQL->UpdateQuery($query);
+        }
+        return ["result" => true, "message" => "Account Created",];
+      } else {
         return ["result" => false, "message" => "Failed Account Creation",];
       }
-      
+
     } else {
       return ["result" => false, "message" => "Account Creation Unsuccessful",];
     }
 
   }
 
-  public function GetAccountRequest($client) {
+  public function GetAccountRequest($client)
+  {
     $SQL = new SQLCommands("mercedes_ois");
     $query = "SELECT *, CONCAT(firstname,' ',lastname) AS `fullname` FROM account_request 
                 WHERE client = '$client' 

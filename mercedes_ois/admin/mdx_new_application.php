@@ -52,10 +52,12 @@
 
         <div class="row">
 
-          <div class="col-12 col-md-3">
+          <div class="col-12 col-lg-3">
 
             <div class="p-4 bg-light rounded border border-dark-subtle" style="min-height: 70vh !important;">
-              <div class="d-flex justify-content-end mb-3">
+              <h4 class="mb-3 text-muted">Requests</h4>
+              <div class="border border-dark-subtle"></div>
+              <div class="d-flex justify-content-end mb-3 mt-3">
                 <input type="text" class="form-control w-100 w-md-50" placeholder="Search..." />
               </div>
               <table class="table table-hover mt-3 border rounded col-12">
@@ -69,7 +71,7 @@
                 </thead>
                 <tbody>
                   <tr ng-repeat="req in request_list">
-                    <td>
+                    <td style="cursor: pointer;">
                       <a ng-click="PopulateNewAppTable(req)">
                         <i class="fa fa-arrow-right text-muted"></i>
                       </a>
@@ -83,13 +85,13 @@
             </div>
           </div>
 
-          <div class="col-12 col-md-9 mt-4 mt-md-0">
+          <div class="col-12 col-lg-9 mt-4 mt-md-0">
             <div class="row">
 
 
 
               <!-- overview -->
-              <div class="col-12 col-lg-8">
+              <div class="col-12 col-md-6 col-lg-8 mt-4 mt-lg-0">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
 
                   <h4 class="mb-4 text-muted">Overview</h4>
@@ -136,7 +138,7 @@
 
 
               <!-- account information -->
-              <div class="col-12 col-lg-4 mt-4 mt-lg-0">
+              <div class="col-12 col-md-6 col-lg-4 mt-4 mt-lg-0">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
                   <h4 class="mb-4 text-muted">Account Information</h4>
                   <div class="row gap-4">
