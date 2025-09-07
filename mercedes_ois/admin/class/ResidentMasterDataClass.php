@@ -106,14 +106,31 @@ class ResidentMasterDataClass
     return $result;
   }
 
+  public function DoUpdateFullName($client,$accountnumber) {
+    $SQL = new SQLCommands("mercedes_ois");
+    $query = "UPDATE customer_details 
+    SET fullname = CONCAT(firstname, ' ' , middlename , ' ', lastname) 
+    WHERE client = '$client' 
+    AND accountnumber = '$accountnumber'
+    ";
+    $result = $SQL->UpdateQuery($query);
+    return $result;
+  }
+
   public function DoUpdateAccount($params)
   {
     $SQL = new SQLCommands("mercedes_ois");
     $firstname = $params['firstname'];
+    $middlename = $params['middlename'];
+    $lastname = $params['lastname'];
     $client = $params['client'];
     $accountnumber = $params['accountnumber'];
+    $email = $params['email'];
+    $contact_number = $params['contact_number'];
+    $status = $params['status'];
+
     $query = "UPDATE customer_details
-                SET firstname = '$firstname'
+                SET firstname = '$firstname', middlename = '$middlename', lastname = '$lastname', contact_number = '$contact_number', email = '$email', status = '$status'
               WHERE client = '$client'
                     AND accountnumber = '$accountnumber';
                     ";
@@ -122,11 +139,13 @@ class ResidentMasterDataClass
     if(!$result){
       $response = ["result" => false, "message" => "Something Went Wrong. Account Update Failed.",];
     }else{
+      $this->DoUpdateFullName($client,$accountnumber);
       $response = ["result" => true, "message" => "Account : $accountnumber Updated Successfuly", "accountnumber" => $accountnumber];
     }
     return $response;
     ;
   }
+
 
 }
 

@@ -28,7 +28,7 @@
 
 </head>
 
-<body ng-controller="NewApplicationController" ng-init="VerifySession()" class="mdx-body-color">
+<body class="mdx-body-color" ng-controller="NewApplicationController" ng-init="VerifySession(); GetAccountRequest()">
 
   <!-- Sidebar -->
   <?php require_once '../framework/Components/mdx_sidebar.php'; ?>
@@ -51,7 +51,39 @@
         </div>
 
         <div class="row">
-          <div class="col-12">
+
+          <div class="col-12 col-md-3">
+
+            <div class="p-4 bg-light rounded border border-dark-subtle" style="min-height: 70vh !important;">
+              <div class="d-flex justify-content-end mb-3">
+                <input type="text" class="form-control w-100 w-md-50" placeholder="Search..." />
+              </div>
+              <table class="table table-hover mt-3 border rounded col-12">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <!-- <th scope="col">Date</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="req in request_list">
+                    <td>
+                      <a ng-click="PopulateNewAppTable(req)">
+                        <i class="fa fa-arrow-right text-muted"></i>
+                      </a>
+                    </td>
+                    <td>{{ req.request_id }}</td>
+                    <td>{{ req.fullname }}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-9 mt-4 mt-md-0">
             <div class="row">
 
 
@@ -60,7 +92,7 @@
               <div class="col-12 col-lg-8">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
 
-                  <h4 class="mb-4">Overview</h4>
+                  <h4 class="mb-4 text-muted">Overview</h4>
                   <div class="row">
 
                     <div class="col-12 col-md-6 my-2">
@@ -106,14 +138,15 @@
               <!-- account information -->
               <div class="col-12 col-lg-4 mt-4 mt-lg-0">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
-                  <h4 class="mb-4">Account Information</h4>
+                  <h4 class="mb-4 text-muted">Account Information</h4>
                   <div class="row gap-4">
                     <div class="col-12">
                       <label for="accountnumber"><span class="text-muted">Accountnumber</span></label>
                       <div class="input-group mt-2">
                         <input type="text" class="form-control" id="accountnumber" placeholder="" disabled
                           ng-model="newapp.accountnumber">
-                        <button class="btn btn-sm btn-outline-secondary" type="button" ng-click="DoGenerateAccountNumber()">
+                        <button class="btn btn-sm btn-outline-secondary" type="button"
+                          ng-click="DoGenerateAccountNumber()">
                           <i class="fa-solid fa-user-gear"></i>
                         </button>
                       </div>
@@ -130,8 +163,7 @@
                       <!-- <input type="text" class="form-control mt-2" id="password" placeholder="Password"
                         ng-model="newapp.password"> -->
                       <div class="input-group mt-2">
-                        <input type="text" class="form-control" id="password" placeholder=""
-                          ng-model="newapp.password">
+                        <input type="text" class="form-control" id="password" placeholder="" ng-model="newapp.password">
                         <button class="btn btn-sm btn-outline-secondary" type="button" ng-click="DoGeneratePassword()">
                           <i class="fa-solid fa-key"></i>
                         </button>
@@ -147,7 +179,7 @@
               <div class="col-12 col-lg-6 mt-4">
                 <div class="p-4 bg-light rounded border border-dark-subtle">
 
-                  <h4 class="mb-4">Additional Information</h4>
+                  <h4 class="mb-4 text-muted">Additional Information</h4>
                   <div class="row">
 
                     <div class="col-12 my-2">
@@ -179,7 +211,7 @@
               <div class="col-12 col-lg-6 mt-4">
                 <div class="p-4 bg-light rounded border border-dark-subtle h-100">
 
-                  <h4 class="mb-4">Reference</h4>
+                  <h4 class="mb-4 text-muted">Reference</h4>
                   <div class="row">
 
                     <div class="col-12 col-md-6 my-2">
@@ -227,27 +259,7 @@
 
           </div>
 
-          <!-- <div class="col-12 col-lg-4">
-            <div class="p-4 bg-light rounded border border-dark-subtle">
-              <h4 class="mb-4">Account Information</h4>
-              <div class="row gap-4">
-                <div class="col-12">
-                  <label for=""><span class="text-muted">Accountnumber</span></label>
-                  <input type="text" class="form-control mt-2" id="" placeholder="" disabled>
-                </div>
 
-                <div class="col-12">
-                  <label for=""><span class="text-muted">Username</span></label>
-                  <input type="text" class="form-control mt-2" id="" placeholder="Username">
-                </div>
-                <div class="col-12">
-                  <label for=""><span class="text-muted">Password</span></label>
-                  <input type="text" class="form-control mt-2" id="" placeholder="Password">
-                </div>
-                
-              </div>
-            </div>
-          </div> -->
 
 
         </div>

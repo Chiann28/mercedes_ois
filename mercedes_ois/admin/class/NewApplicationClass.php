@@ -129,6 +129,19 @@ class NewApplicationClass
 
   }
 
+  public function GetAccountRequest($client) {
+    $SQL = new SQLCommands("mercedes_ois");
+    $query = "SELECT *, CONCAT(firstname,' ',lastname) AS `fullname` FROM account_request 
+                WHERE client = '$client' 
+                AND req_status = 'PENDING' 
+                ORDER BY sysentrydate DESC;
+    ";
+
+    $result = $SQL->SelectQuery($query);
+
+    return $result;
+  }
+
 }
 
 ?>

@@ -40,6 +40,21 @@ app.controller("NewApplicationController", function ($scope, API) {
     );
   };
 
+  $scope.GetAccountRequest = function (){
+    var data = {
+      client: $scope.client,
+      request_type: "GetAccountRequest"
+    }
+    API.getApi("api/NewApplicationAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      console.log(final_response);
+      $scope.request_list = final_response;
+
+    });
+  }
+
+ 
+
   $scope.DoGenerateAccountNumber = function () {
     var data = {
       client: $scope.client,
@@ -99,5 +114,13 @@ app.controller("NewApplicationController", function ($scope, API) {
       
     });
   }
+
+  $scope.PopulateNewAppTable = function (req) {
+    console.log('Populate')
+    console.log(req.firstname, req.lastname, req.email, req.mobile_no, req.tel_no);
+    $scope.newapp = req;
+  }
+
+  
 
 });

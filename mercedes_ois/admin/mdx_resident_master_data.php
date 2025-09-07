@@ -298,7 +298,7 @@
               <div class="d-flex gap-3 justify-content-end">
                 <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can small"></i>
                   Discard</button>
-                <button type="button" class="btn btn-success" ng-click="">Update</button>
+                <button type="button" class="btn btn-success" ng-click="DoUpdateAccount()">Update</button>
               </div>
             </div>
           </div>

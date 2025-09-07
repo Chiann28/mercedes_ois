@@ -194,6 +194,11 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
       client: $scope.client,
       accountnumber: $scope.mdx.accountnumber,
       firstname: $scope.mdx.firstname,
+      middlename: $scope.mdx.middlename,
+      lastname: $scope.mdx.lastname,
+      status: $scope.mdx.status,
+      contact_number: $scope.mdx.contact_number,
+      email: $scope.mdx.email,
       request_type: "DoUpdateAccount",
     };
     API.postApi("api/ResidentMasterDataAPI.php", data).then(function (response) {

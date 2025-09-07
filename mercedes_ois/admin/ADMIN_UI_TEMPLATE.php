@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="bg-light" ng-controller="AdminController" ng-init="VerifySession()">
+<body class="mdx-body-color" ng-controller="AdminController" ng-init="VerifySession()">
 
     <!-- Sidebar -->
     <?php require_once '../framework/Components/mdx_sidebar.php'; ?>

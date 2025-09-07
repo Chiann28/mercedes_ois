@@ -24,6 +24,12 @@
                     <span class="sidebar-text ms-2"> New Application</span>
                 </a>
             </li>
+            <li>
+                <a href="../../mercedes_ois/admin/mdx_account_request.php" class="sidebar-sub-link">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span class="sidebar-text ms-2"> Account Requests</span>
+                </a>
+            </li>
         </ul>
     </div>
 
