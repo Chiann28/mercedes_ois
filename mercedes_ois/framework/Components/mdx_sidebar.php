@@ -28,7 +28,7 @@
     </div>
 
 
-    <a href="#" class="sidebar-icon"><i class="fa-solid fa-bullhorn sidebar-icon"></i> <span
+    <a href="mdx_announcement.php" class="sidebar-icon"><i class="fa-solid fa-bullhorn sidebar-icon"></i> <span
             class="sidebar-text ms-2">Announcement Module</span></a>
     <!-- Transactions-->
     <a class="sidebar-icon d-flex align-items-center" data-bs-toggle="collapse" href="#transactionMenu" role="button"
