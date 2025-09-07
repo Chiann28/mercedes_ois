@@ -57,18 +57,16 @@ try {
             
             switch ($request_type) {
                 case "DoAddAnnouncement":
-                    // $uploadDir = __DIR__ . "/../../files/announcements/";
-
-                    // if (is_dir($uploadDir)) {
-                    //     echo "Directory exists: " . realpath($uploadDir);
-                    // } else {
-                    //     echo "Directory does NOT exist.";
-                    // }
-                    // die();
                     $user = $_SESSION['username'];
                     $process = $AnnouncementClass->DoAddAnnouncement($postData, $user);
                     $response =  base64_encode(json_encode($process));
                     break;
+                
+                case "DoUpdateAnnouncement":
+                    $user = $_SESSION['username'];
+                    $process = $AnnouncementClass->DoUpdateAnnouncement($postData, $user);
+                    $response =  base64_encode(json_encode($process));
+                break; 
                 
                 case "UploadAttachment":
                     $user = $_SESSION['username'] ?? "system";

@@ -239,6 +239,12 @@ app.controller("AnnouncementController", function ($scope, API) {
 
     $scope.selectedAnnouncement = angular.copy(announcement);
 
+    if ($scope.selectedAnnouncement.scheduled_date) {
+      $scope.selectedAnnouncement.scheduled_date = new Date(
+        $scope.selectedAnnouncement.scheduled_date
+      );
+    }
+
     const modal = new bootstrap.Modal(
       document.getElementById("announcementModal")
     );
@@ -266,6 +272,54 @@ app.controller("AnnouncementController", function ($scope, API) {
       $scope.announcement_attachment = final_response;
       console.log(final_response);
       Swal.close();
+    });
+  };
+
+  $scope.DoUpdateAnnouncement = function () {
+    Swal.fire({
+      title: "Posting announcement",
+      text: "Please Wait . . .",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    var data = {
+      client: $scope.client,
+      announcement_no: $scope.selectedAnnouncement.announcement_no,
+      title: $scope.selectedAnnouncement.title,
+      message: $scope.selectedAnnouncement.message,
+      scheduled_date: $scope.selectedAnnouncement.scheduled_date,
+      status: $scope.selectedAnnouncement.status,
+      request_type: "DoUpdateAnnouncement",
+    };
+
+    API.postApi("api/AnnouncementAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.result = final_response;
+      Swal.close();
+
+      if ($scope.result.result) {
+        Swal.fire({
+          title: "Success!",
+          text: $scope.result.message,
+          icon: "success",
+          confirmButtonText: "Done",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            angular.element("#announcementModal").modal("hide");
+            $scope.GetAnnouncements();
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: $scope.result.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     });
   };
 });

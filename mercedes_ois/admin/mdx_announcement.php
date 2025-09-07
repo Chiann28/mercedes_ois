@@ -296,16 +296,12 @@
                                 <!-- Body -->
                                 <div class="modal-body">
                                     <form>
-
-                                        <!-- 🖼 Attachments Section -->
                                         <div class="mb-3" ng-if="announcement_attachment.length > 0">
                                             <label class="form-label">Attachments</label>
                                             <div class="row g-2">
                                                 <div class="col-md-4" ng-repeat="file in announcement_attachment">
                                                     <div class="card border-0 shadow-sm">
-                                                        <!-- Only show image preview if file is image -->
-                                                        <img ng-if="isImageFile(file.filename)"
-                                                            ng-src="{{ announcementBasePath + file.filename }}"
+                                                        <img ng-src="{{ announcementBasePath + file.filename }}"
                                                             class="img-fluid rounded-top" alt="Attachment Image">
 
                                                         <div class="card-body p-2">
@@ -316,22 +312,16 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- 📝 Title -->
                                         <div class="mb-3">
                                             <label class="form-label">Title</label>
                                             <input type="text" class="form-control"
                                                 ng-model="selectedAnnouncement.title">
                                         </div>
-
-                                        <!-- 📝 Message -->
                                         <div class="mb-3">
                                             <label class="form-label">Message</label>
                                             <textarea class="form-control" rows="4"
                                                 ng-model="selectedAnnouncement.message"></textarea>
                                         </div>
-
-                                        <!-- 🔁 Status -->
                                         <div class="mb-3">
                                             <label class="form-label">Status</label>
                                             <select class="form-select" ng-model="selectedAnnouncement.status">
@@ -343,8 +333,6 @@
                                                 <option value="POSTED">Posted</option>
                                             </select>
                                         </div>
-
-                                        <!-- 📅 Scheduled Date -->
                                         <div class="mb-3">
                                             <label class="form-label">Scheduled Date</label>
                                             <input type="date" class="form-control"
@@ -352,13 +340,11 @@
                                         </div>
                                     </form>
                                 </div>
-
-                                <!-- Footer -->
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-success"
-                                        ng-click="postAnnouncement()">Post</button>
+                                        ng-click="DoUpdateAnnouncement()">Post</button>
                                 </div>
 
                             </div>

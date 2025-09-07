@@ -155,6 +155,34 @@ class AnnouncementClass{
         $result = $SQL->SelectQuery($query);
         return $result;
     }
+
+    public function DoUpdateAnnouncement($params, $user){
+        $SQL = new SQLCommands("mercedes_ois");
+
+        $client = $params['client'];
+        $title = $params['title'] ?? NULL;
+        $message = $params['message'] ?? NULL;
+        $scheduled_date = date('Y-m-d', strtotime($params['scheduled_date'])) ?? date('Y-m-d');
+        $status = $params['status'] ?? NULL;
+        $announcement_no = $params['announcement_no'] ?? NULL;
+
+        $query = "UPDATE announcements 
+                    SET title = '$title',
+                    `message` = '$message',
+                    `status` = '$status',
+                    scheduled_date = '$scheduled_date',
+                    modifiedby = '$user'
+                    WHERE client = '$client'
+                    AND announcement_no = '$announcement_no'";
+        
+        $result = $SQL->UpdateQuery($query);
+        
+        if($result){
+            return["result" => true, "message" => "Sucessfully Posted", "announcement_no" => $announcement_no];
+        }
+
+        return["result" => false, "message" => "Unsucessfully Posted", "announcement_no" => $announcement_no];
+    }
     
 }
 
