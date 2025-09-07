@@ -7,17 +7,17 @@
     <title>Request and Reports</title>
     <!-- Custom CSS -->
     <style>
-    .nav-pills .nav-link.active {
-        background-color: #6c757d !important;
-        /* Gray background */
-        color: #fff !important;
-        /* White text */
-    }
+        .nav-pills .nav-link.active {
+            background-color: #f55355 !important;
+            /* Gray background */
+            color: #fff !important;
+            /* White text */
+        }
 
-    .nav-pills .nav-link {
-        margin-right: 5px;
-        border-radius: 5px;
-    }
+        .nav-pills .nav-link {
+            margin-right: 5px;
+            border-radius: 5px;
+        }
     </style>
 
     <!-- Bootstrap -->
@@ -28,8 +28,7 @@
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
-    <!-- NASHIE CSS <3 -->
-    <link rel="stylesheet" href="../framework/CSS/NashieCss.css">
+
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -37,9 +36,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
     <script src="../../mercedes_ois/admin/js/IncidentAndRequestController.js"></script>
 
+    <!-- NASHIE CSS <3 -->
+    <link rel="stylesheet" href="../framework/CSS/NashieCss.css">
+    
 </head>
 
-<body class="bg-light" ng-controller="IncidentAndRequestController" ng-init="VerifySession();
+<body class="mdx-body-color" ng-controller="IncidentAndRequestController" ng-init="VerifySession();
                                                                             GetRequestAndIncidents();">
 
     <!-- Sidebar -->
@@ -58,11 +60,11 @@
             </div>
             <div class="col-md-12 mt-3">
 
-                <div class="card shadow-sm">
-                    <div class="card-body">
+                <div class="col-md-12">
 
+                    <div class="p-4 bg-light rounded border border-dark-subtle">
                         <!-- Tabs for filtering by status -->
-                        <ul class="nav nav-pills mb-3" id="reportTabs" role="tablist">
+                        <ul class="nav nav-pills" id="reportTabs" role="tablist">
                             <li class="nav-item">
                                 <button class="nav-link active text-dark " id="all-tab" data-bs-toggle="tab"
                                     data-bs-target="#all" type="button">All</button>
@@ -84,36 +86,49 @@
                                     data-bs-target="#closed" type="button">Closed</button>
                             </li>
                         </ul>
-                        <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 mt-4">
+                    <div class="p-4 bg-light rounded border border-dark-subtle">
+
+
+
+
                         <!-- Filter Bar -->
-                        <div class="row mb-3">
-                            <div class="col-md-3">
-                                <select class="form-select" ng-model="filter.type">
-                                    <option value="">All Types</option>
-                                    <option value="incident">Incident</option>
-                                    <option value="request">Request</option>
-                                </select>
+                        <div class="d-md-flex justify-content-md-between mb-3">
+                            <div class="col-md-4 mb-3">
+                                <input type="text" class="form-control scarlet-focus" placeholder="Search">
                             </div>
-                            <div class="col-md-3">
-                                <select class="form-select" ng-model="filter.status">
-                                    <option value="">All Status</option>
-                                    <option value="New">New</option>
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="Resolved">Resolved</option>
-                                    <option value="Closed">Closed</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-select scarlet-focus" ng-model="filter.type">
+                                        <option value="">All Types</option>
+                                        <option value="incident">Incident</option>
+                                        <option value="request">Request</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select scarlet-focus" ng-model="filter.status">
+                                        <option value="">All Status</option>
+                                        <option value="New">New</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Resolved">Resolved</option>
+                                        <option value="Closed">Closed</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select scarlet-focus" ng-model="filter.priority">
+                                        <option value="">All Priorities</option>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                        <option value="Urgent">Urgent</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <select class="form-select" ng-model="filter.priority">
-                                    <option value="">All Priorities</option>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                    <option value="Urgent">Urgent</option>
-                                </select>
-                            </div>
+
                         </div>
 
                         <!-- Tab Content -->
@@ -122,7 +137,7 @@
                             <!-- All Reports -->
                             <div class="tab-pane fade show active" id="all" role="tabpanel">
                                 <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
+                                    <table class="table table-hover align-middle border shadow-sm">
                                         <thead class="table-light">
                                             <tr>
                                                 <th scope="col">ID</th>
@@ -142,25 +157,27 @@
                                                 ng-click="openModal(list)" style="cursor: pointer;">
                                                 <td ng-bind="list.id"></td>
                                                 <td>
-                                                    <span class="badge bg-info text-dark"
-                                                        ng-bind="list.type | uppercase"></span>
+                                                    <span class="badge rounded-pill p-2 text-light" ng-class="{
+                                                        'mdx-bg-red-300' : list.type == 'incident',
+                                                        'mdx-bg-blue-300' : list.type == 'request'
+                                                        }" ng-bind="list.type | uppercase"></span>
                                                 </td>
                                                 <td ng-bind="list.category | uppercase"></td>
                                                 <td ng-bind="list.title | uppercase"></td>
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                            'bg-success': list.priority == 'Low',
-                                                            'bg-primary': list.priority == 'Medium',
-                                                            'bg-warning text-dark': list.priority == 'High',
-                                                            'bg-danger': list.priority == 'Urgent'
+                                                    <span ng-class="{
+                                                            'text-success': list.priority == 'Low',
+                                                            'text-primary': list.priority == 'Medium',
+                                                            'text-danger': list.priority == 'High',
+                                                            'text-warning': list.priority == 'Urgent'
                                                         }" ng-bind="list.priority | uppercase"></span>
                                                 </td>
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                        'bg-secondary': list.status == 'New',
-                                                        'bg-info text-dark': list.status == 'In Progress',
-                                                        'bg-success': list.status == 'Resolved',
-                                                        'bg-dark': list.status == 'Closed'
+                                                    <span ng-class="{
+                                                        'text-secondary': list.status == 'New',
+                                                        'text-info': list.status == 'In Progress',
+                                                        'text-success': list.status == 'Resolved',
+                                                        'text-dark': list.status == 'Closed'
                                                     }" ng-bind="list.status"></span>
                                                 </td>
                                                 <td ng-bind="list.location"></td>
@@ -177,7 +194,7 @@
                             <!-- New Reports -->
                             <div class="tab-pane fade" id="new" role="tabpanel">
                                 <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
+                                    <table class="table table-hover align-middle border">
                                         <thead class="table-light">
                                             <tr>
                                                 <th scope="col">ID</th>
@@ -193,30 +210,32 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr
-                                                ng-repeat="list in listNew| filter:filter.type | filter:filter.status | filter:filter.priority">
+                                            <tr ng-repeat="list in listNew| filter:filter.type | filter:filter.status | filter:filter.priority"
+                                                ng-click="openModal(list)" style="cursor: pointer;">
                                                 <td ng-bind="list.id"></td>
                                                 <td>
-                                                    <span class="badge bg-info text-dark"
-                                                        ng-bind="list.type | uppercase"></span>
+                                                    <span class="badge rounded-pill p-2 text-light" ng-class="{
+                                                        'mdx-bg-red-300' : list.type == 'incident',
+                                                        'mdx-bg-blue-300' : list.type == 'request'
+                                                        }" ng-bind="list.type | uppercase"></span>
                                                 </td>
                                                 <td ng-bind="list.category| uppercase"></td>
                                                 <td ng-bind="list.title| uppercase"></td>
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                            'bg-success': list.priority == 'Low',
-                                                            'bg-primary': list.priority == 'Medium',
-                                                            'bg-warning text-dark': list.priority == 'High',
-                                                            'bg-danger': list.priority == 'Urgent'
+                                                    <span class="" ng-class="{
+                                                            'text-success': list.priority == 'Low',
+                                                            'text-primary': list.priority == 'Medium',
+                                                            'text-danger': list.priority == 'High',
+                                                            'text-warning': list.priority == 'Urgent'
                                                         }" ng-bind="list.priority | uppercase">
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                            'bg-secondary': list.status == 'New',
-                                                            'bg-info text-dark': list.status == 'In Progress',
-                                                            'bg-success': list.status == 'Resolved',
-                                                            'bg-dark': list.status == 'Closed'
+                                                    <span class="" ng-class="{
+                                                            'text-secondary': list.status == 'New',
+                                                        'text-info': list.status == 'In Progress',
+                                                        'text-success': list.status == 'Resolved',
+                                                        'text-dark': list.status == 'Closed'
                                                         }" ng-bind="list.status">
                                                     </span>
                                                 </td>
@@ -233,7 +252,7 @@
                             <!-- In Progress -->
                             <div class="tab-pane fade" id="in-progress" role="tabpanel">
                                 <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
+                                    <table class="table table-hover align-middle border">
                                         <thead class="table-light">
                                             <tr>
                                                 <th scope="col">ID</th>
@@ -252,13 +271,16 @@
                                             <tr ng-repeat="list in listInprogress 
                                                                 | filter:filter.type 
                                                                 | filter:filter.status 
-                                                                | filter:filter.priority">
+                                                                | filter:filter.priority" ng-click="openModal(list)"
+                                                style="cursor: pointer;">
                                                 <td ng-bind="list.id"></td>
 
                                                 <!-- TYPE Badge -->
                                                 <td>
-                                                    <span class="badge bg-info text-dark"
-                                                        ng-bind="list.type | uppercase"></span>
+                                                    <span class="badge rounded-pill p-2 text-light" ng-class="{
+                                                        'mdx-bg-red-300' : list.type == 'incident',
+                                                        'mdx-bg-blue-300' : list.type == 'request'
+                                                        }" ng-bind="list.type | uppercase"></span>
                                                 </td>
 
                                                 <td ng-bind="list.category | uppercase"></td>
@@ -266,24 +288,23 @@
 
                                                 <!-- PRIORITY Badge -->
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                            'bg-success': list.priority == 'Low',
-                                                            'bg-primary': list.priority == 'Medium',
-                                                            'bg-warning text-dark': list.priority == 'High',
-                                                            'bg-danger': list.priority == 'Urgent'
+                                                    <span ng-class="{
+                                                            'text-success': list.priority == 'Low',
+                                                            'text-primary': list.priority == 'Medium',
+                                                            'text-danger': list.priority == 'High',
+                                                            'text-warning': list.priority == 'Urgent'
                                                         }" ng-bind="list.priority | uppercase">
                                                     </span>
                                                 </td>
 
                                                 <!-- STATUS Badge -->
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                        'bg-secondary': list.status == 'New',
-                                                        'bg-info text-dark': list.status == 'In Progress',
-                                                        'bg-success': list.status == 'Resolved',
-                                                        'bg-dark': list.status == 'Closed'
-                                                    }" ng-bind="list.status">
-                                                    </span>
+                                                    <span ng-class="{
+                                                        'text-secondary': list.status == 'New',
+                                                        'text-info': list.status == 'In Progress',
+                                                        'text-success': list.status == 'Resolved',
+                                                        'text-dark': list.status == 'Closed'
+                                                    }" ng-bind="list.status"></span>
                                                 </td>
 
                                                 <td ng-bind="list.location"></td>
@@ -319,13 +340,16 @@
                                             <tr ng-repeat="list in listResolved
                                                                 | filter:filter.type 
                                                                 | filter:filter.status 
-                                                                | filter:filter.priority">
+                                                                | filter:filter.priority" ng-click="openModal(list)"
+                                                style="cursor: pointer;">
                                                 <td ng-bind="list.id"></td>
 
                                                 <!-- TYPE Badge -->
                                                 <td>
-                                                    <span class="badge bg-info text-dark"
-                                                        ng-bind="list.type | uppercase"></span>
+                                                    <span class="badge rounded-pill p-2 text-light" ng-class="{
+                                                        'mdx-bg-red-300' : list.type == 'incident',
+                                                        'mdx-bg-blue-300' : list.type == 'request'
+                                                        }" ng-bind="list.type | uppercase"></span>
                                                 </td>
 
                                                 <td ng-bind="list.category | uppercase"></td>
@@ -333,22 +357,21 @@
 
                                                 <!-- PRIORITY Badge -->
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                            'bg-success': list.priority == 'Low',
-                                                            'bg-primary': list.priority == 'Medium',
-                                                            'bg-warning text-dark': list.priority == 'High',
-                                                            'bg-danger': list.priority == 'Urgent'
-                                                        }" ng-bind="list.priority | uppercase">
-                                                    </span>
+                                                    <span ng-class="{
+                                                            'text-success': list.priority == 'Low',
+                                                            'text-primary': list.priority == 'Medium',
+                                                            'text-danger': list.priority == 'High',
+                                                            'text-warning': list.priority == 'Urgent'
+                                                        }" ng-bind="list.priority | uppercase"></span>
                                                 </td>
 
                                                 <!-- STATUS Badge -->
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                        'bg-secondary': list.status == 'New',
-                                                        'bg-info text-dark': list.status == 'In Progress',
-                                                        'bg-success': list.status == 'Resolved',
-                                                        'bg-dark': list.status == 'Closed'
+                                                    <span ng-class="{
+                                                        'text-secondary': list.status == 'New',
+                                                        'text-info': list.status == 'In Progress',
+                                                        'text-success': list.status == 'Resolved',
+                                                        'text-dark': list.status == 'Closed'
                                                     }" ng-bind="list.status">
                                                     </span>
                                                 </td>
@@ -385,13 +408,16 @@
                                             <tr ng-repeat="list in listClosed 
                                                                 | filter:filter.type 
                                                                 | filter:filter.status 
-                                                                | filter:filter.priority">
+                                                                | filter:filter.priority" ng-click="openModal(list)"
+                                                style="cursor: pointer;">
                                                 <td ng-bind="list.id"></td>
 
                                                 <!-- TYPE Badge -->
                                                 <td>
-                                                    <span class="badge bg-info text-dark"
-                                                        ng-bind="list.type | uppercase"></span>
+                                                    <span class="badge rounded-pill p-2 text-light" ng-class="{
+                                                        'mdx-bg-red-300' : list.type == 'incident',
+                                                        'mdx-bg-blue-300' : list.type == 'request'
+                                                        }" ng-bind="list.type | uppercase"></span>
                                                 </td>
 
                                                 <td ng-bind="list.category | uppercase"></td>
@@ -399,22 +425,22 @@
 
                                                 <!-- PRIORITY Badge -->
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                            'bg-success': list.priority == 'Low',
-                                                            'bg-primary': list.priority == 'Medium',
-                                                            'bg-warning text-dark': list.priority == 'High',
-                                                            'bg-danger': list.priority == 'Urgent'
+                                                    <span ng-class="{
+                                                            'text-success': list.priority == 'Low',
+                                                            'text-primary': list.priority == 'Medium',
+                                                            'text-danger': list.priority == 'High',
+                                                            'text-warning': list.priority == 'Urgent'
                                                         }" ng-bind="list.priority | uppercase">
                                                     </span>
                                                 </td>
 
                                                 <!-- STATUS Badge -->
                                                 <td>
-                                                    <span class="badge" ng-class="{
-                                                        'bg-secondary': list.status == 'New',
-                                                        'bg-info text-dark': list.status == 'In Progress',
-                                                        'bg-success': list.status == 'Resolved',
-                                                        'bg-dark': list.status == 'Closed'
+                                                    <span ng-class="{
+                                                        'text-secondary': list.status == 'New',
+                                                        'text-info': list.status == 'In Progress',
+                                                        'text-success': list.status == 'Resolved',
+                                                        'text-dark': list.status == 'Closed'
                                                     }" ng-bind="list.status">
                                                     </span>
                                                 </td>
@@ -459,7 +485,7 @@
 
                                     <div class="mb-3">
                                         <label class="fw-semibold text-uppercase small">Issue Description</label>
-                                        <textarea class="form-control text-dark" ng-model="selectedItem.description"
+                                        <textarea class="form-control text-dark scarlet-focus" ng-model="selectedItem.description"
                                             rows="4" placeholder="Enter issue description here..."></textarea>
                                     </div>
 
@@ -544,7 +570,7 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label class="fw-semibold text-uppercase small">Date Completed</label>
-                                            <input type="date" class="form-control"
+                                            <input type="date" class="form-control scarlet-focus"
                                                 ng-model="selectedItem.resolved_date">
                                         </div>
                                     </div>
@@ -576,7 +602,7 @@
 
                                     <!-- Comment Input -->
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Write a comment..."
+                                        <input type="text" class="form-control scarlet-focus" placeholder="Write a comment..."
                                             ng-model="comment">
                                         <button class="btn btn-primary" type="button"
                                             ng-click="DoPostComment(selectedItem.id)">Send</button>
@@ -602,7 +628,7 @@
     <!-- bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
+        </script>
 
     <script src="../framework/JS/jsForStyling.js"></script>
 

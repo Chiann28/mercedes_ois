@@ -40,6 +40,12 @@ app.controller("NewApplicationController", function ($scope, API) {
     );
   };
 
+  $scope.MDXSwalClose = function (delay) {
+    setTimeout(function () {
+      Swal.close();
+    }, delay);
+  };
+
   $scope.GetAccountRequest = function (){
     var data = {
       client: $scope.client,
@@ -52,8 +58,6 @@ app.controller("NewApplicationController", function ($scope, API) {
 
     });
   }
-
- 
 
   $scope.DoGenerateAccountNumber = function () {
     var data = {
@@ -118,9 +122,25 @@ app.controller("NewApplicationController", function ($scope, API) {
   }
 
   $scope.PopulateNewAppTable = function (req) {
-    // console.log(req.request_id);
-    $scope.newapp = req;
-    $scope.request_id = req.request_id;
+    Swal.fire({
+      title: "Loading...",
+      text: "Fetching data, please wait.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+    setTimeout(function () {
+        $scope.$apply(function () {
+            $scope.newapp = req;
+            $scope.request_id = req.request_id;
+        });
+        Swal.close(); // ✅ close the spinner
+    }, 1000);
+  }
+
+  $scope.DiscardChanges = function () {
+    $scope.newapp = '';
   }
 
   

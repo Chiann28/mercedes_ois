@@ -21,6 +21,22 @@
   background-color: #3599dd !important;
 }
 
+
+
+.mdx-text-red {
+  color: #e6515a !important;
+}
+.mdx-text-yellow {
+  color: #f6cb18 !important;
+}
+.mdx-text-green {
+  color: #27c280 !important;
+}
+.mdx-text-blue- {
+  color: #3599dd !important;
+}
+
+
 .mdx-fst-tnr {
   font-family: "Times New Roman", Times, serif !important;
 }
@@ -225,6 +241,12 @@
   font-size: 1.1rem;
   margin-left: 0.5rem;
 }
+
+.scarlet-focus:focus{
+  border-color: #f55355;
+  box-shadow: 0 0 0 0.25rem rgba(245, 83, 85, 0.25);
+}
+
 
 /* Responsive */
 @media (max-width: 992px) {

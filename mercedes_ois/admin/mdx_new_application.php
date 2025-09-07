@@ -57,9 +57,12 @@
             <div class="p-4 bg-light rounded border border-dark-subtle" style="min-height: 70vh !important;">
               <h4 class="mb-3 text-muted">Requests</h4>
               <div class="border border-dark-subtle"></div>
+
               <div class="d-flex justify-content-end mb-3 mt-3">
-                <input type="text" class="form-control w-100 w-md-50" placeholder="Search..." />
+                <input type="text" class="form-control w-100 w-md-50" placeholder="Search..." ng-model="searchText" />
+                
               </div>
+
               <table class="table table-hover mt-3 border rounded col-12">
                 <thead>
                   <tr>
@@ -70,7 +73,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="req in request_list">
+                  
+                  <tr ng-repeat="req in request_list | filter:searchText">
                     <td style="cursor: pointer;">
                       <a ng-click="PopulateNewAppTable(req)">
                         <i class="fa fa-arrow-right text-muted"></i>
@@ -78,10 +82,11 @@
                     </td>
                     <td>{{ req.request_id }}</td>
                     <td>{{ req.fullname }}</td>
-
                   </tr>
                 </tbody>
               </table>
+
+
             </div>
           </div>
 
@@ -248,7 +253,8 @@
                 <div class="p-4 bg-light rounded border border-dark-subtle">
 
                   <div class="d-flex gap-3 justify-content-end">
-                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can small"></i>
+                    <button type="button" class="btn btn-outline-danger" ng-click="DiscardChanges()"><i
+                        class="fa-solid fa-trash-can small"></i>
                       Discard</button>
                     <button type="button" class="btn btn-success" ng-click="DoCreateAccount()">Create</button>
                   </div>
