@@ -24,7 +24,7 @@
 
 </head>
 
-<body class="bg-light" ng-controller="AddTransactionsController" ng-init="VerifySession()">
+<body class="mdx-body-color" ng-controller="AddTransactionsController" ng-init="VerifySession()">
 
     <!-- Sidebar -->
     <?php require_once '../framework/Components/mdx_sidebar.php'; ?>
@@ -47,69 +47,69 @@
 
                     <!-- Customer Details -->
                     <div class="col-md-6 mb-3">
-                        <div class="card shadow-sm border-0 rounded-3">
-                            <div class="card-body">
-                                <h6 class="card-title fw-semibold">Customer Details</h6>
-                                <div class="row mb-3">
+                        <div class="p-4 bg-light rounded border border-dark-subtle">
+                            <div class="">
+                                <h5 class="card-title fw-semibold text-muted">Customer Details</h5>
+                                <div class="row mb-3 mt-3">
                                     <div class="mb-3">
                                         <label class="form-label">Accountnumber</label>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control scarlet-focus"
                                             placeholder="Double click to select account" ng-dblclick="openModalSearch()"
                                             ng-model="customer.accountnumber" readonly>
                                     </div>
                                     <div class="col">
                                         <label class="form-label">First name</label>
-                                        <input type="text" class="form-control" placeholder="First name"
+                                        <input type="text" class="form-control scarlet-focus" placeholder="First name"
                                             ng-model="customer.firstname" readonly>
                                     </div>
                                     <div class="col">
                                         <label class="form-label">Last name</label>
-                                        <input type="text" class="form-control" placeholder="Last name"
+                                        <input type="text" class="form-control scarlet-focus" placeholder="Last name"
                                             ng-model="customer.lastname" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="example@gmail.com"
+                                    <input type="email" class="form-control scarlet-focus" placeholder="example@gmail.com"
                                         ng-model="customer.email" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone number</label>
-                                    <input type="text" class="form-control" placeholder="+639946205660"
+                                    <input type="text" class="form-control scarlet-focus" placeholder="+639946205660"
                                         ng-model="customer.contact_number" readonly>
                                 </div>
-                                <div class="border-bottom mb-3">
+                                <div class="border-bottom my-5">
 
                                 </div>
                                 <div class="mb-3">
-                                    <h6 class="card-title fw-semibold">Customer Address</h6>
+                                    <h5 class="card-title fw-semibold mb-3 text-muted">Customer Address</h5>
                                     <label class="form-label">Country</label>
-                                    <input type="text" class="form-control mb-2" placeholder="Country / Region"
+                                    <input type="text" class="form-control mb-2 scarlet-focus" placeholder="Country / Region"
                                         ng-model="customer.country" readonly>
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label">City</label>
-                                            <input type="text" class="form-control" placeholder="City"
+                                            <input type="text" class="form-control scarlet-focus" placeholder="City"
                                                 ng-model="customer.city" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="form-label">Postal Code</label>
-                                            <input type="text" class="form-control" placeholder="Postal code"
+                                            <input type="text" class="form-control scarlet-focus" placeholder="Postal code"
                                                 ng-model="customer.postal" readonly>
                                         </div>
                                     </div>
                                     <label class="form-label">Street</label>
-                                    <input type="text" class="form-control mt-2" placeholder="Street address"
+                                    <input type="text" class="form-control mt-2 scarlet-focus" placeholder="Street address"
                                         ng-model="customer.street" readonly>
                                     <div class="row">
                                         <div class="col mt-2">
                                             <label class="form-label">Lot Number</label>
-                                            <input type="text" class="form-control" placeholder="Lot Number"
+                                            <input type="text" class="form-control scarlet-focus" placeholder="Lot Number"
                                                 ng-model="customer.lot_number" readonly>
                                         </div>
                                         <div class="col mt-2">
                                             <label class="form-label">House Number</label>
-                                            <input type="text" class="form-control" placeholder="House Number"
+                                            <input type="text" class="form-control scarlet-focus" placeholder="House Number"
                                                 ng-model="customer.house_no" readonly>
                                         </div>
                                     </div>
@@ -120,9 +120,9 @@
 
                     <!-- Transaction / Order Details -->
                     <div class="col-md-6 mb-3">
-                        <div class="card shadow-sm border-0 rounded-3">
-                            <div class="card-body">
-                                <h6 class="card-title fw-semibold">Transaction Details</h6>
+                        <div class="p-4 bg-light rounded border border-dark-subtle">
+                            <div class="">
+                                <h5 class="card-title fw-semibold mb-3 text-muted">Transaction Details</h5>
 
                                 <div class="mb-3 text-center border rounded p-4 bg-light">
                                     <label for="transactionImage" class="form-label fw-semibold">Upload Receipt /
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Transaction Type</label>
-                                    <select class="form-select" ng-model="transaction_type">
+                                    <select class="form-select scarlet-focus" ng-model="transaction_type">
                                         <option value="RENT">Rent Payment</option>
                                         <option value="CASH">Cash Payment</option>
                                         <option value="ADV">Advance Payment</option>
@@ -162,25 +162,25 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Amount</label>
-                                    <input type="number" class="form-control" placeholder="₱0.00"
+                                    <input type="number" class="form-control scarlet-focus" placeholder="₱0.00"
                                         ng-model="amount_paid">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Payment Status</label>
-                                    <select class="form-select" ng-model="payment_status">
+                                    <select class="form-select scarlet-focus" ng-model="payment_status">
                                         <option value="Paid">Paid</option>
                                         <option value="With Underpayment">With Underpayment</option>
                                         <option value="Advance Payment">Advance Payment</option>
                                     </select>
                                 </div>
 
-                                <button class="btn btn-secondary w-100" ng-click="DoPostPayment()">Save
+                                <button class="btn w-100 mdx-bg-scarlet" ng-click="DoPostPayment()">Save
                                     Transaction</button>
                             </div>
                         </div>
-                        <div class="card shadow-sm border-0 rounded-3 mt-3" style="height: 145px; overflow: hidden;">
-                            <div class="card-body">
-                                <h6 class="card-title fw-semibold">Last Transaction</h6>
+                        <div class="p-4 bg-light rounded border border-dark-subtle mt-4" style="overflow: hidden;">
+                            <div class="">
+                                <h5 class="card-title fw-semibold mb-3 text-muted">Last Transaction</h5>
                                 <table class="table table-hover align-middle">
                                     <thead class="table-secondary text-dark">
                                         <tr>

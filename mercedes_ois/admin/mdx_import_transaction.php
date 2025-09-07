@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="bg-light" ng-controller="ImportTransactionController" ng-init="VerifySession();
+<body class="mdx-body-color" ng-controller="ImportTransactionController" ng-init="VerifySession();
                                                                             GetPaymentImport();">
 
     <!-- Sidebar -->
@@ -45,10 +45,17 @@
                 </div>
 
                 <!-- Upload Section -->
-                <div class="card shadow-sm border-0 rounded-3 mb-4">
-                    <div class="card-body">
-                        <h6 class="fw-semibold mb-3"><i class="fa fa-file-import me-2"></i> Upload File</h6>
-                        <div class="row g-3 align-items-center">
+                <div class="mb-4">
+                    <div class="p-4 bg-light rounded border border-dark-subtle">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-file-import me-2 mdx-text-scarlet fs-3"></i>
+                            <h6 class="fw-semibold mb-0 text-muted">Upload File</h6>
+
+                        </div>
+
+
+
+                        <div class="row g-3 align-items-center mt-1">
                             <div class="col-md-6">
                                 <input type="file" class="form-control" id="fileInput" file-model="file">
                             </div>
@@ -59,7 +66,7 @@
                             </div>
                             <div class="col-md-3 text-end">
                                 <button class="btn btn-primary" ng-click="importTransactions()">
-                                    <i class="fa fa-upload me-2"></i> Import
+                                    <i class="fa fa-upload"></i>
                                 </button>
                             </div>
                         </div>
@@ -67,27 +74,38 @@
                 </div>
 
                 <!-- Imported Transactions Table -->
-                <div class="card shadow-sm border-0 rounded-3">
-                    <div class="card-body">
+                <div class="">
+                    <div class="p-4 bg-light rounded border border-dark-subtle">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="fw-semibold mb-0"><i class="fa fa-table me-2"></i> Imported Transactions</h6>
+                            <div class="d-flex align-items-center">
+                                <i class="fa fa-table me-2 mdx-text-scarlet fs-3"></i>
+                                <h6 class="fw-semibold mb-0 text-muted">Imported Transactions</h6>
+
+                            </div>
+
                             <div>
-                                <button class="btn btn-danger btn-sm me-2" ng-click="deleteSelected()">
+
+                            </div>
+                        </div>
+                        <div class="mb-3 row col-12">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="searchText"
+                                    placeholder="Search transactions...">
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end mt-3 mt-lg-0">
+                                <button class="btn btn-outline-danger btn-sm me-2" ng-click="deleteSelected()">
                                     <i class="fa fa-trash me-1"></i> Delete Selected
                                 </button>
                                 <button class="btn btn-success btn-sm" ng-click="postTransactions()">
                                     <i class="fa fa-paper-plane me-1"></i> Post Transactions
                                 </button>
                             </div>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <input type="text" class="form-control" ng-model="searchText"
-                                placeholder="Search transactions...">
+
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover align-middle">
-                                <thead class="table-secondary">
+                            <table class="table table-hover align-middle border">
+                                <thead class="">
                                     <tr>
                                         <th>
                                             <input type="checkbox" ng-model="selectAll" id="selectAllBox"
@@ -229,7 +247,7 @@
         <!-- bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
+            </script>
 
         <script src="../framework/JS/jsForStyling.js"></script>
 
