@@ -46,7 +46,7 @@ try {
           $user = $_SESSION['username'];
           $params = $postData['params'];
           $client = $postData['client'];
-          $request_id  = $postData['request_id'];
+          $request_id = isset($postData['request_id']) ? $postData['request_id'] : null;
           $process = $NewApplicationClass->CreateAccount($user, $params, $client, $request_id );
           $response = base64_encode(json_encode($process));
           break;

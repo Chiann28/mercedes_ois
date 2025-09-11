@@ -3,68 +3,44 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mercedes OIS - Test UI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>MERCEDEX</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- FONTAWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
 
     <script src="../../mercedes_ois/admin/js/Sample.js"></script>
+
+    <!-- NASHIE CSS <3 -->
+    <link rel="stylesheet" href="../framework/CSS/NashieCss-Frontend.css">
 </head>
 
-<body class="bg-light" ng-controller="SampleController" ng-init="init()">
+<body class="bg-light" ng-controller="SampleController" ng-init="init()" >
+    <?php require_once '../framework/Components/mdx_user_header.php'; ?>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-
-                <div class="card shadow-lg">
-                    <div class="card-body">
-                        <h4 class="card-title mb-3 text-center">Search User by Client</h4>
-
-                        <div class="mb-3">
-                            <label for="client" class="form-label">Client Name</label>
-                            <input type="text" class="form-control" id="client" ng-model="client"
-                                placeholder="Enter client name">
-                        </div>
-
-                        <div class="d-grid">
-                            <button class="btn btn-primary" ng-click="searchClient()">Search</button>
-                        </div>
-
-                        <div class="mt-4" ng-if="test.length > 0">
-                            <h6>Results:</h6>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>User ID</th>
-                                        <th>Username</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Modified Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="list in test">
-                                        <td ng-bind="list.user_id"></td>
-                                        <td ng-bind="list.username"></td>
-                                        <td ng-bind="list.firstname"></td>
-                                        <td ng-bind="list.lastname"></td>
-                                        <td ng-bind="list.modifieddate"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="mt-4" ng-if="test.length === 0">
-                            <div class="alert alert-warning">No results found for "{{client}}"</div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <div class="container" style="min-height: 100vh">
+        <!-- code here temporariliy
+         will update the UI later
+         add
+         - transaction related back-ends
+         - events fetching
+         - announcement fetching
+         - log out
+         - requests and incident reports
+         
+        -->
     </div>
+
+
+    
+    <?php require_once '../framework/Components/mdx_footer.php'; ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        </script>
 
 </body>
 
