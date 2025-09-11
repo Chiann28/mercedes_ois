@@ -54,7 +54,7 @@
 
           <div class="col-12 col-lg-3">
 
-            <div class="p-4 bg-light rounded border border-dark-subtle" style="min-height: 70vh !important;">
+            <div class="p-4 bg-light rounded border border-dark-subtle" style="height: 100% !important">
               <h4 class="mb-3 text-muted">Requests</h4>
               <div class="border border-dark-subtle"></div>
 

@@ -69,7 +69,7 @@
         </ul>
     </div>
     <!-- Transactions End -->
-    <a href="#" class="sidebar-icon"><i class="fa-solid fa-calendar sidebar-icon"></i><span
+    <a href="mdx_events.php" class="sidebar-icon"><i class="fa-solid fa-calendar sidebar-icon"></i><span
             class="sidebar-text ms-2">Events and Operations</span></a>
 
     <a class="sidebar-icon" href="mdx_incident_and_requests.php" role="button" aria-expanded="false"

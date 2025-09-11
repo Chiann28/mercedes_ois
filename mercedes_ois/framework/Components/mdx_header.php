@@ -7,8 +7,8 @@
       <button class="sidebar-toggler m-0" type="button" id="">
         <i class="fa-solid fa-user"></i>
       </button>
-      <button class="sidebar-toggler m-0" type="button" id="">
-        <i class="fa-solid fa-moon"></i>
+      <button class="sidebar-toggler m-0" type="button" id="logout_button">
+        Logout
       </button>
     </div>
 

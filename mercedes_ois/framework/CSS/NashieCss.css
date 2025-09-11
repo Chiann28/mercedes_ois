@@ -53,6 +53,11 @@
   background-color: inherit !important;
 }
 
+.mdx-bg-scarlet {
+  background-color: #f55355 !important;
+  color: aliceblue !important;
+}
+
 .mdx-btn-hover {
   transition: all 0.3s ease !important;
 }
