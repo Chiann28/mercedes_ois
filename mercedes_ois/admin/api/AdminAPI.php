@@ -46,7 +46,15 @@ try {
             $postData = json_decode(file_get_contents("php://input"), true);
             $request_type = $postData['request_type'] ?? "";
             switch ($request_type) {
-                case "":
+                case "Logout":
+                    session_unset();
+                    session_destroy();
+
+                    $response = [
+                        "result"  => true,
+                        "message" => "Logged out successfully"
+                    ];
+            break;
                 break;
 
                 default:
