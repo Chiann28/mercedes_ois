@@ -20,12 +20,30 @@ try {
     case "GET":
       $request_type = $_GET['request_type'] ?? "";
       switch ($request_type) {
+        case "DoCountEvents":
+          $client = $_GET['client'] ?? "";
+          $process = $EventsClass->DoCountEvents($client);
+          $response = base64_encode(json_encode($process));
+          break;
+
+        case "DoCountPastEvents":
+          $client = $_GET['client'] ?? "";
+          $process = $EventsClass->DoCountPastEvents($client);
+          $response = base64_encode(json_encode($process));
+          break;
+
         case "GetEvents":
           $client = $_GET['client'] ?? "";
           $process = $EventsClass->GetEvents($client);
           $response = base64_encode(json_encode($process));
           break;
-        
+
+        case "GetPastEvents":
+          $client = $_GET['client'] ?? "";
+          $process = $EventsClass->GetPastEvents($client);
+          $response = base64_encode(json_encode($process));
+          break;
+
 
         default:
           $response["error"] = "Invalid request type";
@@ -41,7 +59,7 @@ try {
           $user = $_SESSION['username'];
           $params = $postData['params'];
           $client = $postData['client'];
-          $process = $EventsClass->DoPostEvent($user, $client, $params );
+          $process = $EventsClass->DoPostEvent($user, $client, $params);
           $response = base64_encode(json_encode($process));
           break;
 

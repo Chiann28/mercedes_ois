@@ -23,6 +23,8 @@
 
 
 
+
+
 .mdx-text-red {
   color: #e6515a !important;
 }
@@ -32,10 +34,12 @@
 .mdx-text-green {
   color: #27c280 !important;
 }
-.mdx-text-blue- {
+.mdx-text-blue {
   color: #3599dd !important;
 }
-
+.mdx-text-pink {
+  color: #e6518f !important;
+}
 
 .mdx-fst-tnr {
   font-family: "Times New Roman", Times, serif !important;

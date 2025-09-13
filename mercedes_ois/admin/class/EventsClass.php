@@ -86,6 +86,38 @@ class EventsClass
     
   }
 
+  public function DoCountEvents($client)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $date = date('Y-m-d');
+
+    $query = "SELECT count(event_no)
+     FROM events WHERE client = '$client'
+    AND `start_date` >= '$date'
+    ORDER BY start_date;
+    ";
+    $result = $SQL->SelectQuery($query);
+
+    return $result;
+
+  }
+
+  public function DoCountPastEvents($client)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $date = date('Y-m-d');
+
+    $query = "SELECT count(event_no)
+     FROM events WHERE client = '$client'
+    AND `start_date` < '$date'
+    ORDER BY start_date;
+    ";
+    $result = $SQL->SelectQuery($query);
+
+    return $result;
+
+  }
+
   public function GetEvents($client)
   {
     $SQL = new SQLCommands("mercedes_ois");
@@ -97,6 +129,25 @@ class EventsClass
     DATE_FORMAT(end_date, '%h:%i %p') AS end_time
      FROM events WHERE client = '$client'
     AND `start_date` >= '$date'
+    ORDER BY start_date;
+    ";
+    $result = $SQL->SelectQuery($query);
+
+    return $result;
+
+  }
+
+  public function GetPastEvents($client)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $date = date('Y-m-d');
+
+    $query = "SELECT *,
+    DATE(start_date) AS date_start,
+    DATE_FORMAT(start_date, '%h:%i %p') AS start_time,
+    DATE_FORMAT(end_date, '%h:%i %p') AS end_time
+     FROM events WHERE client = '$client'
+    AND `start_date` < '$date'
     ";
     $result = $SQL->SelectQuery($query);
 
