@@ -34,6 +34,12 @@ try {
                             ];
                         }
                         break;
+
+                case "DoAutoPostAnnouncement":
+                    $client = $_GET['client'] ?? "";
+                    $process = $AdminClass->DoAutoPostAnnouncement($client);
+                    $response =  base64_encode(json_encode($process));
+                break;
             
                         default:
                             $response["error"] = "Invalid request type";

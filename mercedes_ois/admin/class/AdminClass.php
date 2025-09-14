@@ -46,6 +46,33 @@ class AdminClass{
         }
 
     }
+
+    //auto posting of announcements
+    public function DoAutoPostAnnouncement($client){
+        $SQL = new SQLCommands("mercedes_ois");
+        $date = date('Y-m-d');
+
+        $query = "SELECT announcement_no FROM announcements
+                    WHERE client = '$client'
+                    AND scheduled_date <= '$date'
+                    AND status = 'SCHEDULED'";
+        $result = $SQL->SelectQuery($query);
+
+        if ($result && count($result) > 0) {
+            foreach ($result as $row) {
+                $announcement_no = $row['announcement_no'];
+    
+                $update = "UPDATE `announcements` 
+                            SET `status` = 'POSTED'
+                            WHERE client = '$client'
+                            AND announcement_no = '$announcement_no'";
+                $SQL->UpdateQuery($update);
+            }
+            return true;
+        }
+    
+        return false;
+    }
     
 }
 
