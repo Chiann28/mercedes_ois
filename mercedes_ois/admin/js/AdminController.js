@@ -38,6 +38,20 @@ app.controller("AdminController", function ($scope, API) {
     );
   };
 
+  $scope.DoAutoPostAnnouncement = function () {
+    var data = {
+      client: $scope.client,
+      request_type: "DoAutoPostAnnouncement",
+    };
+
+    API.getApi("api/AdminAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      if (final_response) {
+        console.log("Announcement Posted");
+      }
+    });
+  };
+
   $scope.init = function () {
     console.log("Welcome User");
   };
