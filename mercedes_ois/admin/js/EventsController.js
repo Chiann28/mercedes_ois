@@ -50,6 +50,25 @@ app.controller("EventsController", function ($scope, API) {
     $scope.DoCountPastEvents();
   };
 
+  //FLAGS
+  $scope.isEditing = false;
+
+  $scope.InitializeUpdating = function () {
+    $scope.isEditing = !$scope.isEditing;
+  };
+
+  $scope.clean_date = function(d) {
+    let date = new Date(d);
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let day = String(date.getDate()).padStart(2, "0");
+    let hours = String(date.getHours()).padStart(2, "0");
+    let minutes = String(date.getMinutes()).padStart(2, "0");
+    let seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   $scope.DoCountEvents = function () {
     var data = {
       client: $scope.client,
@@ -149,6 +168,58 @@ app.controller("EventsController", function ($scope, API) {
     if ($scope.selectedEvent.end_date) {
       $scope.selectedEvent.end_date = new Date($scope.selectedEvent.end_date);
     }
-    console.log($scope.selectedEvent);
+    // console.log($scope.selectedEvent);
+  };
+
+  $scope.DoDeleteEvent = function (event_no) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are about to delete Event No: " + event_no,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var data = {
+          client: $scope.client,
+          event_no: event_no,
+          request_type: "DoDeleteEvent",
+        };
+
+        API.getApi("api/EventsAPI.php", data).then(function (response) {
+          var final_response = JSON.parse(atob(response.data));
+          console.log(final_response);
+
+          // Show success/failure alert
+          if (final_response.result) {
+            Swal.fire("Deleted!", final_response.message, "success").then(
+              () => {
+                var modalEl = document.getElementById("eventDetailsModal");
+                var modal = bootstrap.Modal.getInstance(modalEl);
+                modal.hide();
+                $scope.initRequest();
+              }
+            );
+          } else {
+            Swal.fire(
+              "Error!",
+              final_response.message || "Something went wrong.",
+              "error"
+            );
+          }
+        });
+      }
+    });
+  };
+
+  $scope.DoUpdateEvent = function (event) {
+    let dupe = angular.copy(event);
+    dupe.start_date = $scope.clean_date(event.start_date);
+    dupe.end_date = $scope.clean_date(event.end_date);
+    console.log(dupe);
+    
   };
 });

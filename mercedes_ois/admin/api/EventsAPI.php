@@ -32,6 +32,13 @@ try {
           $response = base64_encode(json_encode($process));
           break;
 
+        case "DoDeleteEvent":
+          $client = $_GET['client'] ?? "";
+          $event_no = $_GET['event_no'] ?? "";
+          $process = $EventsClass->DoDeleteEvent($client,$event_no);
+          $response = base64_encode(json_encode($process));
+          break;
+
         case "GetEvents":
           $client = $_GET['client'] ?? "";
           $process = $EventsClass->GetEvents($client);

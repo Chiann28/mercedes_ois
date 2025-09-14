@@ -134,11 +134,12 @@
               <!-- upcoming events -->
               <div class="tab-pane fade show active" id="tab1" role="tabpanel">
                 <div class="col-12 mt-3">
+                  <!-- <h3 class="text-muted">Upcoming Events</h3> -->
                   <div class="row">
 
 
-                    <div class="col-12 col-md-6 col-lg-4" ng-repeat="event in EventsList">
-                      <div class="card mb-3 shadow-sm">
+                    <div class="col-12 col-md-6 col-lg-4 mt-4" ng-repeat="event in EventsList">
+                      <div class="card mb-3 shadow-sm" style="height: 100%">
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
                             <div>
@@ -310,10 +311,19 @@
         <div class="modal-body">
 
           <div class="mb-3 col-12">
-            <label for="eventType" class="form-label">Event Type</label>
+            <div class="d-flex justify-content-between align-items-center">
+              <label for="eventType" class="form-label m-0">Event Type</label>
+
+              <a href="" type="btn" ng-click="InitializeUpdating();" class="text-secondary">
+                <i class="fa-regular fa-pen-to-square fs-4 my-3"></i>
+              </a>
+             
+            </div>
+
+
 
             <select class="form-select" id="eventType" name="event_type" ng-model="selectedEvent.event_type" required
-              disabled>
+              ng-disabled="!isEditing">
               <option value="" disabled selected>Select an event type</option>
               <option value="CELEBRATION">Celebration</option>
               <option value="BIRTHDAY">Birthday</option>
@@ -326,36 +336,38 @@
           <div class="mb-3 col-12">
             <label for="" class="form-label">Title</label>
             <input type="text" class="form-control" id="" name="email" placeholder="" required
-              ng-model="selectedEvent.event_name" disabled>
+              ng-model="selectedEvent.event_name" ng-disabled="!isEditing">
           </div>
 
           <div class="mb-3 col-12">
             <label for="eventDateTime" class="form-label">From</label>
             <input type="datetime-local" class="form-control" id="eventDateTime" name="eventDateTime" required
-              ng-model="selectedEvent.start_date">
+              ng-model="selectedEvent.start_date" ng-disabled="!isEditing">
           </div>
 
           <div class="mb-3 col-12">
             <label for="eventDateTime" class="form-label">To</label>
             <input type="datetime-local" class="form-control" id="eventDateTime" name="eventDateTime" required
-              ng-model="selectedEvent.end_date">
+              ng-model="selectedEvent.end_date" ng-disabled="!isEditing">
           </div>
 
           <div class="mb-3 col-12">
             <label for="" class="form-label">Details</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3" required
-              ng-model="selectedEvent.event_description" disabled></textarea>
+              ng-model="selectedEvent.event_description" ng-disabled="!isEditing"></textarea>
           </div>
           <div class="mb-3 col-12">
             <label for="" class="form-label">Location</label>
-            <input type="text" class="form-control" id="" name="email" placeholder="" required
-              ng-model="selectedEvent.location">
+            <input type="text" class="form-control" id="" placeholder="" required ng-model="selectedEvent.location"
+              ng-disabled="!isEditing">
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-outline-danger"
+            ng-click="DoDeleteEvent(selectedEvent.event_no);" ng-hide="isEditing">Delete</button>
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+          <button type="button" class="btn btn-secondary" ng-disabled="!isEditing" ng-click="DoUpdateEvent(selectedEvent)">Save changes</button>
         </div>
       </div>
     </div>

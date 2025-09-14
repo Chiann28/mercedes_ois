@@ -30,7 +30,7 @@ class EventsClass
   }
 
 
-  public function DoPostEvent($user,$client,$params)
+  public function DoPostEvent($user, $client, $params)
   {
     $SQL = new SQLCommands("mercedes_ois");
 
@@ -46,7 +46,7 @@ class EventsClass
     $validated = $this->NewApplicationClass->validateRequiredFields($params, $requiredFields);
 
 
-    if($validated == false){
+    if ($validated == false) {
       return [
         "result" => false,
         "message" => "Missing required fields",
@@ -60,7 +60,7 @@ class EventsClass
       $start_date = $validated["start_date"];
       $end_date = $validated["end_date"];
       $location = $validated["location"];
-      
+
 
       $parameters = [
         'client' => $client,
@@ -75,7 +75,7 @@ class EventsClass
         'modifiedby' => $user
       ];
       $result = $SQL->InsertQuery('events', $parameters);
-      if(!$result){
+      if (!$result) {
         return ["result" => false, "message" => "Failed Posting Event",];
       } else {
         return ["result" => true, "message" => "Nice! Event Posted",];
@@ -83,7 +83,29 @@ class EventsClass
 
     }
 
-    
+
+  }
+
+  public function DoDeleteEvent($client, $event_no)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $date = date('Y-m-d');
+
+    $query = "UPDATE events 
+    SET event_status = 'DELETED' 
+    WHERE client = '$client' 
+    AND event_no = '$event_no'
+    ";
+    $result = $SQL->UpdateQuery($query);
+
+
+    if (!$result) {
+      return ["result" => false, "message" => "Something Went Wrong",];
+    } else {
+      return ["result" => true, "message" => "Deleted Event No : " . $event_no,];
+    }
+  
+
   }
 
   public function DoCountEvents($client)
@@ -94,6 +116,7 @@ class EventsClass
     $query = "SELECT count(event_no)
      FROM events WHERE client = '$client'
     AND `start_date` >= '$date'
+    AND event_status <> 'DELETED'
     ORDER BY start_date;
     ";
     $result = $SQL->SelectQuery($query);
@@ -128,6 +151,7 @@ class EventsClass
     DATE_FORMAT(start_date, '%h:%i %p') AS start_time,
     DATE_FORMAT(end_date, '%h:%i %p') AS end_time
      FROM events WHERE client = '$client'
+    AND event_status <> 'DELETED'
     AND `start_date` >= '$date'
     ORDER BY start_date;
     ";
@@ -147,15 +171,17 @@ class EventsClass
     DATE_FORMAT(start_date, '%h:%i %p') AS start_time,
     DATE_FORMAT(end_date, '%h:%i %p') AS end_time
      FROM events WHERE client = '$client'
+     AND event_status <> 'DELETED'
     AND `start_date` < '$date'
+    ORDER BY start_date DESC
     ";
     $result = $SQL->SelectQuery($query);
 
     return $result;
 
-   
 
-    
+
+
   }
 
 }
