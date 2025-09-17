@@ -22,6 +22,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
     <script src="../../mercedes_ois/admin/js/LedgerController.js"></script>
 
+    <style>
+    .ref-col {
+        max-width: 190px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
+
+    .ref-col:hover {
+        white-space: normal;
+        overflow: visible;
+        position: relative;
+        z-index: 1;
+    }
+    </style>
+
 </head>
 
 <body class="bg-light" ng-controller="LedgerController" ng-init="VerifySession()">
@@ -204,14 +221,14 @@
                                                         class="animate__animated animate__fadeIn">
                                                         <td>{{t.transaction_date}}</td>
                                                         <td>{{t.transaction_type}}</td>
-                                                        <td>{{t.transaction_reference}}</td>
+                                                        <td class="ref-col">{{t.transaction_reference}}</td>
                                                         <td>{{t.debit | number: 2}}</td>
                                                         <td>{{t.credit | number: 2}}</td>
                                                         <td>{{t.balance | number: 2}}</td>
                                                         <td>{{t.date_processed}}</td>
                                                         <td>{{t.due_date}}</td>
                                                     </tr>
-                                                    <tr ng-if="!Transactions || Adjustments.length === 0">
+                                                    <tr ng-if="!Transactions">
                                                         <td colspan="7" class="text-center text-muted">No transactions
                                                             found.</td>
                                                     </tr>

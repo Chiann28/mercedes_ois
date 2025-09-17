@@ -20,11 +20,27 @@ class AddTransactionsClass{
         $SQL = new SQLCommands("mercedes_ois");
 
         $client = $params['client'];
-        $transaction_id = $params['transaction_type'].$params['accountnumber'].date('YmdHis');
+        $transaction_type = $params['transaction_type'];
+
+        switch($transaction_type){
+            case "ADV":
+                $transaction_id = "ADVV".$params['accountnumber'].date('YmdHis');
+            break;
+
+            case "MISC":
+                $transaction_id = "MISC".$params['accountnumber'].date('YmdHis');
+            break;
+
+            default:
+                $transaction_id = "PAYMENT".$params['accountnumber'].date('YmdHis');
+            break;
+            
+        }
+
+        
         $accountnumber = $params['accountnumber'];
         $amount_paid = $params['amount_paid'];
-        $status = $params['status'];
-        $transaction_type = $params['transaction_type'];
+        // $status = $params['status'];
         $transaction_date = date('Y-m-d');
         $source = "collection";
         $modifiedby = $user;
@@ -40,11 +56,6 @@ class AddTransactionsClass{
                 $classification = "normal payment";
             break;
 
-            case "ADJ":
-                $transaction_type = "Adjustments";
-                $classification = "normal payment";
-            break;
-
             default:
               $transaction_type = "Cash";
             $classification = "normal payment";
@@ -57,7 +68,7 @@ class AddTransactionsClass{
             "transaction_id" => $transaction_id,
             "accountnumber" => $accountnumber,
             "amount_paid" => $amount_paid,
-            "status" => $status,
+            "status" => "paid",
             "classification" => $classification,
             "transaction_type" => $transaction_type,
             "transaction_date" => $transaction_date,
@@ -68,6 +79,7 @@ class AddTransactionsClass{
         $result = $SQL->InsertQuery("transactions", $parameters);
 
         if($result){
+            $this->DoPostToLedger($client, $accountnumber, $amount_paid, $transaction_id, $transaction_date, $modifiedby);
             return [
                 "result" => true,
                 "message" => "Successfully Posted",
@@ -112,6 +124,43 @@ class AddTransactionsClass{
         $result = $SQL->InsertQuery("requirements", $params);
         return $result;
     }
+
+    public function DoPostToLedger($client, 
+                                    $accountnumber, 
+                                    $amount_paid, 
+                                    $transaction_id, 
+                                    $transaction_date, 
+                                    $modifiedby)
+        {
+            $SQL = new SQLCommands("mercedes_ois");
+
+            $get_latest_balance = "SELECT balance FROM balance_sheet
+                                    WHERE client = '$client' AND 
+                                    accountnumber = '$accountnumber'
+                                    ORDER BY transaction_date_time DESC 
+                                    LIMIT 1";
+            $fetch = $SQL->SelectQuery($get_latest_balance);
+            $latest_balance = isset($fetch[0]['balance']) ? $fetch[0]['balance'] : 0;
+
+            $parameters = [
+                "client" => $client,
+                "accountnumber" => $accountnumber,
+                "transaction_date" => $transaction_date,
+                "transaction_type" => "Payment",
+                "classification" => "Billing",
+                "transaction_reference" => $transaction_id,
+                "credit" => $amount_paid,
+                "balance" => $latest_balance - $amount_paid,
+                "transaction_date_time" => date('Y-m-d H:i:s'),
+                "status" => "true",
+                "modifiedby" => $modifiedby
+            ];
+
+            $insert = $SQL->InsertQuery("balance_sheet", $parameters);
+
+            return $insert;
+
+        }
     
 }
 

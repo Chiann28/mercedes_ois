@@ -34,10 +34,15 @@ class AdjustmentsClass{
 
     public function GetTransactionHistory($client, $accountnumber){
         $SQL = new SQLCommands("mercedes_ois");
-        $query = "SELECT * FROM transactions
+        $query = "SELECT * ,
+                CASE
+                    WHEN status = 'true' THEN 'Paid'
+                    ELSE 'Invalid'
+                END as status
+                FROM balance_sheet
                 WHERE client = '$client'
                 AND accountnumber = '$accountnumber'
-                AND transaction_type NOT IN ('Adjustments')
+                AND transaction_type = 'Payment'
                 ORDER BY sysentrydate ASC";
         $result = $SQL->SelectQuery($query);
         return $result;
@@ -62,24 +67,96 @@ class AdjustmentsClass{
         $client = isset($params['client']) ? $params['client'] : NULL;
         $accountnumber = isset($params['accountnumber']) ? $params['accountnumber'] : NULL;
 
-        $item = $this->GetDataTransaction($client, $transaction_id);
+        $item = $this->GetCreditAdjustment($client, $transaction_id);
+        $credit = $item['credit'];
+        $transaction_reference = "ADJ".$accountnumber.date('YmdHis');
 
-        $query = "UPDATE `transactions` SET 
-                    amount_paid = '$amount',
-                    adjustments = '$amount'
-                    WHERE client = '$client'
-                    AND transaction_id = '$transaction_id'";
-       
-        $result = $SQL->UpdateQuery($query);
+        $get_latest_balance = "SELECT balance FROM balance_sheet
+        WHERE client = '$client' AND 
+        accountnumber = '$accountnumber'
+        ORDER BY transaction_date_time DESC 
+        LIMIT 1";
 
-        $adjustment = $this->DoInsertAdjustments($client, $accountnumber, $transaction_id, $amount, $item['amount_paid'], $remarks, $user);
+        $fetch = $SQL->SelectQuery($get_latest_balance);
+        $latest_balance = isset($fetch[0]['balance']) ? $fetch[0]['balance'] : 0;
+
+        if($amount > 0){
+            $credit = $amount;
+            $debit = 0;
+            $balance = $latest_balance + $amount;
+        }
+        elseif($amount < 0){
+            $debit = ABS($amount);
+            $credit = 0;
+            $balance = $latest_balance - ABS($amount);
+        }
+        else{
+            return ["result" => false, "message" => "No changes", "not adjusted" => $adjustment];
+        }
+
+        $parameters = [
+            "client" => $client,
+            "accountnumber" => $accountnumber,
+            "transaction_date" => date('Y-m-d'),
+            "transaction_type" => "Adjustment",
+            "classification" => "Billing",
+            "transaction_reference" => $transaction_reference,
+            "debit" => $debit,
+            "credit" => $credit,
+            "balance" => $balance,
+            "transaction_date_time" => date('Y-m-d H:i:s'),
+            "status" => "true",
+            "modifiedby" => $user
+        ];
+
+        $insert = $SQL->InsertQuery("balance_sheet", $parameters);
        
-       if($adjustment){
+        $transaction = $this->DoInsertTransaction($client, $accountnumber, $transaction_reference, $amount, $user);
+
+        $adjustment = $this->DoInsertAdjustments($client, $accountnumber, $transaction_id, $amount, $remarks, $user);
+       
+       if($insert && $transaction && $adjustment){
             return ["result" => true, "message" => "Successfully Adjusted", "adjusted" => $adjustment];
+       }
+       else{
+            return ["result" => false, "message" => "Unsuccessfully Saved", "not adjusted" => $adjustment];
        }
     }
 
-    public function DoInsertAdjustments($client, $accountnumber, $transaction_id, $amount, $previous_amount, $remarks, $user){
+    public function DoInsertTransaction($client,$accountnumber, $transaction_reference, $amount, $modifiedby){
+        $SQL = new SQLCommands("mercedes_ois");
+        $classification = "adjustments";
+        $transaction_type = "Adjustments";
+        $source = "collection";
+
+        if($amount > 0){
+            $amount_paid = $amount;
+            $overpayment = NULL;
+        }
+        elseif($amount < 0){
+            $amount_paid = NULL;
+            $overpayment = ABS($amount);
+        }
+
+        $parameters = [
+            "client" => $client,
+            "transaction_id" => $transaction_reference,
+            "accountnumber" => $accountnumber,
+            "amount_paid" => $amount_paid,
+            "status" => "paid",
+            "classification" => $classification,
+            "transaction_type" => $transaction_type,
+            "transaction_date" => date('Y-m-d'),
+            "overpayment" => $overpayment,
+            "source" => $source,
+            "modifiedby" => $modifiedby
+        ];
+
+        $result = $SQL->InsertQuery("transactions", $parameters);
+        return $result;
+    }
+
+    public function DoInsertAdjustments($client, $accountnumber, $transaction_id, $amount, $remarks, $user){
         $SQL = new SQLCommands("mercedes_ois");
         $current_date = date('YmdHis');
         $parameters = [
@@ -89,7 +166,6 @@ class AdjustmentsClass{
             "reference" => $transaction_id,
             "adjustment_status" => "adjusted",
             "amount" => $amount,
-            "previous_amount" => $previous_amount,
             "remarks" => $remarks,
             "modifiedby" => $user
         ];
@@ -98,15 +174,15 @@ class AdjustmentsClass{
         return $insert;
     }
 
-    public function GetDataTransaction($client, $transaction_id){
+    public function GetCreditAdjustment($client, $transaction_id){
         $SQL = new SQLCommands("mercedes_ois");
         
-        $query = "SELECT * FROM transactions
+        $query = "SELECT * FROM balance_sheet
                     WHERE client = '$client'
-                    AND transaction_id = '$transaction_id'
+                    AND transaction_reference = '$transaction_id'
                     ORDER BY sysentrydate DESC LIMIT 1";
+        // echo $query;
         $result = $SQL->SelectQuery($query);
-
         return $result[0];
     }
     

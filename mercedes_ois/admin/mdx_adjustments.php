@@ -86,9 +86,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label mt-3">Full Name</label>
-                                        <div class="col-md-3 d-flex align-items-center">
+                                        <div class="col-md-12 d-flex align-items-center">
                                             <span class="fw-bold">
-                                                {{ customer.firstname ? customer.firstname + customer.middlename + customer.lastname : '---' }}
+                                                {{ customer.firstname ? customer.firstname + ' ' +customer.middlename + ' ' +customer.lastname : '---' }}
                                             </span>
                                         </div>
                                     </div>
@@ -145,9 +145,9 @@
                                             <tr ng-repeat="t in Transactions" class="animate__animated animate__fadeIn">
                                                 <td ng-click="DoAdjustment(t.transaction_id)"><i
                                                         class="fa fa-arrow-right text-muted"></i></td>
-                                                <td>{{t.transaction_id}}</td>
+                                                <td>{{t.transaction_reference}}</td>
                                                 <td>{{t.transaction_type}}</td>
-                                                <td>{{t.amount_paid | number: 2}}</td>
+                                                <td>{{t.credit | number: 2}}</td>
                                                 <td>{{t.sysentrydate}}</td>
                                                 <td>{{t.status}}</td>
                                             </tr>
@@ -253,8 +253,8 @@
                             <!-- Transaction Details -->
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Transaction ID</label>
-                                <input type="text" class="form-control" ng-model="selectedTransaction.transaction_id"
-                                    readonly>
+                                <input type="text" class="form-control"
+                                    ng-model="selectedTransaction.transaction_reference" readonly>
                             </div>
 
                             <div class="mb-3">
@@ -265,14 +265,20 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Current Amount</label>
-                                <input type="text" class="form-control" ng-model="selectedTransaction.amount_paid"
-                                    readonly>
+                                <input type="text" class="form-control" ng-model="selectedTransaction.credit" readonly>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Adjustment Amount</label>
                                 <input type="number" class="form-control" ng-model="adjustment.amount"
                                     placeholder="Enter adjustment amount">
+                                <div class="form-text text-muted">
+                                    NOTE: Enter <span class="text-success">positive values</span> to increase
+                                    adjustments
+                                    (e.g., additional charges),
+                                    or <span class="text-danger">negative values</span> to decrease adjustments (e.g.,
+                                    discounts).
+                                </div>
                             </div>
 
                             <div class="mb-3">
