@@ -70,8 +70,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control scarlet-focus" placeholder="example@gmail.com"
-                                        ng-model="customer.email" readonly>
+                                    <input type="email" class="form-control scarlet-focus"
+                                        placeholder="example@gmail.com" ng-model="customer.email" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone number</label>
@@ -84,8 +84,8 @@
                                 <div class="mb-3">
                                     <h5 class="card-title fw-semibold mb-3 text-muted">Customer Address</h5>
                                     <label class="form-label">Country</label>
-                                    <input type="text" class="form-control mb-2 scarlet-focus" placeholder="Country / Region"
-                                        ng-model="customer.country" readonly>
+                                    <input type="text" class="form-control mb-2 scarlet-focus"
+                                        placeholder="Country / Region" ng-model="customer.country" readonly>
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label">City</label>
@@ -94,23 +94,23 @@
                                         </div>
                                         <div class="col">
                                             <label class="form-label">Postal Code</label>
-                                            <input type="text" class="form-control scarlet-focus" placeholder="Postal code"
-                                                ng-model="customer.postal" readonly>
+                                            <input type="text" class="form-control scarlet-focus"
+                                                placeholder="Postal code" ng-model="customer.postal" readonly>
                                         </div>
                                     </div>
                                     <label class="form-label">Street</label>
-                                    <input type="text" class="form-control mt-2 scarlet-focus" placeholder="Street address"
-                                        ng-model="customer.street" readonly>
+                                    <input type="text" class="form-control mt-2 scarlet-focus"
+                                        placeholder="Street address" ng-model="customer.street" readonly>
                                     <div class="row">
                                         <div class="col mt-2">
                                             <label class="form-label">Lot Number</label>
-                                            <input type="text" class="form-control scarlet-focus" placeholder="Lot Number"
-                                                ng-model="customer.lot_number" readonly>
+                                            <input type="text" class="form-control scarlet-focus"
+                                                placeholder="Lot Number" ng-model="customer.lot_number" readonly>
                                         </div>
                                         <div class="col mt-2">
                                             <label class="form-label">House Number</label>
-                                            <input type="text" class="form-control scarlet-focus" placeholder="House Number"
-                                                ng-model="customer.house_no" readonly>
+                                            <input type="text" class="form-control scarlet-focus"
+                                                placeholder="House Number" ng-model="customer.house_no" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -154,8 +154,8 @@
                                 <div class="mb-3">
                                     <label class="form-label">Transaction Type</label>
                                     <select class="form-select scarlet-focus" ng-model="transaction_type">
-                                        <option value="RENT">Rent Payment</option>
-                                        <option value="CASH">Cash Payment</option>
+                                        <option value="">Select Transaction type</option>
+                                        <option value="RENT">Normal Payment</option>
                                         <option value="ADV">Advance Payment</option>
                                         <option value="MISC">Misc.</option>
                                     </select>
@@ -165,14 +165,14 @@
                                     <input type="number" class="form-control scarlet-focus" placeholder="₱0.00"
                                         ng-model="amount_paid">
                                 </div>
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label class="form-label">Payment Status</label>
                                     <select class="form-select scarlet-focus" ng-model="payment_status">
                                         <option value="Paid">Paid</option>
                                         <option value="With Underpayment">With Underpayment</option>
                                         <option value="Advance Payment">Advance Payment</option>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <button class="btn w-100 mdx-bg-scarlet" ng-click="DoPostPayment()">Save
                                     Transaction</button>

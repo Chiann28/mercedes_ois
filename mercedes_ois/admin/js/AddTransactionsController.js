@@ -167,19 +167,6 @@ app.controller("AddTransactionsController", function ($scope, API) {
       return;
     }
 
-    if ($scope.payment_status == undefined) {
-      Swal.fire({
-        icon: "warning",
-        title: "Invalid Payment Status",
-        text: "Please choose a valid payment status",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#6c757d",
-        allowOutsideClick: false,
-        allowEscapeKey: true,
-      });
-      return;
-    }
-
     Swal.fire({
       title: "Posting payment",
       text: "Please Wait . . .",

@@ -45,6 +45,12 @@ try {
                     $process = $LedgerClass->GetAdjustments($client, $accountnumber);
                     $response =  base64_encode(json_encode($process));
                 break;
+                case "DoGenerateBill":
+                    $client = $_GET['client'] ?? "";
+                    $user = $_SESSION['username'];
+                    $process = $LedgerClass->DoGenerateBill($client, $user);
+                    $response =  base64_encode(json_encode($process));
+                break;
                 
                 default:
                     $response["error"] = "Invalid request type";

@@ -66,6 +66,11 @@
                     <i class="fa-solid fa-sliders me-2"></i> <span class="sidebar-text ms-2">Adjustments</span>
                 </a>
             </li>
+            <li>
+                <a href="mdx_bill_generation.php" class="sidebar-sub-link">
+                    <i class="fa-solid fa-sliders me-2"></i> <span class="sidebar-text ms-2">Bill Generation</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- Transactions End -->

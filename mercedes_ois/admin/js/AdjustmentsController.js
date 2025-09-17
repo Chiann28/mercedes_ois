@@ -118,7 +118,7 @@ app.controller("AdjustmentsController", function ($scope, API) {
       request_type: "GetTransactionHistory",
     };
 
-    API.getApi("api/LedgerAPI.php", data).then(function (response) {
+    API.getApi("api/AdjustmentsAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
       $scope.Transactions = final_response;
       $scope.GetAdjustments(accountnumber);
@@ -269,7 +269,7 @@ app.controller("AdjustmentsController", function ($scope, API) {
     var data = {
       client: $scope.client,
       accountnumber: $scope.customer.accountnumber,
-      transaction_id: $scope.selectedTransaction.transaction_id,
+      transaction_id: $scope.selectedTransaction.transaction_reference,
       adjustment_amount: $scope.adjustment.amount,
       remarks: $scope.adjustment.remarks,
       request_type: "SaveAdjustment",

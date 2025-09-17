@@ -21,6 +21,10 @@ app.service("API", function ($http) {
 // Controller Start
 app.controller("LedgerController", function ($scope, API) {
   $scope.client = "mercedes";
+
+  var now = new Date();
+  $scope.selectedMonthDate = now;
+
   $scope.customer = $scope.customer || {};
   $scope.VerifySession = function () {
     console.log("Ledger Loaded");
@@ -236,6 +240,49 @@ app.controller("LedgerController", function ($scope, API) {
           text: $scope.result.message,
           icon: "error",
           confirmButtonText: "OK",
+        });
+      }
+    });
+  };
+
+  $scope.DoGenerateBill = function () {
+    Swal.fire({
+      title: "Generating accounts...",
+      text: "Please wait.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    var data = {
+      client: $scope.client,
+      request_type: "DoGenerateBill",
+    };
+
+    API.getApi("api/LedgerAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      console.log(final_response);
+
+      if (final_response.result) {
+        Swal.fire({
+          icon: "success",
+          title: "Successfully Posted",
+          text: final_response.message,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#6c757d",
+          allowOutsideClick: false,
+          allowEscapeKey: true,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Unsuccessfully Posted",
+          text: final_response.message,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#6c757d",
+          allowOutsideClick: false,
+          allowEscapeKey: true,
         });
       }
     });
