@@ -34,11 +34,14 @@ class LedgerClass{
 
     public function GetTransactionHistory($client, $accountnumber){
         $SQL = new SQLCommands("mercedes_ois");
-        $query = "SELECT * FROM transactions
+        $query = "SELECT *,
+                DATE_FORMAT(transaction_date_time, '%M %e, %Y - %h:%i %p') AS date_processed,
+                DATE_FORMAT(transaction_date, '%M %e, %Y') AS transaction_date,
+                DATE_FORMAT(DATE_ADD(transaction_date_time, INTERVAL 1 MONTH), '%M %e, %Y') AS due_date
+                 FROM balance_sheet
                 WHERE client = '$client'
                 AND accountnumber = '$accountnumber'
-                AND transaction_type NOT IN ('Adjustments')
-                ORDER BY sysentrydate ASC";
+                ORDER BY transaction_date_time ASC";
         $result = $SQL->SelectQuery($query);
         return $result;
     }
@@ -52,6 +55,65 @@ class LedgerClass{
                 ORDER BY sysentrydate ASC";
         $result = $SQL->SelectQuery($query);
         return $result;
+    }
+
+    public function DoGenerateBill($client, $user){
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT p.*, r.price, r.penalty_rate FROM properties p 
+                    LEFT JOIN ref_properties r
+                    ON r.client = p.client
+                    AND r.property_code = p.property_code
+                    WHERE p.client = '$client'";
+        $datas = $SQL->SelectQuery($query);
+
+        $inserted = [];
+        $failed = [];
+
+        foreach($datas as $data){
+            $price = $data['price'];
+            $accountnumber = $data['accountnumber'];
+            $surcharge = $data['penalty_rate'];
+
+            $get_latest_balance = "SELECT balance FROM balance_sheet
+                                    WHERE client = '$client' AND 
+                                    accountnumber = '$accountnumber'
+                                    ORDER by transaction_date_time DESC 
+                                    LIMIT 1";
+            $fetch = $SQL->SelectQuery($get_latest_balance);
+            $latest_balance = isset($fetch[0]['balance']) ? $fetch[0]['balance'] : 0;
+
+            $transaction_reference = $accountnumber.date('Ym');
+
+            //insert
+            $parameters = [
+                "client" => $client,
+                "accountnumber" => $accountnumber,
+                "transaction_date" => date('Y-m-d'),
+                "transaction_type" => "Bill",
+                "classification" => "Billing",
+                "transaction_reference" => $transaction_reference,
+                "debit" => $price,
+                "balance" => $latest_balance + $price,
+                "transaction_date_time" => date('Y-m-d H:i:s'),
+                "status" => "false",
+                "modifiedby" => $user
+            ];
+
+            $insert = $SQL->InsertQuery("balance_sheet", $parameters);
+
+            if($insert){
+                $inserted[] = $accountnumber;
+            } else {
+                $failed[] = $accountnumber;
+            }
+            
+            return [
+                "success" => count($inserted),
+                "failed" => count($failed),
+                "inserted_accounts" => $inserted,
+                "failed_accounts" => $failed
+            ];
+        }
     }
     
 }

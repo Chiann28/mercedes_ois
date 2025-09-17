@@ -188,29 +188,31 @@
                                     <div class="tab-pane fade show active" id="latest" role="tabpanel"
                                         aria-labelledby="latest-tab">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-hover align-middle">
+                                            <table class="table table-hover align-middle">
                                                 <thead class="table-secondary">
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Transaction ID</th>
-                                                        <th>Type</th>
-                                                        <th>Amount</th>
-                                                        <th>Transaction Date</th>
-                                                        <th>Status</th>
-                                                    </tr>
+                                                    <th>Date</th>
+                                                    <th>Transaction</th>
+                                                    <th>Reference</th>
+                                                    <th>Debit</th>
+                                                    <th>Credit</th>
+                                                    <th>Balance</th>
+                                                    <th>Date Processed</th>
+                                                    <th>Due Date</th>
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="t in Transactions"
                                                         class="animate__animated animate__fadeIn">
-                                                        <td><i class="fa fa-arrow-right text-muted"></i></td>
-                                                        <td>{{t.transaction_id}}</td>
+                                                        <td>{{t.transaction_date}}</td>
                                                         <td>{{t.transaction_type}}</td>
-                                                        <td>{{t.amount_paid | number: 2}}</td>
-                                                        <td>{{t.sysentrydate}}</td>
-                                                        <td>{{t.status}}</td>
+                                                        <td>{{t.transaction_reference}}</td>
+                                                        <td>{{t.debit | number: 2}}</td>
+                                                        <td>{{t.credit | number: 2}}</td>
+                                                        <td>{{t.balance | number: 2}}</td>
+                                                        <td>{{t.date_processed}}</td>
+                                                        <td>{{t.due_date}}</td>
                                                     </tr>
-                                                    <tr ng-if="!Transactions || Transactions.length === 0">
-                                                        <td colspan="5" class="text-center text-muted">No transactions
+                                                    <tr ng-if="!Transactions || Adjustments.length === 0">
+                                                        <td colspan="7" class="text-center text-muted">No transactions
                                                             found.</td>
                                                     </tr>
                                                 </tbody>
