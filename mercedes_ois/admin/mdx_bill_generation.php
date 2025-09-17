@@ -48,11 +48,11 @@
                     <div class="col-md-12 mb-3">
                         <div class="card shadow-sm border-0 rounded-3">
                             <div class="card-body">
-                                <h6 class="card-title fw-semibold">Master Search</h6>
+                                <h6 class="card-title fw-semibold">Month</h6>
                                 <div class="row mb-3">
                                     <!-- <label class="form-label">Accountnumber</label> -->
                                     <div class="col-md-6 d-flex">
-                                        <input type="month" class="form-control" ng-model="selectedMonth">
+                                        <h1>{{ selectedMonthDate | date:'MMMM yyyy' }}</h1>
                                     </div>
                                     <div class="col-md-6 d-flex justify-content-end">
                                         <button class="btn btn-secondary" type="button" ng-click="DoGenerateBill()">

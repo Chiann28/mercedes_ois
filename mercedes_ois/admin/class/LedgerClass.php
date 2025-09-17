@@ -57,34 +57,65 @@ class LedgerClass{
         return $result;
     }
 
-    public function DoGenerateBill($client, $user){
+    public function VerifyRates($client, $user){
         $SQL = new SQLCommands("mercedes_ois");
-        $query = "SELECT p.*, r.price, r.penalty_rate FROM properties p 
+        $query = "SELECT MAX(transaction_date) as max_date 
+                    FROM balance_sheet
+                    WHERE client = '$client'
+                    AND transaction_type = 'Bill'";
+        $result = $SQL->SelectQuery($query);
+    
+        $currentMonth = date('Ym');
+        $lastMonth = isset($result[0]['max_date']) ? date('Ym', strtotime($result[0]['max_date'])) : null;
+    
+        if($lastMonth === $currentMonth){
+            return [
+                "result" => false,
+                "message" => "Bills are already generated for this month."
+            ];
+        }
+    
+        return [
+            "result" => true,
+            "message" => "No bills yet for this month, ready to generate."
+        ];
+    }
+
+    public function DoGenerateBill($client, $user){
+        
+        $verify = $this->VerifyRates($client, $user);
+        if(!$verify['result']){
+            return $verify;
+        }
+    
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT p.*, r.price, r.penalty_rate 
+                    FROM properties p 
                     LEFT JOIN ref_properties r
                     ON r.client = p.client
                     AND r.property_code = p.property_code
                     WHERE p.client = '$client'";
         $datas = $SQL->SelectQuery($query);
-
+    
         $inserted = [];
         $failed = [];
-
+    
         foreach($datas as $data){
             $price = $data['price'];
             $accountnumber = $data['accountnumber'];
             $surcharge = $data['penalty_rate'];
-
+    
             $get_latest_balance = "SELECT balance FROM balance_sheet
                                     WHERE client = '$client' AND 
                                     accountnumber = '$accountnumber'
-                                    ORDER by transaction_date_time DESC 
+                                    ORDER BY transaction_date_time DESC 
                                     LIMIT 1";
             $fetch = $SQL->SelectQuery($get_latest_balance);
             $latest_balance = isset($fetch[0]['balance']) ? $fetch[0]['balance'] : 0;
-
-            $transaction_reference = $accountnumber.date('Ym');
-
-            //insert
+    
+            $transaction_reference = $accountnumber . date('Ym');
+    
+            // Insert
             $parameters = [
                 "client" => $client,
                 "accountnumber" => $accountnumber,
@@ -98,23 +129,26 @@ class LedgerClass{
                 "status" => "false",
                 "modifiedby" => $user
             ];
-
+    
             $insert = $SQL->InsertQuery("balance_sheet", $parameters);
-
+    
             if($insert){
                 $inserted[] = $accountnumber;
             } else {
                 $failed[] = $accountnumber;
             }
-            
-            return [
-                "success" => count($inserted),
-                "failed" => count($failed),
-                "inserted_accounts" => $inserted,
-                "failed_accounts" => $failed
-            ];
         }
+    
+        return [
+            "result" => true,
+            "message" => "Bill generation completed.",
+            "success" => count($inserted),
+            "failed" => count($failed),
+            "inserted_accounts" => $inserted,
+            "failed_accounts" => $failed
+        ];
     }
+    
     
 }
 

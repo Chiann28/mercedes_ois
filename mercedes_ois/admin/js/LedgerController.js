@@ -21,6 +21,10 @@ app.service("API", function ($http) {
 // Controller Start
 app.controller("LedgerController", function ($scope, API) {
   $scope.client = "mercedes";
+
+  var now = new Date();
+  $scope.selectedMonthDate = now;
+
   $scope.customer = $scope.customer || {};
   $scope.VerifySession = function () {
     console.log("Ledger Loaded");
@@ -260,11 +264,11 @@ app.controller("LedgerController", function ($scope, API) {
       var final_response = JSON.parse(atob(response.data));
       console.log(final_response);
 
-      if (final_response) {
+      if (final_response.result) {
         Swal.fire({
           icon: "success",
           title: "Successfully Posted",
-          text: "Accounts bill have been posted",
+          text: final_response.message,
           confirmButtonText: "OK",
           confirmButtonColor: "#6c757d",
           allowOutsideClick: false,
@@ -272,9 +276,9 @@ app.controller("LedgerController", function ($scope, API) {
         });
       } else {
         Swal.fire({
-          icon: "warning",
+          icon: "error",
           title: "Unsuccessfully Posted",
-          text: "Accounts bill have not been posted",
+          text: final_response.message,
           confirmButtonText: "OK",
           confirmButtonColor: "#6c757d",
           allowOutsideClick: false,
