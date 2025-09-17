@@ -86,6 +86,39 @@ class EventsClass
 
   }
 
+  public function DoUpdateEvent($params, $user)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $client = $params['client'];
+    $event_no = $params['event_no'];
+    $event_type = $params['event_type'];
+    $event_name = $params['event_name'];
+    $event_description = $params['event_description'];
+    $start_date = $params['start_date'];
+    $end_date = $params['end_date'];
+    $location = $params['location'];
+
+    $query = "UPDATE events 
+    SET event_type = '$event_type', 
+        event_name = '$event_name', 
+        event_description = '$event_description',
+        location = '$location',
+        start_date = '$start_date',
+        end_date = '$end_date',
+        modifiedby = '$user'
+
+      WHERE client = '$client' AND event_no = '$event_no' 
+    ";
+    $result = $SQL->UpdateQuery($query);
+    if (!$result) {
+      return ["result" => false, "message" => "Something Went Wrong. Event Update Failed.",];
+    } else {
+      return ["result" => true, "message" => "Event : $event_no Updated Successfuly",];
+    }
+   
+  
+  }
+
   public function DoDeleteEvent($client, $event_no)
   {
     $SQL = new SQLCommands("mercedes_ois");
@@ -104,7 +137,7 @@ class EventsClass
     } else {
       return ["result" => true, "message" => "Deleted Event No : " . $event_no,];
     }
-  
+
 
   }
 

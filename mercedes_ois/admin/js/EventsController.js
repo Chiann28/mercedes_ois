@@ -129,7 +129,7 @@ app.controller("EventsController", function ($scope, API) {
     var data = {
       client: $scope.client,
       params: $scope.postevent,
-      request_id: $scope.request_id,
+      //request_id: $scope.request_id,
       request_type: "DoPostEvent",
     };
     API.postApi("api/EventsAPI.php", data).then(function (response) {
@@ -219,7 +219,36 @@ app.controller("EventsController", function ($scope, API) {
     let dupe = angular.copy(event);
     dupe.start_date = $scope.clean_date(event.start_date);
     dupe.end_date = $scope.clean_date(event.end_date);
-    console.log(dupe);
+    // console.log(dupe);
+
+    var data = {
+      params: dupe,
+      request_type: "DoUpdateEvent",
+    }
+    API.postApi("api/EventsAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.response = final_response;
+      if ($scope.response.result) {
+        Swal.fire({
+          title: "Success!",
+          text: $scope.response.message,
+          icon: "success",
+          confirmButtonText: "Done",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            location.reload();
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: $scope.response.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        $scope.isEditing = false;
+      }
+    });
     
   };
 });

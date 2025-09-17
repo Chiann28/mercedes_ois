@@ -114,8 +114,7 @@ require_once "Connection.php";
 		public  function UpdateQuery($query){
 				$query = $this->clean_string($query);
 
-				// echo $query;
-		  	// die();
+				
 
 	      $result = mysqli_query($this->MySQLconnection(),$query);
 

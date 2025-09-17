@@ -35,7 +35,7 @@ try {
         case "DoDeleteEvent":
           $client = $_GET['client'] ?? "";
           $event_no = $_GET['event_no'] ?? "";
-          $process = $EventsClass->DoDeleteEvent($client,$event_no);
+          $process = $EventsClass->DoDeleteEvent($client, $event_no);
           $response = base64_encode(json_encode($process));
           break;
 
@@ -67,6 +67,14 @@ try {
           $params = $postData['params'];
           $client = $postData['client'];
           $process = $EventsClass->DoPostEvent($user, $client, $params);
+          $response = base64_encode(json_encode($process));
+          break;
+
+        case "DoUpdateEvent":
+          $user = $_SESSION['username'];
+          $params = $postData['params'];
+          $process = $EventsClass->DoUpdateEvent($params,$user);
+          
           $response = base64_encode(json_encode($process));
           break;
 
