@@ -50,6 +50,20 @@ try {
           $process = $EventsClass->GetPastEvents($client);
           $response = base64_encode(json_encode($process));
           break;
+        
+        case "DoCancelEvent":
+          $client = $_GET['client'] ?? "";
+          $event_no = $_GET['event_no'] ?? "";
+          $event_status = $_GET['event_status'] ?? "";
+          $process = $EventsClass->DoCancelEvent($client,$event_no,$event_status);
+          $response = base64_encode(json_encode($process));
+          break;
+        
+        case "DoSetPastEventStatus":
+          $client = $_GET['client'] ?? "";
+          $process = $EventsClass->DoSetPastEventStatus($client);
+          $response = base64_encode(json_encode($process));
+          break;
 
 
         default:

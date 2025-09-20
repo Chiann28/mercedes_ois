@@ -48,6 +48,7 @@ app.controller("EventsController", function ($scope, API) {
     $scope.GetPastEvents();
     $scope.DoCountEvents();
     $scope.DoCountPastEvents();
+    $scope.DoSetPastEventStatus();
   };
 
   //FLAGS
@@ -67,6 +68,16 @@ app.controller("EventsController", function ($scope, API) {
     let seconds = String(date.getSeconds()).padStart(2, "0");
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  $scope.DoSetPastEventStatus = function () {
+    data = {
+      client: $scope.client,
+      request_type: "DoSetPastEventStatus"
+    }
+    API.getApi("api/EventsAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+    });
   }
 
   $scope.DoCountEvents = function () {
@@ -251,4 +262,18 @@ app.controller("EventsController", function ($scope, API) {
     });
     
   };
+
+  $scope.DoCancelEvent = function (event_no, event_status){
+    var data = {
+      client: $scope.client,
+      event_no: event_no,
+      event_status: event_status,
+      request_type: "DoCancelEvent",
+    }
+    console.log(data)
+    API.getApi("api/EventsAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.GetEvents();
+    });
+  }
 });

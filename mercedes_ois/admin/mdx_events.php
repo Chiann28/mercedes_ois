@@ -129,7 +129,7 @@
           </div>
 
           <div class="col-12">
-            <div class="bg-light tab-content border border-dark-subtle rounded mt-3 p-3" id="myTabContent">
+            <div class="bg-light tab-content border border-dark-subtle rounded mt-3 p-3 pt-0" id="myTabContent">
 
               <!-- upcoming events -->
               <div class="tab-pane fade show active" id="tab1" role="tabpanel">
@@ -138,14 +138,14 @@
                   <div class="row">
 
 
-                    <div class="col-12 col-md-6 col-lg-4 mt-4" ng-repeat="event in EventsList">
+                    <div class="col-12 col-md-6 col-lg-4 my-1" ng-repeat="event in EventsList">
                       <div class="card mb-3 shadow-sm" style="height: 100%">
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
                             <div>
                               <h4 class="card-title">{{ event.event_name }}</h4>
                               <p class="card-text">{{ event.event_description }}</p>
-                              <p> {{ event.date_start }}</p>
+                              <p class="m-0"> {{ event.date_start }}</p>
                               <p> {{ event.start_time }} - {{ event.end_time }}</p>
                               <p> </p>
                             </div>
@@ -159,12 +159,31 @@
                             </div>
                           </div>
 
+                          <div class="w-100 d-flex justify-content-between align-items-center">
+                            <div>
+                              <p class="m-0" ng-class="{'mdx-text-green' : event.event_status === 'ACTIVE',
+                              'mdx-text-red' : event.event_status === 'CANCELLED'}">
+                                {{ event.event_status }}
+                              </p>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" style="width: 3rem !important; height: 1.5rem !important;"
+                                type="checkbox" role="switch" id="switchCheckChecked" ng-model="event.event_status"
+                                ng-true-value="'ACTIVE'" ng-false-value="'CANCELLED'"
+                                ng-change="DoCancelEvent(event.event_no,event.event_status)">
+                            </div>
+                          </div>
+
+                          <hr>
+
                           <div class="d-flex justify-content-between align-items-center">
                             <button class="btn btn-outline-secondary" data-bs-toggle="modal"
                               data-bs-target="#eventDetailsModal" ng-click="setSelectedEvent(event)"><i
                                 class="fa-regular fa-eye"></i></button>
                             <p class="m-0 text-muted">Event No: {{ event.event_no }}</p>
                           </div>
+
+
 
                         </div>
                       </div>
@@ -181,30 +200,54 @@
 
               <!-- past events -->
               <div class="tab-pane fade" id="tab2" role="tabpanel">
-                <div class="table-responsive border">
+                <div class="table-responsive border mt-3">
                   <table class="table">
                     <thead>
                       <tr>
-                        <th></th>
-                        <th scope="col">Event No</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
-                        <th scope="col">Status</th>
+                        <!-- <th></th> -->
+                        <th class="text-secondary" scope="col">EVENT NO</th>
+                        <th class="text-secondary" scope="col">EVENT</th>
+                        <th class="text-secondary" scope="col">FROM</th>
+                        <th class="text-secondary" scope="col">TO</th>
+                        <th class="text-secondary" scope="col">STATUS</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="past in pastEvents">
-                        <td style="cursor: pointer;">
+                      <tr ng-repeat="past in pastEvents" class="align-middle">
+                        <!-- <td class="text-center" style="cursor: pointer;">
                           <a ng-click="">
                             <i class="fa fa-arrow-right text-muted"></i>
                           </a>
-                        </td>
+                        </td> -->
                         <td>{{ past.event_no }}</td>
-                        <td>{{ past.event_name }}</td>
+
+                        <td>
+                          <div class="d-flex">
+                            <div class="p-2 rounded border">
+                              <i class="fa-solid text-secondary fs-4" ng-class="{ 'fa-leaf' : past.event_type === 'ENVIRONMENTAL',
+                              'fa-cake-candles' : past.event_type === 'BIRTHDAY',
+                              'fa-dove' : past.event_type === 'FUNERAL',
+                              'fa-comments' : past.event_type === 'SEMINAR',
+                              'fa-champagne-glasses' : past.event_type === 'CELEBRATION',
+                              }"></i>
+                            </div>
+                            <div class="ms-2">
+                              <span class="fw-semibold">{{ past.event_name }}</span>
+                              <p class="small text-muted m-0">{{ past.event_type }}</p>
+                            </div>
+                          </div>
+
+
+
+                        </td>
                         <td>{{ past.start_date }}</td>
                         <td>{{ past.end_date }}</td>
-                        <td> . </td>
+                        <td>
+                          <span ng-class="{'mdx-text-green' : past.event_status === 'COMPLETED',
+                              'mdx-text-red' : past.event_status === 'CANCELLED'}">
+                            {{ past.event_status }}
+                          </span>
+                        </td>
                       </tr>
 
                     </tbody>
@@ -214,7 +257,7 @@
 
               <!-- create -->
               <div class="tab-pane fade" id="tab3" role="tabpanel">
-                <div class="col-12 bg-light rounded">
+                <div class="col-12 bg-light rounded mt-4">
                   <form ng-submit="DoPostEvent()">
                     <div class="mb-3">
                       <label for="eventType" class="form-label">Event Type</label>
@@ -317,7 +360,7 @@
               <a href="" type="btn" ng-click="InitializeUpdating();" class="text-secondary">
                 <i class="fa-regular fa-pen-to-square fs-4 my-3"></i>
               </a>
-             
+
             </div>
 
 
@@ -361,13 +404,18 @@
             <input type="text" class="form-control" id="" placeholder="" required ng-model="selectedEvent.location"
               ng-disabled="!isEditing">
           </div>
+          <div class="mb-3 col-12">
+
+          </div>
+
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger"
-            ng-click="DoDeleteEvent(selectedEvent.event_no);" ng-hide="isEditing">Delete</button>
+          <button type="button" class="btn btn-outline-danger" ng-click="DoDeleteEvent(selectedEvent.event_no);"
+            ng-hide="isEditing">Delete</button>
           <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-          <button type="button" class="btn btn-secondary" ng-disabled="!isEditing" ng-click="DoUpdateEvent(selectedEvent)">Save changes</button>
+          <button type="button" class="btn btn-secondary" ng-disabled="!isEditing"
+            ng-click="DoUpdateEvent(selectedEvent)">Save changes</button>
         </div>
       </div>
     </div>

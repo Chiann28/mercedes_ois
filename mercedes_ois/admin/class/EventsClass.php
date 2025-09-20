@@ -115,8 +115,8 @@ class EventsClass
     } else {
       return ["result" => true, "message" => "Event : $event_no Updated Successfuly",];
     }
-   
-  
+
+
   }
 
   public function DoDeleteEvent($client, $event_no)
@@ -211,11 +211,40 @@ class EventsClass
     $result = $SQL->SelectQuery($query);
 
     return $result;
-
-
-
-
   }
+
+  public function DoCancelEvent($client, $event_no, $event_status)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $date = date('Y-m-d');
+
+    $query = "UPDATE events SET event_status = '$event_status' WHERE client = '$client' AND event_no = '$event_no';
+    ";
+    $result = $SQL->UpdateQuery($query);
+
+    return $result;
+  }
+
+  public function DoSetPastEventStatus($client)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $date = date('Y-m-d');
+
+    $query = "UPDATE events SET event_status = 'COMPLETED' 
+    WHERE client = '$client' 
+    AND start_date < '$date'
+    AND event_status = 'ACTIVE'
+    ";
+    $result = $SQL->UpdateQuery($query);
+
+    if (!$result) {
+      return ["result" => false, "message" => "Something Went Wrong",];
+    } else {
+      return ["result" => true, "message" => "nice"];
+    }
+  }
+
+
 
 }
 
