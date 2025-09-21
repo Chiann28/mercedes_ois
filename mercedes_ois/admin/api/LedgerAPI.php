@@ -7,8 +7,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $classFile = "../class/LedgerClass.php";
+$classFile2 = "../class/AdminExportClass.php";
 require_once $classFile;
+require_once $classFile2;
 $LedgerClass = new LedgerClass();
+$AdminExportClass = new AdminExportClass();
 
 $response = ["data" => []];
 
@@ -51,6 +54,12 @@ try {
                     $process = $LedgerClass->DoGenerateBill($client, $user);
                     $response =  base64_encode(json_encode($process));
                 break;
+
+                case "DoPrintReceipt":
+                    $transaction_reference = $_GET['transaction_reference'] ?? "";
+                    $process = $AdminExportClass->DoPrintReceipt($transaction_reference);
+                    $response =  base64_encode(json_encode($process));
+                    break;
                 
                 default:
                     $response["error"] = "Invalid request type";
