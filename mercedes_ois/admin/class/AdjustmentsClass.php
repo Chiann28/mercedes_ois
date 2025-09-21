@@ -69,7 +69,9 @@ class AdjustmentsClass{
 
         $item = $this->GetCreditAdjustment($client, $transaction_id);
         $credit = $item['credit'];
-        $transaction_reference = "ADJ".$accountnumber.date('YmdHis');
+        $payment_date = $item['transaction_date'];
+        $formatted_date = date("F j, Y", strtotime($payment_date));
+        $transaction_reference = "ADJ FOR PAYMENT ".$formatted_date;
 
         $get_latest_balance = "SELECT balance FROM balance_sheet
         WHERE client = '$client' AND 
@@ -111,7 +113,7 @@ class AdjustmentsClass{
 
         $insert = $SQL->InsertQuery("balance_sheet", $parameters);
        
-        $transaction = $this->DoInsertTransaction($client, $accountnumber, $transaction_reference, $amount, $user);
+        $transaction = $this->DoInsertTransaction($client, $accountnumber, $transaction_id, $transaction_reference, $amount, $user);
 
         $adjustment = $this->DoInsertAdjustments($client, $accountnumber, $transaction_id, $amount, $remarks, $user);
        
@@ -123,7 +125,7 @@ class AdjustmentsClass{
        }
     }
 
-    public function DoInsertTransaction($client,$accountnumber, $transaction_reference, $amount, $modifiedby){
+    public function DoInsertTransaction($client,$accountnumber, $transaction_id, $transaction_reference, $amount, $modifiedby){
         $SQL = new SQLCommands("mercedes_ois");
         $classification = "adjustments";
         $transaction_type = "Adjustments";
@@ -142,6 +144,7 @@ class AdjustmentsClass{
             "client" => $client,
             "transaction_id" => $transaction_reference,
             "accountnumber" => $accountnumber,
+            "item_id" => $transaction_id,
             "amount_paid" => $amount_paid,
             "status" => "paid",
             "classification" => $classification,

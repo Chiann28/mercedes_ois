@@ -68,14 +68,13 @@
                                 <h6 class="card-title fw-semibold">Master Search</h6>
                                 <div class="row mb-3">
                                     <!-- <label class="form-label">Accountnumber</label> -->
-                                    <div class="col-md-6 d-flex">
+                                    <form class="col-md-6 d-flex" ng-submit="openModalSearch()">
                                         <input type="text" class="form-control" placeholder="Search"
                                             ng-model="accountnumber">
-                                        <button class="btn btn-outline-secondary mx-3" type="button"
-                                            ng-click="openModalSearch()">
+                                        <button class="btn btn-outline-secondary mx-3" type="submit">
                                             <i class="fa fa-search"></i>
                                         </button>
-                                    </div>
+                                    </form>
                                     <div class="col-md-6 d-flex justify-content-end">
                                         <button class="btn btn-secondary" type="button" ng-click="exportData()">
                                             <i class="fa fa-file-excel me-2"></i> Export
@@ -207,6 +206,7 @@
                                         <div class="table-responsive">
                                             <table class="table table-hover align-middle">
                                                 <thead class="table-secondary">
+                                                    <th></th>
                                                     <th>Date</th>
                                                     <th>Transaction</th>
                                                     <th>Reference</th>
@@ -219,6 +219,11 @@
                                                 <tbody>
                                                     <tr ng-repeat="t in Transactions"
                                                         class="animate__animated animate__fadeIn">
+                                                        <td>
+                                                            <i ng-if="t.transaction_type == 'Payment'"
+                                                                class="fa fa-arrow-right text-success me-1"
+                                                                ng-click="DoPrintReceipt(t.transaction_reference)"></i>
+                                                        </td>
                                                         <td>{{t.transaction_date}}</td>
                                                         <td>{{t.transaction_type}}</td>
                                                         <td class="ref-col">{{t.transaction_reference}}</td>
