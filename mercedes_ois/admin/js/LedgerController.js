@@ -289,33 +289,19 @@ app.controller("LedgerController", function ($scope, API) {
   };
 
   $scope.DoPrintReceipt = function (transaction_reference) {
-    Swal.fire({
-      title: "Generating receipt...",
-      text: "Please wait.",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
+    // Swal.fire({
+    //   title: "Generating receipt...",
+    //   text: "Please wait.",
+    //   allowOutsideClick: false,
+    //   didOpen: () => {
+    //     Swal.showLoading();
+    //   },
+    // });
 
-    var data = {
-      transaction_reference: transaction_reference,
-      request_type: "DoPrintReceipt",
-    };
-
-    API.getApi("api/LedgerAPI.php", data).then(function (response) {
-      Swal.close();
-      var final_response = JSON.parse(atob(response.data));
-      console.log(final_response);
-      if (final_response) {
-        var printWindow = window.open("", "_blank");
-        printWindow.document.write(final_response);
-        printWindow.document.close();
-        printWindow.focus();
-        printWindow.print();
-      } else {
-        Swal.fire("Error", "Failed to generate receipt.", "error");
-      }
-    });
+    window.open(
+      "api/LedgerAPI.php?request_type=DoPrintReceipt&transaction_reference=" +
+        transaction_reference,
+      "_blank"
+    );
   };
 });

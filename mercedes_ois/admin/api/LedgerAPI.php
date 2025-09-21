@@ -57,9 +57,11 @@ try {
 
                 case "DoPrintReceipt":
                     $transaction_reference = $_GET['transaction_reference'] ?? "";
+                    $AdminExportClass = new AdminExportClass();
                     $process = $AdminExportClass->DoPrintReceipt($transaction_reference);
-                    $response =  base64_encode(json_encode($process));
-                    break;
+                    $response = base64_encode(json_encode($process));
+                    exit;
+                break;
                 
                 default:
                     $response["error"] = "Invalid request type";
