@@ -8,7 +8,7 @@
                 <i class="fa-solid fa-user"></i>
             </button>
             <button class="sidebar-toggler m-0" type="button" id="logout_button" ng-click="DoLogOut()">
-                Logout
+                <i class="fa-solid fa-right-from-bracket"></i>
             </button>
         </div>
 
@@ -18,6 +18,7 @@
     </div>
 </nav>
 <!-- PUTANGINA VANILLA NALANG API NALANG YAN> -->
+  <!-- TAMAD KA BOSS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {

@@ -22,30 +22,37 @@ try {
             switch ($request_type) {
                 case "VerifySession":
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-                            $response = [
-                                "result"   => true,
-                                "username" => $_SESSION['username'],
-                                "role"     => $_SESSION['role']
-                            ];
-                        } else {
-                            $response = [
-                                "result"  => false,
-                                "message" => "Not logged in or session expired"
-                            ];
-                        }
-                        break;
+                        $response = [
+                            "result" => true,
+                            "username" => $_SESSION['username'],
+                            "role" => $_SESSION['role']
+                        ];
+                    } else {
+                        $response = [
+                            "result" => false,
+                            "message" => "Not logged in or session expired"
+                        ];
+                    }
+                    break;
 
                 case "DoAutoPostAnnouncement":
                     $client = $_GET['client'] ?? "";
                     $process = $AdminClass->DoAutoPostAnnouncement($client);
-                    $response =  base64_encode(json_encode($process));
-                break;
-            
-                        default:
-                            $response["error"] = "Invalid request type";
-                        break;
-                    }
-                break;
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
+                case "DoGetEventDashboard":
+                    $client = $_GET['client'] ?? "";
+                    $process = $AdminClass->DoGetEventDashboard($client);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
+
+                default:
+                    $response["error"] = "Invalid request type";
+                    break;
+            }
+            break;
 
 
         case "POST":
@@ -57,11 +64,11 @@ try {
                     session_destroy();
 
                     $response = [
-                        "result"  => true,
+                        "result" => true,
                         "message" => "Logged out successfully"
                     ];
-            break;
-                break;
+                    break;
+                    break;
 
                 default:
                     $response["error"] = "Invalid request type";

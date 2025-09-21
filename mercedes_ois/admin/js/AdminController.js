@@ -38,6 +38,11 @@ app.controller("AdminController", function ($scope, API) {
     );
   };
 
+  $scope.loadDashboard = function () {
+    $scope.DoAutoPostAnnouncement();
+    $scope.DoGetEventDashboard();
+  }
+
   $scope.DoAutoPostAnnouncement = function () {
     var data = {
       client: $scope.client,
@@ -55,4 +60,19 @@ app.controller("AdminController", function ($scope, API) {
   $scope.init = function () {
     console.log("Welcome User");
   };
+
+  $scope.DoGetEventDashboard = function () {
+    var data = {
+      client: $scope.client,
+      request_type: "DoGetEventDashboard"
+    };
+    API.getApi("api/AdminAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      if (final_response) {
+        
+        $scope.DashboardEvents = final_response;
+        console.log($scope.DashboardEvents);
+      }
+    });
+  }
 });

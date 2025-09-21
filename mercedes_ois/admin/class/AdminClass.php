@@ -73,6 +73,17 @@ class AdminClass{
     
         return false;
     }
+
+    public function DoGetEventDashboard($client) {
+        $SQL = new SQLCommands("mercedes_ois");
+        $date = date('Y-m-d');
+
+        $query = "SELECT *, date(start_date) as `date_start`
+         FROM events WHERE date(start_date) >= '$date' ORDER BY start_date LIMIT 3";
+        $result = $SQL->SelectQuery($query);
+
+        return $result;
+    }
     
 }
 
