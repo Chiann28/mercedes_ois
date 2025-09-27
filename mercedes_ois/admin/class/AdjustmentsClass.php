@@ -85,7 +85,7 @@ class AdjustmentsClass{
         if($amount > 0){
             $credit = $amount;
             $debit = 0;
-            $balance = $latest_balance + $amount;
+            $balance = $latest_balance - $amount;
         }
         elseif($amount < 0){
             $debit = ABS($amount);
