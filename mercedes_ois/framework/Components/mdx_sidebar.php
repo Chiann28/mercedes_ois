@@ -79,6 +79,45 @@
 
     <a class="sidebar-icon" href="mdx_incident_and_requests.php" role="button" aria-expanded="false"
         aria-controls="residentInformationMenu"><i class="fa-solid fa-bell sidebar-icon"></i>
-        <span class="sidebar-text ms-2">Incidents and Requests</span></a>
+        <span class="sidebar-text ms-2">Incidents and Requests</span>
+    </a>
+
+    <!-- REPORT -->
+    <a class="sidebar-icon d-flex align-items-center" data-bs-toggle="collapse" href="#reportMenu" role="button"
+        aria-expanded="false" aria-controls="reportMenu">
+        <i class="fa-solid fa-money-check-dollar sidebar-icon"></i>
+        <span class="sidebar-text ms-2">Reports</span>
+        <!-- <i class="fa-solid fa-angle-down ms-auto"></i> -->
+    </a>
+    <div class="collapse" id="reportMenu">
+        <ul class="list-unstyled">
+            <li>
+                <a href="../../mercedes_ois/admin/mdx_residents_report.php" class="sidebar-sub-link">
+                    <span class="sidebar-text ms-2"> Residents Masterlist</span>
+                </a>
+            </li>
+            <li>
+                <a href="mdx_import_transaction.php" class="sidebar-sub-link"><span class="sidebar-text ms-2">
+                        Announcement History</span>
+                </a>
+            </li>
+            <li>
+                <a href="mdx_ledger.php" class="sidebar-sub-link">
+                    <span class="sidebar-text ms-2">Payment Collection</span>
+                </a>
+            </li>
+            <li>
+                <a href="mdx_adjustments.php" class="sidebar-sub-link">
+                    <span class="sidebar-text ms-2">Events </span>
+                </a>
+            </li>
+            <li>
+                <a href="mdx_bill_generation.php" class="sidebar-sub-link">
+                    <span class="sidebar-text ms-2">Incident Logs</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
 
 </div>

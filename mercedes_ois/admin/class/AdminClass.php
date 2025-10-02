@@ -1,6 +1,9 @@
 <?php
 
 require_once __DIR__ . "/../../framework/SQLCommands.php";
+require_once __DIR__. "/../../framework/PHPMailer-master/src/PHPMailer.php";
+require_once __DIR__. "/../../framework/PHPMailer-master/src/SMTP.php";
+require_once __DIR__. "/../../framework/PHPMailer-master/src/Exception.php";
 
 class AdminClass{
 
@@ -83,6 +86,107 @@ class AdminClass{
         $result = $SQL->SelectQuery($query);
 
         return $result;
+    }
+
+    public function DoAutoEmaileDue() {
+        $SQL = new SQLCommands("mercedes_ois");
+    
+        $query = "SELECT 
+                    b.transaction_date,
+                    c.accountnumber,
+                    c.email,
+                    DATE_ADD(b.transaction_date, INTERVAL 30 DAY) AS due_date,
+                    e.sent_date
+                FROM balance_sheet b
+                INNER JOIN (
+                    SELECT accountnumber, MAX(transaction_date) AS latest_date
+                    FROM balance_sheet
+                    WHERE transaction_type = 'Bill'
+                    GROUP BY accountnumber
+                ) latest
+                    ON b.accountnumber = latest.accountnumber
+                AND b.transaction_date = latest.latest_date
+                INNER JOIN customer_details c
+                    ON c.client = b.client
+                AND c.accountnumber = b.accountnumber
+                LEFT JOIN email_reminders e
+                    ON e.accountnumber = c.accountnumber
+                AND e.due_date = DATE_ADD(b.transaction_date, INTERVAL 30 DAY)
+                WHERE DATE_ADD(b.transaction_date, INTERVAL 30 DAY) <= CURDATE() + INTERVAL 5 DAY
+                AND (e.sent_date IS NULL OR e.sent_date < CURDATE())
+                ";
+                    
+        $result = $SQL->SelectQuery($query);
+        $sent = [];
+    
+        if ($result && count($result) > 0) {
+            foreach ($result as $row) {
+                if (!empty($row['email'])) {
+                    $ok = $this->SendDueEmail(
+                        $row['email'],
+                        $row['accountnumber'],
+                        $row['due_date']
+                    );
+
+                    $this->insertEmailReminder($row['email'],  $row['accountnumber'],$row['due_date']);
+
+                    $sent[] = [
+                        'email'  => $row['email'],
+                        'status' => $ok ? 'sent' : 'failed',
+                        'due'    => $row['due_date']
+                    ];
+                }
+            }
+        }
+    
+        return $sent;
+    }
+
+    public function insertEmailReminder($email, $accountnumber, $due_date){
+        $SQL = new SQLCommands("mercedes_ois");
+        $date_sent = date('Y-m-d');
+        $parameters = [
+            "accountnumber" => $accountnumber,
+            "due_date" => $due_date,
+            "sent_date" => $date_sent
+        ];
+
+        $result = $SQL->InsertQuery("email_reminders", $parameters);
+        return $result;
+    }
+    
+    
+
+
+    private function SendDueEmail($to, $account, $dueDate) {
+        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+    
+        try {
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'dgrtsaganmeow@gmail.com';
+            $mail->Password   = 'xzab bfpp sgcg ldyx';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 587;
+    
+            // Recipients
+            $mail->setFrom('dgrtsaganmeow@gmail.com', 'Mercedes Billing');
+            $mail->addAddress($to);
+    
+            // Email Content
+            $mail->isHTML(true);
+            $mail->Subject = "Payment Reminder - Account $account";
+            $mail->Body    = "Dear Customer,<br><br>
+                              Your bill is due on <b>$dueDate</b>.<br>
+                              Please make the payment to avoid late fees.<br><br>
+                              Thank you,<br>Mercedes Finance Team";
+    
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            echo "Could not send email to $to. Error: {$mail->ErrorInfo}<br>";
+        }
     }
     
 }

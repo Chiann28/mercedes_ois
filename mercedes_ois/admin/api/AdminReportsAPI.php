@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$classFile = "../class/AdminClass.php";
+$classFile = "../class/AdminReportsClass.php";
 require_once $classFile;
-$AdminClass = new AdminClass();
+$AdminReportsClass = new AdminReportsClass();
 
 $response = ["data" => []];
 
@@ -35,24 +35,13 @@ try {
                     }
                     break;
 
-                case "DoAutoPostAnnouncement":
+                case "resident_masterlist":
                     $client = $_GET['client'] ?? "";
-                    $process = $AdminClass->DoAutoPostAnnouncement($client);
+                    $datefrom = $_GET['datefrom'] ?? "";
+                    $dateto = $_GET['dateto'] ?? "";
+                    $process = $AdminReportsClass->resident_masterlist($client, $datefrom, $dateto);
                     $response = base64_encode(json_encode($process));
                     break;
-
-                case "DoAutoEmaileDue":
-                    $client = $_GET['client'] ?? "";
-                    $process = $AdminClass->DoAutoEmaileDue($client);
-                    $response = base64_encode(json_encode($process));
-                    break;
-                
-                case "DoGetEventDashboard":
-                    $client = $_GET['client'] ?? "";
-                    $process = $AdminClass->DoGetEventDashboard($client);
-                    $response = base64_encode(json_encode($process));
-                    break;
-                
 
                 default:
                     $response["error"] = "Invalid request type";
