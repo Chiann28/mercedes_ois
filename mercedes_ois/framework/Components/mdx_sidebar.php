@@ -97,17 +97,18 @@
                 </a>
             </li>
             <li>
-                <a href="mdx_import_transaction.php" class="sidebar-sub-link"><span class="sidebar-text ms-2">
+                <a href="../../mercedes_ois/admin/mdx_announcement_report.php" class="sidebar-sub-link"><span
+                        class="sidebar-text ms-2">
                         Announcement History</span>
                 </a>
             </li>
             <li>
-                <a href="mdx_ledger.php" class="sidebar-sub-link">
+                <a href="../../mercedes_ois/admin/mdx_collection_report.php" class="sidebar-sub-link">
                     <span class="sidebar-text ms-2">Payment Collection</span>
                 </a>
             </li>
             <li>
-                <a href="mdx_adjustments.php" class="sidebar-sub-link">
+                <a href="../../mercedes_ois/admin/mdx_event_report.php" class="sidebar-sub-link">
                     <span class="sidebar-text ms-2">Events </span>
                 </a>
             </li>

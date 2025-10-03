@@ -48,15 +48,47 @@ app.controller("AdminReportsController", function ($scope, API) {
           request_type: "resident_masterlist",
         };
         break;
+      case "announcement_history":
+        var data = {
+          client: $scope.client,
+          datefrom: $scope.datefrom,
+          dateto: $scope.dateto,
+          request_type: "announcement_history",
+        };
+      case "payment_collection":
+        var data = {
+          client: $scope.client,
+          datefrom: $scope.datefrom,
+          dateto: $scope.dateto,
+          request_type: "payment_collection",
+        };
+      case "events":
+        var data = {
+          client: $scope.client,
+          datefrom: $scope.datefrom,
+          dateto: $scope.dateto,
+          request_type: "events",
+        };
+        break;
       default:
         break;
     }
+
+    Swal.fire({
+      title: "Loading...",
+      text: "Please Wait...",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
     API.getApi("api/AdminReportsAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
       if (final_response) {
         $scope.data = final_response;
-        console.log("Residents", final_response);
+        console.log("DATA", final_response);
+        swal.close();
       }
     });
   };

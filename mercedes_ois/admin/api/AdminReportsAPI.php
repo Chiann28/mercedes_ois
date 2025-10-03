@@ -43,6 +43,30 @@ try {
                     $response = base64_encode(json_encode($process));
                     break;
 
+                case "announcement_history":
+                    $client = $_GET['client'] ?? "";
+                    $datefrom = $_GET['datefrom'] ?? "";
+                    $dateto = $_GET['dateto'] ?? "";
+                    $process = $AdminReportsClass->announcement_history($client, $datefrom, $dateto);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
+                case "payment_collection":
+                    $client = $_GET['client'] ?? "";
+                    $datefrom = $_GET['datefrom'] ?? "";
+                    $dateto = $_GET['dateto'] ?? "";
+                    $process = $AdminReportsClass->payment_collection($client, $datefrom, $dateto);
+                    $response = base64_encode(json_encode($process));
+                    break;
+
+                case "events":
+                    $client = $_GET['client'] ?? "";
+                    $datefrom = $_GET['datefrom'] ?? "";
+                    $dateto = $_GET['dateto'] ?? "";
+                    $process = $AdminReportsClass->events($client, $datefrom, $dateto);
+                    $response = base64_encode(json_encode($process));
+                    break;
+
                 default:
                     $response["error"] = "Invalid request type";
                     break;
