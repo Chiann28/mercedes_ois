@@ -1,0 +1,85 @@
+.lower-card {
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.lower-card:hover {
+  background-color: #f55355;
+  color: aliceblue;
+}
+
+
+
+/* Icon container position */
+.lower-card-item {
+  bottom: 10px;
+  left: 80%;
+  transform: translateX(-50%);
+}
+
+/* Default icon style */
+.lower-card-icon {
+  color: #f55355;
+  transition: all 0.3s ease;
+}
+
+.lower-card-icon-bounce {
+  color: #f55355;
+  transition: all 0.3s ease;
+}
+
+.lower-card-icon-rotate {
+  color: #f55355;
+  transition: transform 0.3s ease;
+}
+
+.lower-card:hover .lower-card-icon-rotate {
+  color: aliceblue;
+  animation: rotate 3s linear infinite;
+}
+
+.lower-card:hover .lower-card-icon-bounce {
+  color: aliceblue;
+  animation: gentleBounce 1s infinite ease-in-out;
+}
+
+/* Glow + Pulse effect on hover */
+.lower-card:hover .lower-card-icon {
+  color: aliceblue;
+  animation: glowPulse 1.5s infinite ease-in-out;
+}
+
+/* Keyframes for the pulse glow */
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 4px #ffcc66, 0 0 8px #ffb84d, 0 0 12px #e6a23c;
+  }
+  50% {
+    text-shadow: 0 0 10px #ffd580, 0 0 18px #ffcc66, 0 0 25px #e6a23c;
+  }
+  100% {
+    text-shadow: 0 0 4px #ffcc66, 0 0 8px #ffb84d, 0 0 12px #e6a23c;
+  }
+}
+
+@keyframes gentleBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
