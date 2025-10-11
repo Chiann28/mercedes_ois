@@ -25,7 +25,11 @@
     <nav class="fixed-top navbar navbar-expand-lg bg-none">
         <div class="container">
 
-            <a class="navbar-brand text-light" href="#">LOGO</a>
+            <!-- <a class="navbar-brand text-light" href="#">LOGO</a> -->
+            <a class="navbar-brand d-flex align-items-center" href="#" class="text-light">
+                <img src="..\admin\logo_mercedes.png" alt="" style="height: 45px;">
+                <!-- <span class="fw-bold h3 mb-0" style="color: #fe3131;">MERCEDES</span> -->
+            </a>
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -36,17 +40,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link text-light mdx-text-hover" href="#">Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light mdx-text-hover" href="#">About Us</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link text-light mdx-text-hover" href="MDXSignup.php">Sign up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light mdx-text-hover" href="#">Help</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light mdx-text-hover" href="#">Login</a>
+                        <a class="nav-link text-light mdx-text-hover" data-bs-toggle="modal"
+                            data-bs-target="#loginModal" style="cursor: pointer;">Login</a>
                     </li>
                     <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -126,8 +131,7 @@
                                     <label class="form-check-label small" for="exampleCheck1">Remember me</label>
                                 </div>
 
-                                <a href="../admin/mdx_admin_dashboard.php"
-                                    class="text-decoration-none small mdx-text-scarlet">Forgot Password?</a>
+                                <a href="" class="text-decoration-none small mdx-text-scarlet">Forgot Password?</a>
                             </div>
 
                             <div class="text-md-center mt-5">
@@ -153,7 +157,7 @@
     <!-- bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
+        </script>
 
 </body>
 
