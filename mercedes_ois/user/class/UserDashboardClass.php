@@ -18,9 +18,12 @@ class UserDashboardClass{
                     AND cd.accountnumber = u.accountnumber
                                     WHERE u.client = '$client'
                                     AND u.user_id = '$user_id'";
+        
+        // print_r($query);
         $result = $SQL->SelectQuery($query);
 
         return $result[0];
+        // print_r($result);
     }
 
    

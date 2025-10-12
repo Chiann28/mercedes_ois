@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark text-light">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#" class="text-light">
+        <a class="navbar-brand d-flex align-items-center" href="MDXUserDashboard.php" class="text-light">
             <img src="..\admin\logo_mercedes.png" alt="" style="height: 45px;">
             <span class="fw-bold h3 mb-0" style="color: #fe3131;">MERCEDES</span>
         </a>

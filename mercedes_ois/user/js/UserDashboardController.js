@@ -31,7 +31,7 @@ app.controller("UserDashboardController", function ($scope, API) {
     API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
       $scope.data = final_response;
-      console.log(final_response);
+      console.log($scope.data);
     });
   };
 });

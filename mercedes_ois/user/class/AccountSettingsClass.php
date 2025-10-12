@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../../framework/SQLCommands.php";
 
-class LoginClass
+class AccountSettingsClass
 {
 
     public function __construct()
@@ -97,6 +97,51 @@ class LoginClass
         }
 
     }
+
+    public function DoUpdateFullname($accountnumber) {
+      $SQL = new SQLCommands("mercedes_ois");
+      $query = "UPDATE customer_details SET fullname = CONCAT(firstname, ' ',middlename, ' ',lastname) WHERE accountnumber = '$accountnumber';";
+      $result = $SQL->UpdateQuery( $query);
+    }
+
+    public function UpdateAccount($params, $client)
+    {
+        $SQL = new SQLCommands("mercedes_ois");
+        
+        $accountnumber = $params['accountnumber'];
+        $firstname = $params['firstname'];
+        $middlename = $params['middlename'];
+        $lastname = $params['lastname'];
+        $type = $params['type'];
+        $address = $params['address'];
+        $contact_number = $params['contact_number'];
+        $email = $params['email'];
+
+
+        $query = "UPDATE customer_details 
+          SET firstname = '$firstname',
+              middlename = '$middlename',
+              lastname = '$lastname',
+              type = '$type',
+              address = '$address',
+              contact_number = '$contact_number',
+              email = '$email'
+          
+          WHERE client = '$client'
+          AND accountnumber = '$accountnumber';         
+        ";
+        
+        $result = $SQL->UpdateQuery( $query);
+        if (!$result) {
+            return ["result" => false, "message" => "Failed",];
+        } else {
+            $this->DoUpdateFullname($accountnumber);
+            return ["result" => true, "message" => "Success",];
+        }
+
+    }
+
+
 
 }
 

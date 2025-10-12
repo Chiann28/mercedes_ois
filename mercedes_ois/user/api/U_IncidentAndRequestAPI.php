@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$classFile = "../class/LoginClass.php";
+$classFile = "../class/U_IncidentAndRequestClass.php";
 require_once $classFile;
-$LoginClass = new LoginClass();
+$U_IncidentAndRequestClass = new U_IncidentAndRequestClass();
 
 $response = ["data" => []];
 
@@ -20,48 +20,53 @@ try {
         case "GET":
             $request_type = $_GET['request_type'] ?? "";
             switch ($request_type) {
-                case "getData":
-                    $client = $_GET['client'] ?? "";
-                    $process = $LoginClass->getData($client);
-                    $response = base64_encode(json_encode($process));
+
+                case "GetUserData":
+                    // $client = $_GET['client'] ?? "";
+                    // $user_id = $_SESSION['user_id'] ?? "";
+                   
+                    // $process = $UserDashboardClass->GetUserData($client, $user_id);
+                    // $response = base64_encode(json_encode($process));
                     break;
 
+                case "GetReportTicket":
+                    $client = $_GET['client'] ?? "";
+                    $accountnumber = $_GET['accountnumber'] ?? "";
+                    $process = $U_IncidentAndRequestClass->GetReportTicket($client, $accountnumber);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
+                
+                
                 default:
                     $response["error"] = "Invalid request type";
                     break;
             }
             break;
 
+
         case "POST":
             $postData = json_decode(file_get_contents("php://input"), true);
             $request_type = $postData['request_type'] ?? "";
             switch ($request_type) {
-                case "DoLogin":
-                    $client = $postData['client'] ?? "";
-                    $username = $postData['username'] ?? "";
-                    $password = $postData['password'] ?? "";
-                    $process = $LoginClass->DoLogin($client, $username, $password);
-                    // print_r($process); die();
-                    //save session
-                    if (!empty($process['result']) && $process['result'] === true) {
-                        $_SESSION['logged_in'] = true;
-                        $_SESSION['user_id'] = $process['user_id'];
-                        $_SESSION['client'] = $client;
-                        $_SESSION['username'] = $username;
-                        $_SESSION['role'] = $process['role'] ?? "user";
-                    }
+                case "Logout":
+                    // session_unset();
+                    // session_destroy();
 
-                    $response = base64_encode(json_encode($process));
+                    // $response = [
+                    //     "result" => true,
+                    //     "message" => "Logged out successfully"
+                    // ];
                     break;
-
-                case "DoAccountRequest":
-                    // $user = $_SESSION['username'];
-                    $params = $postData['params'];
+                
+                case "submitReport":
                     $client = $postData['client'];
-                    // $request_id = isset($postData['request_id']) ? $postData['request_id'] : null;
-                    $process = $LoginClass->DoAccountRequest($params, $client);
+                    $report = $postData['report'];
+                    $accountnumber = $postData['accountnumber'];
+                    $process = $U_IncidentAndRequestClass->submitReport($report,$client,$accountnumber);
                     $response = base64_encode(json_encode($process));
                     break;
+                   
 
                 default:
                     $response["error"] = "Invalid request type";

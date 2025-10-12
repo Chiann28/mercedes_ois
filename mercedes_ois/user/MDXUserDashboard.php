@@ -51,8 +51,8 @@
                                 <div class="col-12 text-light">
                                     <div class="row">
                                         <div class="col-8">
-                                            <p class="h1">AISLE NEVER TELL</p>
-                                            <p class="h5 fw-normal">12345678</p>
+                                            <p class="h1">{{ data.fullname || 'Loading...' }}</p>
+                                            <p class="h5 fw-normal">{{ data.accountnumber || 'Loading...' }}</p>
                                         </div>
                                         <div class="col-4 d-flex justify-content-end align-items-center">
                                             <a href=""><i
@@ -120,19 +120,21 @@
             </div>
 
             <div class="col-lg-4">
-                <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
-                    style="height: 25vh;">
-                    <div class="lower-card-content">
-                        <h5 class="fw-bold mb-1">Report Incident</h5>
-                        <p class="lower-card-desc mb-0 small">
-                            Quickly report any issues or emergencies for immediate response.
-                        </p>
-                    </div>
+                <a href="MDX_U_Incident.php" class="text-decoration-none text-dark">
+                    <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
+                        style="height: 25vh;">
+                        <div class="lower-card-content">
+                            <h5 class="fw-bold mb-1">Report Incident</h5>
+                            <p class="lower-card-desc mb-0 small">
+                                Quickly report any issues or emergencies for immediate response.
+                            </p>
+                        </div>
 
-                    <div class="lower-card-item position-absolute">
-                        <i class="fa-solid fa-triangle-exclamation lower-card-icon" style="font-size: 7rem;"></i>
+                        <div class="lower-card-item position-absolute">
+                            <i class="fa-solid fa-triangle-exclamation lower-card-icon" style="font-size: 7rem;"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-4">
@@ -151,19 +153,22 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
-                    style="height: 25vh;">
-                    <div class="lower-card-content">
-                        <h5 class="fw-bold mb-1">Account Settings</h5>
-                        <p class="lower-card-desc mb-0 small">
-                            Manage your account details.
-                        </p>
-                    </div>
+                <a href="MDXAccountSettings.php" class="text-decoration-none text-dark">
+                    <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
+                        style="height: 25vh; cursor: pointer;">
+                        <div class="lower-card-content">
+                            <h5 class="fw-bold mb-1">Account Settings</h5>
+                            <p class="lower-card-desc mb-0 small">
+                                Manage your account details.
+                            </p>
+                        </div>
 
-                    <div class="lower-card-item position-absolute">
-                        <i class="fa-solid fa-gear lower-card-icon-rotate" style="font-size: 7rem;"></i>
+                        <div class="lower-card-item position-absolute">
+                            <i class="fa-solid fa-gear lower-card-icon-rotate" style="font-size: 7rem;"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
+
             </div>
 
         </div>
@@ -175,7 +180,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
+        </script>
 
 </body>
 
