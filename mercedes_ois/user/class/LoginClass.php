@@ -16,7 +16,6 @@ class LoginClass{
                 AND `password` = '$password'
                 LIMIT 1";
         $result = $SQL->SelectQuery($query);
-
         
         
         if (empty($result) || count($result) == 0) {
@@ -34,14 +33,15 @@ class LoginClass{
                 "result"   => true,
                 "message"  => "Login successful",
                 "username" => $username,
-                "role"     => "admin"
+                "role"     => "admin",
             ];
         } else {
             return [
                 "result"   => true,
                 "message"  => "Login successful",
                 "username" => $username,
-                "role"     => $user['role'] ?? "user"
+                "role"     => $user['role'] ?? "user",
+                "user_id" => $user["user_id"] ?? ""
             ];
         }
 

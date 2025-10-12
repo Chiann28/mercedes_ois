@@ -1,0 +1,37 @@
+var app = angular.module("mercedesApp", []);
+
+app.service("API", function ($http) {
+  this.getApi = function (url, params) {
+    return $http({
+      method: "GET",
+      url: url,
+      params: params,
+    });
+  };
+
+  this.postApi = function (url, data) {
+    return $http({
+      method: "POST",
+      url: url,
+      data: data,
+    });
+  };
+});
+
+// Controller Start
+app.controller("UserDashboardController", function ($scope, API) {
+  $scope.client = "mercedes";
+
+  $scope.init = function () {
+    var data = {
+      client: $scope.client,
+      request_type: "GetUserData",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.data = final_response;
+      console.log(final_response);
+    });
+  };
+});
