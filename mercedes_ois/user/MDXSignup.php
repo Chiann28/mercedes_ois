@@ -13,14 +13,15 @@
   <link rel="stylesheet" href="../framework/css/NashieCss.css">
   <!-- FONTAWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
-
+  <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- JAVASCRIPT -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
   <script src="../../mercedes_ois/user/js/LoginController.js"></script>
 
 </head>
 
-<body class="bg-light" ng-controller="" ng-init="">
+<body class="bg-light" ng-controller="LoginController" ng-init="">
   <!-- Header -->
   <nav class="navbar navbar-expand-lg bg-none">
     <div class="container">
@@ -76,30 +77,30 @@
         <div class="col-12 col-md-6 my-2">
           <label for="firstname"><span class="text-muted">First Name</span></label>
           <input type="text" class="form-control mt-2" id="firstname" placeholder="First Name"
-            ng-model="newapp.firstname">
+            ng-model="accreq.firstname">
         </div>
 
         <div class="col-12 col-md-6 my-2">
           <label for="lastname"><span class="text-muted">Last Name</span></label>
           <input type="text" class="form-control mt-2" id="firstname" placeholder="Last Name"
-            ng-model="newapp.lastname">
+            ng-model="accreq.lastname">
         </div>
 
         <div class="col-12 my-2">
           <label for="email"><span class="text-muted">Email</span></label>
-          <input type="email" class="form-control mt-2" id="email" placeholder="Email" ng-model="newapp.email">
+          <input type="email" class="form-control mt-2" id="email" placeholder="Email" ng-model="accreq.email">
         </div>
 
         <div class="col-12 col-md-6 my-2">
           <label for="phone"><span class="text-muted">Mobile Number</span></label>
           <div class="mt-2">
-            <input id="phone" type="tel" placeholder="" class="form-control" ng-model="newapp.mobile_no">
+            <input id="phone" type="tel" placeholder="" class="form-control" ng-model="accreq.mobile_no">
           </div>
         </div>
 
         <div class="col-12 col-md-6 my-2">
           <label for="telephone"><span class="text-muted">Telephone</span></label>
-          <input type="number" class="form-control mt-2" id="telephone" placeholder="" ng-model="newapp.tel_no">
+          <input type="number" class="form-control mt-2" id="telephone" placeholder="" ng-model="accreq.tel_no">
         </div>
 
 
@@ -116,36 +117,36 @@
         <div class="col-12 my-2">
           <label for="username"><span class="text-muted">Username</span></label>
           <input type="text" class="form-control mt-2" id="firstname" placeholder="username"
-            ng-model="newapp.firstname">
+            ng-model="accreq.username">
         </div>
 
         <div class="col-12 col-md-6 my-2">
           <label for="firstname"><span class="text-muted">Reference Name</span></label>
           <input type="text" class="form-control mt-2" id="firstname" placeholder="First Name"
-            ng-model="newapp.firstname">
+            ng-model="accreq.ref_name">
         </div>
 
         <div class="col-12 col-md-6 my-2">
           <label for="lastname"><span class="text-muted">Reference Contact No.</span></label>
           <input type="text" class="form-control mt-2" id="firstname" placeholder="Last Name"
-            ng-model="newapp.lastname">
+            ng-model="accreq.ref_contact">
         </div>
 
         <div class="col-12 my-2">
                       <label for="unittype"><span class="text-muted">Unit Type</span></label>
                       <input type="text" class="form-control mt-2" id="unittype" placeholder=""
-                        ng-model="newapp.unittype">
+                        ng-model="accreq.unittype">
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
                       <label for="lot_no"><span class="text-muted">Lot No.</span></label>
-                      <input type="text" class="form-control mt-2" id="lot_no" placeholder="" ng-model="newapp.lot_no">
+                      <input type="text" class="form-control mt-2" id="lot_no" placeholder="" ng-model="accreq.lot_no">
                     </div>
 
                     <div class="col-12 col-md-6 my-2">
                       <label for="houseNo"><span class="text-muted">House No.</span></label>
                       <input type="text" class="form-control mt-2" id="houseNo" placeholder=""
-                        ng-model="newapp.house_no">
+                        ng-model="accreq.house_no">
                     </div>
 
 
@@ -164,7 +165,7 @@
                     <!-- <button type="button" class="btn btn-outline-danger" ng-click="DiscardChanges()"><i
                         class="fa-solid fa-trash-can small"></i>
                       Discard</button> -->
-                    <button type="button" class="btn btn-success" ng-click="DoCreateAccount()">Submit</button>
+                    <button type="button" class="btn btn-success" ng-click="DoAccountRequest()">Submit</button>
                   </div>
 
 

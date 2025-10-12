@@ -47,4 +47,39 @@ app.controller("LoginController", function ($scope, API) {
   $scope.init = function () {
     console.log("Welcome User");
   };
+
+  $scope.DoAccountRequest = function () {
+    console.log($scope.accreq);
+    var data = {
+      client: $scope.client,
+      params: $scope.accreq,
+      //request_id : $scope.request_id,
+      request_type: "DoAccountRequest",
+    }
+    API.postApi("api/LoginAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.response = final_response;
+      if ($scope.response.result) {
+        Swal.fire({
+          title: "Success!",
+          text: $scope.response.message,
+          icon: "success",
+          confirmButtonText: "Done",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            // location.reload();
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: $scope.response.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        $scope.isEditing = false;
+      }
+      
+    });
+  }
 });

@@ -23,7 +23,7 @@ try {
                 case "getData":
                     $client = $_GET['client'] ?? "";
                     $process = $LoginClass->getData($client);
-                    $response =  base64_encode(json_encode($process));
+                    $response = base64_encode(json_encode($process));
                     break;
 
                 default:
@@ -45,12 +45,21 @@ try {
                     //save session
                     if (!empty($process['result']) && $process['result'] === true) {
                         $_SESSION['logged_in'] = true;
-                        $_SESSION['client']    = $client;
-                        $_SESSION['username']  = $username;
-                        $_SESSION['role']      = $process['role'] ?? "user";
+                        $_SESSION['client'] = $client;
+                        $_SESSION['username'] = $username;
+                        $_SESSION['role'] = $process['role'] ?? "user";
                     }
 
-                    $response =  base64_encode(json_encode($process));
+                    $response = base64_encode(json_encode($process));
+                    break;
+
+                case "DoAccountRequest":
+                    // $user = $_SESSION['username'];
+                    $params = $postData['params'];
+                    $client = $postData['client'];
+                    // $request_id = isset($postData['request_id']) ? $postData['request_id'] : null;
+                    $process = $LoginClass->DoAccountRequest($params, $client);
+                    $response = base64_encode(json_encode($process));
                     break;
 
                 default:
