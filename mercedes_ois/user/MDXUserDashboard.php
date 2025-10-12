@@ -12,7 +12,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
 
-    <script src="../../mercedes_ois/admin/js/Sample.js"></script>
+    <script src="../../mercedes_ois/user/js/UserDashboardController.js"></script>
 
 
 
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../framework/CSS/user_dashboard_anims.css">
 </head>
 
-<body class="bg-light" style="" ng-controller="SampleController" ng-init="init()">
+<body class="bg-light" style="" ng-controller="UserDashboardController" ng-init="init();">
     <?php require_once '../framework/Components/mdx_user_header.php'; ?>
 
     <div class="container-md mb-3" style="min-height: 87vh">
@@ -83,7 +83,7 @@
                                         <p class="h5 fw-light mb-4">Upcomming Event</p>
                                         <p class="h3 fw-semi-bold">MERCEDES WEB DEPLOYMENT</p>
                                         <p class="small">2025-10-31</p>
-                                        
+
 
 
                                     </div>
@@ -102,7 +102,7 @@
                                         <p class="h3 fw-semi-bold">System Maintenance</p>
                                         <p class="small">Scheduled downtime for system upgrade</p>
                                         <p class="small">2025-10-31</p>
-                                        
+
 
 
                                     </div>
@@ -175,7 +175,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
+    </script>
 
 </body>
 

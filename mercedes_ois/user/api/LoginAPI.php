@@ -41,13 +41,19 @@ try {
                     $username = $postData['username'] ?? "";
                     $password = $postData['password'] ?? "";
                     $process = $LoginClass->DoLogin($client, $username, $password);
-
                     //save session
                     if (!empty($process['result']) && $process['result'] === true) {
                         $_SESSION['logged_in'] = true;
+<<<<<<< HEAD
                         $_SESSION['client'] = $client;
                         $_SESSION['username'] = $username;
                         $_SESSION['role'] = $process['role'] ?? "user";
+=======
+                        $_SESSION['client']    = $client;
+                        $_SESSION['username']  = $username;
+                        $_SESSION['role']      = $process['role'] ?? "user";
+                        $_SESSION['user_id']  = $process['user_id'] ?? "";
+>>>>>>> 8afb1336967c91db158918daa222ff6eae38ca57
                     }
 
                     $response = base64_encode(json_encode($process));

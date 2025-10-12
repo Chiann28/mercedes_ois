@@ -19,9 +19,14 @@ class LoginClass
                 AND `password` = '$password'
                 LIMIT 1";
         $result = $SQL->SelectQuery($query);
+<<<<<<< HEAD
 
 
 
+=======
+        
+        
+>>>>>>> 8afb1336967c91db158918daa222ff6eae38ca57
         if (empty($result) || count($result) == 0) {
             return [
                 "result" => false,
@@ -38,14 +43,23 @@ class LoginClass
                 "result" => true,
                 "message" => "Login successful",
                 "username" => $username,
+<<<<<<< HEAD
                 "role" => "admin"
+=======
+                "role"     => "admin",
+>>>>>>> 8afb1336967c91db158918daa222ff6eae38ca57
             ];
         } else {
             return [
                 "result" => true,
                 "message" => "Login successful",
                 "username" => $username,
+<<<<<<< HEAD
                 "role" => $user['role'] ?? "user"
+=======
+                "role"     => $user['role'] ?? "user",
+                "user_id" => $user["user_id"] ?? ""
+>>>>>>> 8afb1336967c91db158918daa222ff6eae38ca57
             ];
         }
 
