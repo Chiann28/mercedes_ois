@@ -83,3 +83,19 @@
   }
 }
 
+@media (max-width: 768px) {
+  .lower-card {
+    height: 25vh !important;
+  }
+
+  .col-12[style*="25vh"],
+  .col-6[style*="25vh"],
+  .col-lg-4[style*="25vh"] {
+    height: auto !important;
+  }
+
+  .lower-card-icon,.lower-card-icon-rotate, .lower-card-icon-bounce  {
+    font-size: 4rem !important;
+  }
+}
+

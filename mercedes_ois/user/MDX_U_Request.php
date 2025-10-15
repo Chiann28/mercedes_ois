@@ -22,13 +22,12 @@
   <link rel="stylesheet" href="../framework/CSS/user_dashboard_anims.css">
 </head>
 
-<body class="bg-light" style="" ng-controller="U_IncidentAndRequestController" ng-init="init('incident');">
+<body class="bg-light" style="" ng-controller="U_IncidentAndRequestController" ng-init="init('request');">
   <?php require_once '../framework/Components/mdx_user_header.php'; ?>
 
   <div class="container-md mb-3 py-5" style="min-height: 87vh">
     <div class="p-5 mt-3 shadow-sm rounded border d-flex justify-content-between align-items-center">
-      <h1 class="fw-semiboold"><i class="fa-solid fa-triangle-exclamation lower-card-icon-rotate me-1"></i>Report
-        Incident</h1>
+      <h1 class="fw-semiboold"><i class="fa-solid fa-bell-concierge lower-card-icon-rotate me-1"></i>Requests</h1>
       <div>
         <!-- <button class="btn btn-secondary btn-sm" type="button" ng-click="InitializeUpdating()">
           <i class="fa-solid fa-xmark" ng-if="isEditing"></i>
@@ -45,7 +44,7 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
             type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
-            File a Report
+            Request
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -62,10 +61,10 @@
         <div class="tab-pane my-4 fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
           tabindex="0">
           <div class="py-4">
-            <h4 class="fw-semibold mb-4">File a Report</h4>
+            <h4 class="fw-semibold mb-4">File a Request</h4>
 
             <!-- Form Start -->
-            <form id="reportForm" ng-submit="submitReport()">
+            <form id="reportForm" ng-submit="submitRequest()">
               <div class="row">
                 <div class="col-12">
                   <div class="mb-3">
@@ -76,7 +75,7 @@
                       <option value="security">SECURITY</option>
                       <option value="medical">MEDICAL</option>
                       <option value="utility">UTILITY</option>
-                      <option value="noise">NOISE COMPLAINT</option>
+                      <!-- <option value="noise">NOISE COMPLAINT</option> -->
                       <option value="others">OTHERS</option>
                     </select>
                   </div>
@@ -85,14 +84,14 @@
                 <div class="col-12">
                   <div class="mb-3">
                     <label for="reportTitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="reportTitle" placeholder="Incident title" ng-model="ri.title" required>
+                    <input type="text" class="form-control" id="reportTitle" placeholder="Request Title" ng-model="ri.title" required>
                   </div>
                 </div>
 
                 <div class="col-12">
                   <div class="mb-3">
                     <label for="reportTitle" class="form-label">Location</label>
-                    <input type="text" class="form-control" id="reportTitle" placeholder="Incident Location" ng-model="ri.location" required>
+                    <input type="text" class="form-control" id="reportTitle" placeholder="Location if applicable" ng-model="ri.location" required>
                   </div>
                 </div>
 
@@ -119,7 +118,7 @@
         <div class="tab-pane my-4 fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
           tabindex="0">
           <div class="py-4">
-            <h4 class="fw-semibold mb-4">Reports Ticket</h4>
+            <h4 class="fw-semibold mb-4">Requests Ticket</h4>
             <div class="table-responsive border mt-3">
                   <table class="table">
                     <thead>

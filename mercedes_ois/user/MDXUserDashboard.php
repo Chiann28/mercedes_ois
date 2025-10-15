@@ -21,10 +21,10 @@
     <link rel="stylesheet" href="../framework/CSS/user_dashboard_anims.css">
 </head>
 
-<body class="bg-light" style="" ng-controller="UserDashboardController" ng-init="init();">
+<body class="bg-light d-flex flex-column min-vh-100" style="" ng-controller="UserDashboardController" ng-init="init();">
     <?php require_once '../framework/Components/mdx_user_header.php'; ?>
 
-    <div class="container-md mb-3" style="min-height: 87vh">
+    <div class="container-md mb-3 flex-grow-1">
         <!-- code here temporariliy
          will update the UI later
          add
@@ -73,6 +73,7 @@
 
                 </div>
             </div>
+
             <div class="col-12 my-3" style="height: 25vh;">
                 <div class="" style="height: 100%">
                     <div class="row" style="height: 100%">
@@ -94,7 +95,7 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mt-3 mt-lg-0">
                             <div class="bg-light shadow p-4 rounded" style="height: 100%; overflow:hidden;">
                                 <div class="row" style="height: 100%;">
                                     <div class="col-10 d-flex flex-column justify-content-center">
@@ -113,70 +114,89 @@
 
                             </div>
                         </div>
+
+                        <div class="col-6 col-lg-4 mt-3 mt-lg-0" style="height: 25vh;">
+                            <a href="MDX_U_Incident.php" class="text-decoration-none text-dark" style="height: 100%;">
+                                <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div class="lower-card-content">
+                                        <h5 class="fw-bold mb-1">Report Incident</h5>
+                                        <p class="lower-card-desc mb-0 small">
+                                            Quickly report any issues or emergencies for immediate response.
+                                        </p>
+                                    </div>
+
+                                    <div class="lower-card-item position-absolute">
+                                        <i class="fa-solid fa-triangle-exclamation lower-card-icon"
+                                            style="font-size: 7rem;"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-lg-4 mt-3 mt-lg-0" style="height: 25vh;">
+                            <a href="MDX_U_Request.php" class="text-decoration-none text-dark" style="height: 100%;">
+                                <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
+                                    style="height: 100%;">
+                                    <div class="lower-card-content">
+                                        <h5 class="fw-bold mb-1">Requests</h5>
+                                        <p class="lower-card-desc mb-0 small">
+                                            File a request and we'll get back to you as soon as possible.
+                                        </p>
+                                    </div>
+
+                                    <div class="lower-card-item position-absolute">
+                                        <i class="fa-solid fa-bell-concierge lower-card-icon-bounce"
+                                            style="font-size: 7rem;"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 mt-3 mb-5 mt-lg-0">
+                            <a href="MDXAccountSettings.php" class="text-decoration-none text-dark">
+                                <div class="p-2 p-md-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
+                                    style="height: 25vh; cursor: pointer;">
+                                    <div class="lower-card-content">
+                                        <h5 class="fw-bold mb-1">Account Settings</h5>
+                                        <p class="lower-card-desc mb-0 small">
+                                            Manage your account details.
+                                        </p>
+                                    </div>
+
+                                    <div class="lower-card-item position-absolute">
+                                        <i class="fa-solid fa-gear lower-card-icon-rotate" style="font-size: 7rem;"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+
+                        <div class="d-block d-lg-none p-2">
+
+                        </div>
+
                     </div>
 
 
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                <a href="MDX_U_Incident.php" class="text-decoration-none text-dark">
-                    <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
-                        style="height: 25vh;">
-                        <div class="lower-card-content">
-                            <h5 class="fw-bold mb-1">Report Incident</h5>
-                            <p class="lower-card-desc mb-0 small">
-                                Quickly report any issues or emergencies for immediate response.
-                            </p>
-                        </div>
 
-                        <div class="lower-card-item position-absolute">
-                            <i class="fa-solid fa-triangle-exclamation lower-card-icon" style="font-size: 7rem;"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
 
-            <div class="col-lg-4">
-                <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
-                    style="height: 25vh;">
-                    <div class="lower-card-content">
-                        <h5 class="fw-bold mb-1">Requests</h5>
-                        <p class="lower-card-desc mb-0 small">
-                            File a request and we'll get back to you as soon as possible.
-                        </p>
-                    </div>
 
-                    <div class="lower-card-item position-absolute">
-                        <i class="fa-solid fa-bell-concierge lower-card-icon-bounce" style="font-size: 7rem;"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <a href="MDXAccountSettings.php" class="text-decoration-none text-dark">
-                    <div class="p-5 shadow rounded mt-3 lower-card position-relative d-flex flex-column justify-content-between"
-                        style="height: 25vh; cursor: pointer;">
-                        <div class="lower-card-content">
-                            <h5 class="fw-bold mb-1">Account Settings</h5>
-                            <p class="lower-card-desc mb-0 small">
-                                Manage your account details.
-                            </p>
-                        </div>
 
-                        <div class="lower-card-item position-absolute">
-                            <i class="fa-solid fa-gear lower-card-icon-rotate" style="font-size: 7rem;"></i>
-                        </div>
-                    </div>
-                </a>
 
-            </div>
+
+
 
         </div>
     </div>
 
 
-
     <?php require_once '../framework/Components/mdx_footer.php'; ?>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">

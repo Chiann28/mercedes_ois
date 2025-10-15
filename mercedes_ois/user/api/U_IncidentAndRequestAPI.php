@@ -36,6 +36,13 @@ try {
                     $response = base64_encode(json_encode($process));
                     break;
                 
+                case "GetRequestTicket":
+                    $client = $_GET['client'] ?? "";
+                    $accountnumber = $_GET['accountnumber'] ?? "";
+                    $process = $U_IncidentAndRequestClass->GetRequestTicket($client, $accountnumber);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
                 
                 
                 default:
@@ -64,6 +71,14 @@ try {
                     $report = $postData['report'];
                     $accountnumber = $postData['accountnumber'];
                     $process = $U_IncidentAndRequestClass->submitReport($report,$client,$accountnumber);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
+                case "submitRequest":
+                    $client = $postData['client'];
+                    $request = $postData['request'];
+                    $accountnumber = $postData['accountnumber'];
+                    $process = $U_IncidentAndRequestClass->submitRequest($request,$client,$accountnumber);
                     $response = base64_encode(json_encode($process));
                     break;
                    
