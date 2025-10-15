@@ -14,7 +14,7 @@ class IncidentAndRequestClass{
         $query = "SELECT *, 
                     DATE(sysentrydate) as sysentrydate,
                     DATE(modifieddate) as modifieddate FROM requests_and_incidents
-                WHERE client = '$client'";
+                WHERE client = '$client' ORDER BY sysentrydate DESC";
         $result = $SQL->SelectQuery($query);
 
         $dataByStatus = [
@@ -69,9 +69,11 @@ class IncidentAndRequestClass{
     public function GetCommentById($client, $report_id){
         $SQL = new SQLCommands("mercedes_ois");
 
-        $query = "SELECT * FROM comments 
-                    WHERE client = '$client'
-                    AND report_id = '$report_id'";
+        $query = "SELECT *,
+                    DATE(sysentrydate) AS `comment_date`, 
+                    DATE_FORMAT(sysentrydate, '%h:%i %p') AS `comment_time` 
+                    FROM comments WHERE client = '$client'
+                    AND report_id = '$report_id' ";
         
         $result = $SQL->SelectQuery($query);
         return $result;

@@ -130,32 +130,38 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="tix in rt" class="align-middle">
-                        <td>{{ tix.id }}</td>
+                      <tr ng-repeat="tix in rt" class="align-middle" style="cursor: pointer;" ng-click="openDetails(tix)">
+                    <td>{{ tix.id }}</td>
 
-                        <td>
-                        <!-- {{ tix.title }} -->
-                          <div class="d-flex">
-                            <div class="p-2 rounded border">
-                              <i class="fa-solid text-secondary fs-4" ng-class="{ 'fa-wrench' : tix.category === 'maintenance',
-                              'fa-shield' : tix.category === 'security',
-                              'fa-user-nurse' : tix.category === 'medical',
-                              'fa-broom' : tix.category === 'utility',
-                              'fa-volume-high' : tix.category === 'noise',
-                              'fa-flag' : tix.category === 'others',
-                              }"></i>
-                            </div>
-                            <div class="ms-2">
-                              <span class="fw-semibold">{{ tix.title }}</span>
-                              <p class="small text-muted m-0">{{ tix.category }}</p>
-                            </div>
-                          </div>
+                    <td>
+                      <div class="d-flex">
+                        <div class="p-2 rounded border">
+                          <i class="fa-solid text-secondary fs-4" ng-class="{
+                                    'fa-wrench' : tix.category === 'maintenance',
+                                    'fa-shield' : tix.category === 'security',
+                                    'fa-user-nurse' : tix.category === 'medical',
+                                    'fa-broom' : tix.category === 'utility',
+                                    'fa-volume-high' : tix.category === 'noise',
+                                    'fa-flag' : tix.category === 'others'
+                                  }"></i>
+                        </div>
+                        <div class="ms-2">
+                          <span class="fw-semibold">{{ tix.title }}</span>
+                          <p class="small text-muted m-0 text-uppercase">{{ tix.category }}</p>
+                        </div>
+                      </div>
+                    </td>
 
-                        </td>
-
-                        
-                        <td>{{ tix.status === 'New' ? 'Pending' : tix.status }}</td>
-                      </tr>
+                    <td><span ng-class="{
+                                                            'text-success': tix.status == 'Resolved',
+                                                            'text-info': tix.status == 'In Progress',
+                                                            'text-warning': tix.status == 'New',
+                                                            'text-dark': tix.status == 'Closed'
+                                                        }"
+                        ng-bind="tix.status === 'New' ? 'Pending' : tix.status | uppercase"></span>
+                      <!-- {{ tix.status === 'New' ? 'Pending' : tix.status }} -->
+                    </td>
+                  </tr>
 
                     </tbody>
                   </table>
@@ -172,7 +178,164 @@
   </div>
 
 
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <!-- xl for wider modal -->
+      <div class="modal-content border-0 shadow-lg rounded-3">
+        <div class="modal-header border-0 p-3 border-bottom">
+          <!-- <div>
+            <h5 class="modal-title fw-bold" ng-bind="selectedItem.title"></h5>
+            <small class="text-muted" ng-bind="selectedItem.category | uppercase"></small>
+          </div> -->
+          <p class="text-uppercase m-0">Request Ticket #{{ selectedItem.id }}</p>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
 
+        <div class="modal-body">
+          <div class="row">
+
+            <!-- LEFT SIDE (Details) -->
+            <div class="col-md-7 border-end pe-3">
+              <div class="mb-3">
+                <h5 class="modal-title fw-bold" ng-bind="selectedItem.title"></h5>
+                <small class="text-muted" ng-bind="selectedItem.category | uppercase"></small>
+              </div>
+
+              <div class="mb-3">
+                <label class="fw-semibold text-uppercase small">Issue Description</label>
+                <textarea class="form-control text-dark scarlet-focus mt-2" ng-model="selectedItem.description" rows="4"
+                  placeholder="Enter issue description here..." disabled></textarea>
+              </div>
+
+              <div class="mb-3">
+                <p class="fw-semibold text-uppercase small">Location</p>
+                <p><i class="fa-solid fa-map-location-dot text-danger fs-5"></i> {{ selectedItem.location }}</p>
+              </div>
+
+              <hr>
+
+              <!-- Priority -->
+              <!-- <div class="mb-3">
+                <label class="fw-semibold text-uppercase small">Priority</label>
+                <div class="dropdown">
+                  <span class="badge px-3 py-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" ng-class="{
+                                                    'bg-success': selectedItem.priority == 'Low',
+                                                    'bg-primary': selectedItem.priority == 'Medium',
+                                                    'bg-warning text-dark': selectedItem.priority == 'High',
+                                                    'bg-danger': selectedItem.priority == 'Urgent'
+                                                }">
+                    {{selectedItem.priority}}
+                  </span>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.priority='Low'">Low</a></li>
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.priority='Medium'">Medium</a></li>
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.priority='High'">High</a></li>
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.priority='Urgent'">Urgent</a></li>
+                  </ul>
+                </div>
+              </div> -->
+
+              <!-- Status -->
+              <div class="mb-3">
+                <label class="fw-semibold text-uppercase small">Status</label>
+                <div class="dropdown">
+                  <span class="badge px-3 py-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" ng-class="{
+                                                        'bg-secondary': selectedItem.status == 'New',
+                                                        'bg-info text-dark': selectedItem.status == 'In Progress',
+                                                        'bg-success': selectedItem.status == 'Resolved',
+                                                        'bg-dark': selectedItem.status == 'Closed'
+                                                    }">
+                    {{ selectedItem.status }}
+                  </span>
+                  <!-- <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.status='New'">New</a></li>
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.status='In Progress'">In Progress</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.status='Resolved'">Resolved</a></li>
+                    <li><a class="dropdown-item" href="#" ng-click="selectedItem.status='Closed'">Closed</a></li>
+                  </ul> -->
+                </div>
+              </div>
+
+
+              <!-- Requested By -->
+              <!-- <div class="mb-3">
+                <label class="fw-semibold text-uppercase small">Requested By</label>
+                <div class="d-flex align-items-center">
+                  <img src="https://ui-avatars.com/api/?name={{selectedItem.requested_by}}&background=random"
+                    alt="Avatar" class="rounded-circle me-2" width="32" height="32">
+                  <span ng-bind="selectedItem.requested_by"></span>
+                </div>
+              </div> -->
+
+              <!-- Dates -->
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <label class="fw-semibold text-uppercase small">Created At</label>
+                  <input type="date" class="form-control" ng-model="selectedItem.sysentrydate" disabled>
+                </div>
+
+                <div class="col-md-6 mt-3 mt-lg-0">
+                  <label class="fw-semibold text-uppercase small">Date Completed</label>
+                  <input type="date" class="form-control scarlet-focus" ng-model="selectedItem.resolved_date" disabled>
+                </div>
+              </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE (Comments) -->
+            <div class="col-md-5 ps-3 mt-4 mt-md-0"
+              style="background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%); border-left: 1px solid #ddd;">
+              <div class="mb-2"></div>
+              <h6 class="fw-bold mb-3 mt-2">Comments</h6>
+
+              <!-- Comments List -->
+              <div class="comments-box mb-3 p-2" style="max-height: 300px; overflow-y: auto;">
+                <div class="mb-2 p-2 shadow-sm" ng-repeat="c in comments">
+                  <div class="d-flex">
+                    <img src="https://ui-avatars.com/api/?name={{c.modifiedby | uppercase}}&background=random"
+                      alt="Avatar" class="rounded-circle me-2" width="32" height="32">
+                    <div>
+
+                      <span class="text-uppercase fw-semibold" ng-bind="c.modifiedby"></span>
+                      <!-- <span>: &nbsp;</span> -->
+                      <div class="text-dark">{{c.description}}</div>
+
+
+                      <div class="text-dark small text-muted mt-2"> {{c.comment_time}} {{ c.comment_date }} </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+                <!-- If no comments -->
+                <div ng-if="!comments || comments.length === 0" class="text-muted small">
+                  Be the first one to add a comment</div>
+              </div>
+
+              <!-- Comment Input -->
+              <form ng-submit="DoPostComment(selectedItem.id)" class="input-group">
+                <input type="text" class="form-control scarlet-focus" placeholder="Write a comment..."
+                  ng-model="send_comment" required>
+
+                <button class="btn btn-primary" type="submit">Send</button>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer border-top">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary" ng-click="DoSaveChanges(selectedItem)">Save
+            Changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
   <?php require_once '../framework/Components/mdx_footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

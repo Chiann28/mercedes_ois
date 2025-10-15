@@ -38,7 +38,7 @@
 
     <!-- NASHIE CSS <3 -->
     <link rel="stylesheet" href="../framework/CSS/NashieCss.css">
-    
+
 </head>
 
 <body class="mdx-body-color" ng-controller="IncidentAndRequestController" ng-init="VerifySession();
@@ -485,8 +485,9 @@
 
                                     <div class="mb-3">
                                         <label class="fw-semibold text-uppercase small">Issue Description</label>
-                                        <textarea class="form-control text-dark scarlet-focus" ng-model="selectedItem.description"
-                                            rows="4" placeholder="Enter issue description here..."></textarea>
+                                        <textarea class="form-control text-dark scarlet-focus"
+                                            ng-model="selectedItem.description" rows="4"
+                                            placeholder="Enter issue description here..."></textarea>
                                     </div>
 
                                     <!-- Priority -->
@@ -585,13 +586,33 @@
 
                                     <!-- Comments List -->
                                     <div class="comments-box mb-3 p-2" style="max-height: 300px; overflow-y: auto;">
-                                        <div class="mb-2 p-2 shadow-sm" ng-repeat="c in comments">
+                                        <!-- <div class="mb-2 p-2 shadow-sm" ng-repeat="c in comments">
                                             <div class="d-flex align-items-center">
-                                                <img src="https://ui-avatars.com/api/?name={{selectedItem.requested_by}}&background=random"
+                                                <img src="https://ui-avatars.com/api/?name={{c.modifiedby | uppercase}}&background=random"
                                                     alt="Avatar" class="rounded-circle me-2" width="32" height="32">
-                                                <span ng-bind="selectedItem.requested_by"></span>
+                                                <span class="text-uppercase" ng-bind="c.modifiedby"></span>
                                                 <span>: &nbsp;</span>
                                                 <div class="text-dark">{{c.description}}</div>
+                                            </div>
+
+                                        </div> -->
+                                        <div class="mb-2 p-2 shadow-sm" ng-repeat="c in comments">
+                                            <div class="d-flex">
+                                                <img src="https://ui-avatars.com/api/?name={{c.modifiedby | uppercase}}&background=random"
+                                                    alt="Avatar" class="rounded-circle me-2" width="32" height="32">
+                                                <div>
+
+                                                    <span class="text-uppercase fw-semibold"
+                                                        ng-bind="c.modifiedby"></span>
+                                                    <!-- <span>: &nbsp;</span> -->
+                                                    <div class="text-dark">{{c.description}}</div>
+
+
+                                                    <div class="text-dark small text-muted mt-2"> {{c.comment_time}} {{
+                                                        c.comment_date }} </div>
+                                                </div>
+
+
                                             </div>
 
                                         </div>
@@ -602,8 +623,8 @@
 
                                     <!-- Comment Input -->
                                     <div class="input-group">
-                                        <input type="text" class="form-control scarlet-focus" placeholder="Write a comment..."
-                                            ng-model="comment">
+                                        <input type="text" class="form-control scarlet-focus"
+                                            placeholder="Write a comment..." ng-model="comment">
                                         <button class="btn btn-primary" type="button"
                                             ng-click="DoPostComment(selectedItem.id)">Send</button>
                                     </div>

@@ -45,7 +45,7 @@ try {
             $request_type = $postData['request_type'] ?? "";
             switch ($request_type) {
                 case "DoPostComment":
-                    $user = $_SESSION['username'];
+                    $user = $_SESSION['role'];
                     $client = $postData['client'];
                     $id = $postData['id'];
                     $comment = $postData['comment'];

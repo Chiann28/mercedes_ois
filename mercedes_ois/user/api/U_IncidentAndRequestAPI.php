@@ -43,6 +43,13 @@ try {
                     $response = base64_encode(json_encode($process));
                     break;
                 
+                case "loadComments":
+                    $client = $_GET['client'] ?? "";
+                    $report_id = $_GET['report_id'] ?? "";
+                    $process = $U_IncidentAndRequestClass->loadComments($client, $report_id);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
                 
                 
                 default:
@@ -79,6 +86,13 @@ try {
                     $request = $postData['request'];
                     $accountnumber = $postData['accountnumber'];
                     $process = $U_IncidentAndRequestClass->submitRequest($request,$client,$accountnumber);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
+                case "DoPostComment":
+                    $client = $postData['client'];
+                    $params = $postData['params'];
+                    $process = $U_IncidentAndRequestClass->DoPostComment($client,$params);
                     $response = base64_encode(json_encode($process));
                     break;
                    

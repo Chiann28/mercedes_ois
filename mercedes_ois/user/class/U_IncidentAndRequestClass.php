@@ -93,7 +93,20 @@ class U_IncidentAndRequestClass
   public function GetReportTicket($client,$accountnumber)
   {
     $SQL = new SQLCommands("mercedes_ois");
-    $query = "SELECT * FROM requests_and_incidents WHERE client = 'mercedes' AND accountnumber = '$accountnumber' AND type = 'incident'
+    $query = "SELECT * FROM requests_and_incidents WHERE client = 'mercedes' AND accountnumber = '$accountnumber' AND type = 'incident' ORDER BY sysentrydate DESC
+      ";
+    $result = $SQL->SelectQuery($query);
+    return $result;
+  }
+
+  public function loadComments($client,$report_id)
+  {
+    $SQL = new SQLCommands("mercedes_ois");
+    $query = "SELECT *, 
+                    DATE(sysentrydate) AS `comment_date`, 
+                    DATE_FORMAT(sysentrydate, '%h:%i %p') AS `comment_time`
+              FROM comments WHERE client = '$client' 
+              AND report_id = '$report_id' ORDER BY sysentrydate
       ";
     $result = $SQL->SelectQuery($query);
     return $result;
@@ -135,6 +148,27 @@ class U_IncidentAndRequestClass
       ";
     $result = $SQL->SelectQuery($query);
     return $result;
+  }
+
+  public function DoPostComment($client, $params) {
+    $SQL = new SQLCommands("mercedes_ois");
+
+    $parameters = [
+      'client' => $client,
+      'report_id' => $params['report_id'],
+      'description' => $params['comment'],
+      'commentor_name' => $params['fullname'],
+      'commentor_id' => $params['accountnumber'],
+      'modifiedby' => $params['fullname']
+    ];
+
+    $result = $SQL->InsertQuery("comments", $parameters);
+
+    if (!$result) {
+      return ["result" => false, "message" => "Failed",];
+    } else {
+      return ["result" => true, "message" => "Success",];
+    }
   }
 
 
