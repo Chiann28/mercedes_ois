@@ -32,6 +32,21 @@ app.controller("UserDashboardController", function ($scope, API) {
       var final_response = JSON.parse(atob(response.data));
       $scope.data = final_response;
       console.log($scope.data);
+      $scope.GetArrears();
     });
   };
+
+  $scope.GetArrears = function () {
+    var data = {
+      client: $scope.client,
+      accountnumber: $scope.data.accountnumber,
+      request_type: "GetArrears",
+    };
+    // console.log(data);
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.arrears = final_response[0];
+      console.log($scope.arrears);
+    });
+  }
 });

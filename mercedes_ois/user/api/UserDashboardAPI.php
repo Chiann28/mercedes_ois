@@ -51,6 +51,14 @@ try {
                     $response = base64_encode(json_encode($process));
                     break;
                 
+                case "GetArrears":
+                    $client = $_GET['client'] ?? "";
+                    $accountnumber = $_GET['accountnumber'] ?? "";
+                   
+                    $process = $UserDashboardClass->GetArrears($client, $accountnumber);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
                 default:
                     $response["error"] = "Invalid request type";
                     break;

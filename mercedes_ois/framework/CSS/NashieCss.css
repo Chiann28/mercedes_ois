@@ -134,6 +134,24 @@
   /* max-width: 300px;   */
 }
 
+.sidebar-logo {
+  max-width: 50%;   /* adjust this to make it smaller */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.sidebar-header {
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  .sidebar-logo {
+    max-width: 80%;
+  }
+}
+
 /* Sidebar */
 .sidebar-icon {
   color: #f55355;

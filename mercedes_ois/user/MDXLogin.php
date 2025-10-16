@@ -28,7 +28,7 @@
             <!-- <a class="navbar-brand text-light" href="#">LOGO</a> -->
             <a class="navbar-brand d-flex align-items-center" href="#" class="text-light">
                 <img src="..\admin\logo_mercedes.png" alt="" style="height: 45px;">
-                <!-- <span class="fw-bold h3 mb-0" style="color: #fe3131;">MERCEDES</span> -->
+                <span class="fw-bold h3 mb-0" style="color: #fe3131;">MERCEDES</span>
             </a>
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

@@ -48,6 +48,10 @@ app.controller("AccountSettingsController", function ($scope, API) {
     });
   };
 
+  $scope.GetTransactionDetails = function (details) {
+    $scope.td = details;
+  };
+
   $scope.InitializeUpdating = function () {
     $scope.isEditing = !$scope.isEditing;
   };

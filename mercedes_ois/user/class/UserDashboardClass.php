@@ -45,6 +45,15 @@ class UserDashboardClass{
         return $result2;
     }
 
+    public function GetArrears($client, $accountnumber) {
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT balance FROM balance_sheet WHERE client = '$client' 
+        AND accountnumber = '$accountnumber' ORDER BY sysentrydate DESC LIMIT 1
+        ";
+        $result = $SQL->SelectQuery($query);
+        return $result;
+    }
+
    
     
 }

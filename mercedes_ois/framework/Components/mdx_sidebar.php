@@ -1,6 +1,6 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header mb-4">
-        <img src="../admin/logo_mercedes.png" alt="Logo" style="height: 45px;" class="mx-auto">
+        <img src="../admin/logo_mercedes.png" class="mx-auto sidebar-logo img-fluid" alt="Logo" class="mx-auto">
     </div>
     <a href="../../mercedes_ois/admin/mdx_admin_dashboard.php" class="sidebar-icon"><i
             class="fa-solid fa-chart-line sidebar-icon"></i> <span class="sidebar-text ms-2">Admin Dashboard</span></a>

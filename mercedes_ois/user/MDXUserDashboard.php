@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="col-12 text-end text-light">
                                         <p class="h5 fw-normal">Arrears</p>
-                                        <p class="h3">PHP 1,235.00</p>
+                                        <p class="h3">PHP {{ arrears.balance || '0.00' }}</p>
                                     </div>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
         <!-- Brand -->
         <a class="navbar-brand d-flex align-items-center" href="MDXUserDashboard.php">
             <img src="../admin/logo_mercedes.png" alt="Logo" style="height: 45px;">
-            <!-- <span class="fw-bold h3 mb-0 ms-2" style="color: #fe3131;">MERCEDES</span> -->
+            <span class="fw-bold h3 mb-0 ms-2" style="color: #fe3131;">MERCEDES</span>
         </a>
 
         <!-- Toggler -->
