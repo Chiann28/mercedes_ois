@@ -39,9 +39,9 @@ app.controller("AdminController", function ($scope, API) {
   };
 
   $scope.loadDashboard = function () {
-    $scope.DoAutoPostAnnouncement();
+    // $scope.DoAutoPostAnnouncement();
     $scope.DoGetEventDashboard();
-    $scope.DoAutoEmaileDue();
+    // $scope.DoAutoEmaileDue();
   };
 
   $scope.DoAutoPostAnnouncement = function () {
