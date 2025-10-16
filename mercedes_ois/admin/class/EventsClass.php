@@ -72,7 +72,8 @@ class EventsClass
         'end_date' => $end_date,
         'location' => $location,
         'initiated_by' => $user,
-        'modifiedby' => $user
+        'modifiedby' => $user,
+        'event_status' => 'PENDING'
       ];
       $result = $SQL->InsertQuery('events', $parameters);
       if (!$result) {
