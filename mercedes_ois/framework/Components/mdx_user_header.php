@@ -3,7 +3,7 @@
     <!-- Brand -->
     <a class="navbar-brand d-flex align-items-center" href="MDXUserDashboard.php">
       <img src="../admin/logo_mercedes.png" alt="Logo" style="height: 45px;">
-      <span class="fw-bold h3 mb-0 ms-2" style="color: #fe3131;">MERCEDES</span>
+      <!-- <span class="fw-bold h3 mb-0 ms-2" style="color: #fe3131;">MERCEDES</span> -->
     </a>
 
     <!-- Toggler -->
@@ -15,7 +15,7 @@
     <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link text-light" href="MDXUserDashboard.php">Home</a>
         </li>
         <li class="nav-item">
@@ -23,10 +23,10 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" href="MDX_U_Incident.php">Report Incident</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <button class="btn btn-outline-light ms-2" type="button" id="logout_button">
-            Logout
+            <i class="fa-solid fa-right-from-bracket"></i>
           </button>
         </li>
       </ul>

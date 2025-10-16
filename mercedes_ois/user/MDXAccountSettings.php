@@ -27,7 +27,7 @@
 
   <div class="container-md mb-3 py-5" style="min-height: 87vh">
     <div class="p-5 mt-3 shadow-sm rounded border d-flex justify-content-between align-items-center">
-      <h1 class="fw-semiboold"><i class="fa-solid fa-gear lower-card-icon-rotate me-1"></i>Account Settings</h1>
+      <h1 class="fw-semiboold"><i class="fa-solid fa-gear lower-card-icon-rotate me-1"></i>Profile</h1>
       <div>
         <button class="btn btn-secondary btn-sm" type="button" ng-click="InitializeUpdating()">
           <i class="fa-solid fa-xmark" ng-if="isEditing"></i>
