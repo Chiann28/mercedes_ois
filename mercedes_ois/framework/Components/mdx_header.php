@@ -17,8 +17,7 @@
 
     </div>
 </nav>
-<!-- PUTANGINA VANILLA NALANG API NALANG YAN> -->
-  <!-- TAMAD KA BOSS -->
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
