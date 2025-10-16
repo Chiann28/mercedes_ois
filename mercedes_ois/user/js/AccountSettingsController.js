@@ -35,9 +35,22 @@ app.controller("AccountSettingsController", function ($scope, API) {
     });
   };
 
-  $scope.InitializeUpdating = function (){
-     $scope.isEditing = !$scope.isEditing;
-  }
+  $scope.get_transaction_history = function () {
+    var data = {
+      client: $scope.client,
+      request_type: "get_transaction_history",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.transaction_data = final_response;
+      console.log("transaction data: ", $scope.transaction_data);
+    });
+  };
+
+  $scope.InitializeUpdating = function () {
+    $scope.isEditing = !$scope.isEditing;
+  };
 
   $scope.UpdateAccount = function () {
     console.log($scope.data);
@@ -50,7 +63,7 @@ app.controller("AccountSettingsController", function ($scope, API) {
       var final_response = JSON.parse(atob(response.data));
       $scope.data = final_response;
       console.log($scope.data);
-      $scope.response = final_response
+      $scope.response = final_response;
       if ($scope.response.result) {
         Swal.fire({
           title: "Success!",
@@ -72,5 +85,5 @@ app.controller("AccountSettingsController", function ($scope, API) {
         $scope.isEditing = false;
       }
     });
-  }
+  };
 });
