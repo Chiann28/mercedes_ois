@@ -74,7 +74,7 @@
             <div class="text-light">
                 <div class="text-md-center">
                     <div class="col-12 col-md-8 mx-auto">
-                        <h1 class="fw-light display-1 w-100 mdx-fst-tnr">The Best Way to Nurture Your homss.</h1>
+                        <h1 class="fw-light display-1 w-100 mdx-fst-tnr">The Best Way to Nurture Your Home.</h1>
                     </div>
 
                 </div>

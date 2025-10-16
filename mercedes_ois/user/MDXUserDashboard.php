@@ -58,7 +58,7 @@
                                                 <p class="h5 fw-normal">{{ data.accountnumber || 'Loading...' }}</p>
                                             </div>
                                             <div class="col-4 d-flex justify-content-end align-items-center">
-                                                <a href=""><i
+                                                <a href="MDX_U_Transactions.php"><i
                                                         class="fa-solid fa-circle-chevron-right display-4 text-light"></i></a>
                                             </div>
                                         </div>
