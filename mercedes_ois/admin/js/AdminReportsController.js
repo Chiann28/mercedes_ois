@@ -45,6 +45,7 @@ app.controller("AdminReportsController", function ($scope, API) {
           client: $scope.client,
           datefrom: $scope.datefrom,
           dateto: $scope.dateto,
+          status: $scope.status,
           request_type: "resident_masterlist",
         };
         break;
@@ -53,20 +54,25 @@ app.controller("AdminReportsController", function ($scope, API) {
           client: $scope.client,
           datefrom: $scope.datefrom,
           dateto: $scope.dateto,
+          status: $scope.status,
           request_type: "announcement_history",
         };
+        break;
       case "payment_collection":
         var data = {
           client: $scope.client,
           datefrom: $scope.datefrom,
           dateto: $scope.dateto,
+          status: $scope.status,
           request_type: "payment_collection",
         };
+        break;
       case "events":
         var data = {
           client: $scope.client,
           datefrom: $scope.datefrom,
           dateto: $scope.dateto,
+          event_type: $scope.event_type,
           request_type: "events",
         };
         break;

@@ -62,43 +62,29 @@
                                 <label class="form-label">Event Type</label>
                                 <select class="form-select" ng-model="event_type">
                                     <option value="">All</option>
-                                    <option value="General Assembly">General Assembly</option>
-                                    <option value="Sports">Sports</option>
-                                    <option value="Community">Community</option>
-                                    <option value="Holiday">Holiday</option>
+                                    <option value="Celebration">Celebration</option>
+                                    <option value="Birthday">Birthday</option>
+                                    <option value="Seminar">Seminar</option>
+                                    <option value="Environmental">Environmental</option>
+                                    <option value="Funeral">Funeral / Burial</option>
                                 </select>
                             </div>
+
                             <div class="col-md-3">
-                                <label class="form-label">Organizer</label>
-                                <input type="text" class="form-control" ng-model="organizer"
-                                    placeholder="Organizer Name">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Date From</label>
+                                <label class="form-label">Date Created From</label>
                                 <input type="date" class="form-control" ng-model="datefrom">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label">Date To</label>
+                                <label class="form-label">Date Created To</label>
                                 <input type="date" class="form-control" ng-model="dateto">
                             </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                <label class="form-label">Status</label>
-                                <select class="form-select" ng-model="status">
-                                    <option value="">All</option>
-                                    <option value="UPCOMING">Upcoming</option>
-                                    <option value="ONGOING">Ongoing</option>
-                                    <option value="COMPLETED">Completed</option>
-                                    <option value="CANCELLED">Cancelled</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3 d-flex align-items-end">
+                            <div class="col-md-3 mt-4">
                                 <button class="btn btn-primary w-100" ng-click="GetReport('events')">
                                     <i class="fa fa-search me-2"></i> Generate Report
                                 </button>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -135,9 +121,8 @@
                                         <th>Event Name</th>
                                         <th>Type</th>
                                         <th>Description</th>
-                                        <th>Organizer</th>
+                                        <th>Initiated By</th>
                                         <th>Venue</th>
-                                        <th>Participants</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -147,10 +132,9 @@
                                         <td>{{e.end_date}}</td>
                                         <td>{{e.event_name}}</td>
                                         <td>{{e.event_type}}</td>
-                                        <td class="desc-col">{{e.description}}</td>
-                                        <td>{{e.organizer}}</td>
-                                        <td>{{e.venue}}</td>
-                                        <td>{{e.participants}}</td>
+                                        <td class="desc-col">{{e.event_description}}</td>
+                                        <td>{{e.initiated_by}}</td>
+                                        <td>{{e.location}}</td>
                                         <td>
                                             <!-- <span class="badge bg-info text-dark"
                                                 ng-if="e.status=='UPCOMING'">{{e.status}}</span>

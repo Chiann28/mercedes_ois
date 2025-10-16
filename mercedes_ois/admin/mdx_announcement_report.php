@@ -46,8 +46,8 @@
                                 <select class="form-select" ng-model="status">
                                     <option value="">All</option>
                                     <option value="POSTED">Posted</option>
-                                    <option value="SCHEDULED">Scheduled</option>
-                                    <option value="ARCHIVED">Archived</option>
+                                    <option value="ACTIVE">Active</option>
+                                    <option value="CLOSED">Closed</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
@@ -68,14 +68,14 @@
                 </div>
 
                 <!-- Export Buttons -->
-                <div class="d-flex justify-content-end mt-3">
+                <!-- <div class="d-flex justify-content-end mt-3">
                     <button class="btn btn-success me-2" ng-click="ExportExcel()">
                         <i class="fa fa-file-excel me-1"></i> Export Excel
                     </button>
                     <button class="btn btn-danger" ng-click="ExportPDF()">
                         <i class="fa fa-file-pdf me-1"></i> Export PDF
                     </button>
-                </div>
+                </div> -->
 
                 <!-- Summary Cards -->
                 <div class="row mb-4">

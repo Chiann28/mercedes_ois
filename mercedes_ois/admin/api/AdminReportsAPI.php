@@ -39,7 +39,8 @@ try {
                     $client = $_GET['client'] ?? "";
                     $datefrom = $_GET['datefrom'] ?? "";
                     $dateto = $_GET['dateto'] ?? "";
-                    $process = $AdminReportsClass->resident_masterlist($client, $datefrom, $dateto);
+                    $status = $_GET['status'] ?? "";
+                    $process = $AdminReportsClass->resident_masterlist($client, $datefrom, $dateto, $status);
                     $response = base64_encode(json_encode($process));
                     break;
 
@@ -47,7 +48,8 @@ try {
                     $client = $_GET['client'] ?? "";
                     $datefrom = $_GET['datefrom'] ?? "";
                     $dateto = $_GET['dateto'] ?? "";
-                    $process = $AdminReportsClass->announcement_history($client, $datefrom, $dateto);
+                    $status = $_GET['status'] ?? "";
+                    $process = $AdminReportsClass->announcement_history($client, $datefrom, $dateto, $status);
                     $response = base64_encode(json_encode($process));
                     break;
                 
@@ -55,7 +57,8 @@ try {
                     $client = $_GET['client'] ?? "";
                     $datefrom = $_GET['datefrom'] ?? "";
                     $dateto = $_GET['dateto'] ?? "";
-                    $process = $AdminReportsClass->payment_collection($client, $datefrom, $dateto);
+                    $status = $_GET['status'] ?? "";
+                    $process = $AdminReportsClass->payment_collection($client, $datefrom, $dateto, $status);
                     $response = base64_encode(json_encode($process));
                     break;
 
@@ -63,7 +66,8 @@ try {
                     $client = $_GET['client'] ?? "";
                     $datefrom = $_GET['datefrom'] ?? "";
                     $dateto = $_GET['dateto'] ?? "";
-                    $process = $AdminReportsClass->events($client, $datefrom, $dateto);
+                    $event_type = $_GET['event_type'] ?? "";
+                    $process = $AdminReportsClass->events($client, $datefrom, $dateto, $event_type);
                     $response = base64_encode(json_encode($process));
                     break;
 

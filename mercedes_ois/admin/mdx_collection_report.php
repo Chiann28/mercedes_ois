@@ -56,21 +56,15 @@
                 <!-- Filters -->
                 <div class="card shadow-sm border-0 rounded-3 mb-4">
                     <div class="card-body">
-                        <h6 class="fw-semibold mb-3">Filter Payments</h6>
+                        <h6 class="fw-semibold mb-3">Filter Announcements</h6>
                         <div class="row">
                             <div class="col-md-3">
-                                <label class="form-label">Payment Method</label>
-                                <select class="form-select" ng-model="payment_method">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" ng-model="status">
                                     <option value="">All</option>
-                                    <option value="CASH">Cash</option>
-                                    <option value="BANK">Bank</option>
-                                    <option value="GCASH">GCash</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="With Underpayment">With Underpayment</option>
                                 </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Collector</label>
-                                <input type="text" class="form-control" ng-model="collector"
-                                    placeholder="Collector Name">
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Date From</label>
@@ -80,17 +74,6 @@
                                 <label class="form-label">Date To</label>
                                 <input type="date" class="form-control" ng-model="dateto">
                             </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                <label class="form-label">Status</label>
-                                <select class="form-select" ng-model="status">
-                                    <option value="">All</option>
-                                    <option value="PAID">Paid</option>
-                                    <option value="PENDING">Pending</option>
-                                    <option value="CANCELLED">Cancelled</option>
-                                </select>
-                            </div>
                             <div class="col-md-3 d-flex align-items-end">
                                 <button class="btn btn-primary w-100" ng-click="GetReport('payment_collection')">
                                     <i class="fa fa-search me-2"></i> Generate Report
@@ -99,16 +82,15 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Export Buttons -->
-                <div class="d-flex justify-content-end mt-3">
+                <!-- <div class="d-flex justify-content-end mt-3">
                     <button class="btn btn-success me-2" ng-click="ExportExcel()">
                         <i class="fa fa-file-excel me-1"></i> Export Excel
                     </button>
                     <button class="btn btn-danger" ng-click="ExportPDF()">
                         <i class="fa fa-file-pdf me-1"></i> Export PDF
                     </button>
-                </div>
+                </div> -->
 
                 <!-- Summary Cards -->
                 <div class="row my-4">
@@ -132,8 +114,6 @@
                                         <th>Account #</th>
                                         <th>Resident Name</th>
                                         <th>Reference</th>
-                                        <th>Payment Method</th>
-                                        <th>Amount</th>
                                         <th>Collector</th>
                                         <th>Status</th>
                                     </tr>
@@ -144,8 +124,6 @@
                                         <td>{{p.accountnumber}}</td>
                                         <td>{{p.fullname}}</td>
                                         <td class="ref-col">{{p.transaction_id}}</td>
-                                        <td>{{p.source}}</td>
-                                        <td>{{p.amount_paid | number:2}}</td>
                                         <td>{{p.modifiedby}}</td>
                                         <td>
                                             <span class="badge bg-success"
@@ -157,7 +135,7 @@
                                         </td>
                                     </tr>
                                     <tr ng-if="!data || data.length==0">
-                                        <td colspan="8" class="text-center text-muted">No payment records found.</td>
+                                        <td colspan="6" class="text-center text-muted">No payment records found.</td>
                                     </tr>
                                 </tbody>
                             </table>
