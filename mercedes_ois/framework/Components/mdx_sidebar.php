@@ -1,6 +1,6 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header mb-4">
-        <h4 class="m-0">LOGO</h4>
+        <img src="../admin/logo_mercedes.png" alt="Logo" style="height: 45px;" class="mx-auto">
     </div>
     <a href="../../mercedes_ois/admin/mdx_admin_dashboard.php" class="sidebar-icon"><i
             class="fa-solid fa-chart-line sidebar-icon"></i> <span class="sidebar-text ms-2">Admin Dashboard</span></a>
@@ -73,6 +73,7 @@
             </li>
         </ul>
     </div>
+    
     <!-- Transactions End -->
     <a href="mdx_events.php" class="sidebar-icon"><i class="fa-solid fa-calendar sidebar-icon"></i><span
             class="sidebar-text ms-2">Events and Operations</span></a>

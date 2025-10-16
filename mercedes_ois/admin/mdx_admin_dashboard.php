@@ -212,7 +212,7 @@
                                     <div class="col-8 d-flex flex-column justify-content-center" style="overflow: hidden;">
                                         <p class="h3 m-0 text-nowrap">MDX Deployment</p>
                                         <p class="h5 mt-3 mb-0 text-muted">CELEBRATION</p>
-                                        <p class="mb-0 mt-1 text-muted">Today, 2025-09-21</p>
+                                        <p class="mb-0 mt-1 text-muted">Today, 2025-10-16</p>
                                     </div>
                                 </div>
                             </div>
