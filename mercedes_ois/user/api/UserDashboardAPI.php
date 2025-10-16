@@ -43,6 +43,14 @@ try {
                     $response = base64_encode(json_encode($process));
                     break;
                 
+                case "get_transaction_history":
+                    $client = $_GET['client'] ?? "";
+                    $user_id = $_SESSION['user_id'] ?? "";
+                   
+                    $process = $UserDashboardClass->get_transaction_history($client, $user_id);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
                 default:
                     $response["error"] = "Invalid request type";
                     break;
