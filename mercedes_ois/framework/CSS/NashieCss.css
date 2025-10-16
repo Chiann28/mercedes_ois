@@ -135,7 +135,7 @@
 }
 
 .sidebar-logo {
-  max-width: 50%;   /* adjust this to make it smaller */
+  max-width: 80%;   /* adjust this to make it smaller */
   height: auto;
   display: block;
   margin: 0 auto;
@@ -148,7 +148,7 @@
 
 @media (max-width: 992px) {
   .sidebar-logo {
-    max-width: 80%;
+    max-width: 100%;
   }
 }
 
