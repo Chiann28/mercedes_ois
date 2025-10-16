@@ -24,7 +24,8 @@
 
 </head>
 
-<body class="bg-light" ng-controller="LedgerController" ng-init="VerifySession()">
+<body class="bg-light" ng-controller="LedgerController" ng-init="VerifySession();
+                                                                    GetGeneratedBill();">
 
     <!-- Sidebar -->
     <?php require_once '../framework/Components/mdx_sidebar.php'; ?>
@@ -55,8 +56,12 @@
                                         <h1>{{ selectedMonthDate | date:'MMMM yyyy' }}</h1>
                                     </div>
                                     <div class="col-md-6 d-flex justify-content-end">
-                                        <button class="btn btn-secondary" type="button" ng-click="DoGenerateBill()">
+                                        <button class="btn btn-secondary me-2" type="button"
+                                            ng-click="DoGenerateBill()">
                                             <i class="fa fa-file-excel me-2"></i> Generate Bills
+                                        </button>
+                                        <button class="btn btn-secondary" type="button" ng-click="DoAutoEmaileDue()">
+                                            Send Due Notice
                                         </button>
                                     </div>
                                 </div>
@@ -86,13 +91,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="t in Transactions"
+                                                    <tr ng-repeat="t in generated_bill"
                                                         class="animate__animated animate__fadeIn">
-                                                        <td>{{t.transaction_id}}</td>
-                                                        <td>{{t.transaction_type}}</td>
-                                                        <td>{{t.amount_paid | number: 2}}</td>
+                                                        <th></th>
+                                                        <td>{{t.generated_month}}</td>
+                                                        <td>{{t.sysentrydate}}</td>
+                                                        <td>{{t.modifiedby}}</td>
                                                     </tr>
-                                                    <tr ng-if="!Transactions || Transactions.length === 0">
+                                                    <tr ng-if="!generated_bill || generated_bill.length === 0">
                                                         <td colspan="5" class="text-center text-muted">No generated
                                                             month
                                                             yet.</td>

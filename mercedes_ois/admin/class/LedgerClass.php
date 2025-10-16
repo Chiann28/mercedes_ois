@@ -87,6 +87,8 @@ class LedgerClass{
         if(!$verify['result']){
             return $verify;
         }
+
+        $month = date('F Y');
     
         $SQL = new SQLCommands("mercedes_ois");
         $query = "SELECT p.*, r.price, r.penalty_rate 
@@ -96,6 +98,16 @@ class LedgerClass{
                     AND r.property_code = p.property_code
                     WHERE p.client = '$client'";
         $datas = $SQL->SelectQuery($query);
+
+        //Generated month table
+        $generated_bill_params = [
+            "client" => $client,
+            "generated_month" => $month,
+            "status" => 1,
+            "modifiedby" => $user
+        ];
+
+        $insert2 = $SQL->InsertQuery("generated_bill", $generated_bill_params);
     
         $inserted = [];
         $failed = [];
@@ -138,6 +150,7 @@ class LedgerClass{
                 $failed[] = $accountnumber;
             }
         }
+
     
         return [
             "result" => true,
@@ -147,6 +160,15 @@ class LedgerClass{
             "inserted_accounts" => $inserted,
             "failed_accounts" => $failed
         ];
+    }
+
+    public function GetGeneratedBill($client){
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT * FROM generated_bill
+                WHERE client = '$client'
+                ORDER BY sysentrydate ASC";
+        $result = $SQL->SelectQuery($query);
+        return $result;
     }
     
     

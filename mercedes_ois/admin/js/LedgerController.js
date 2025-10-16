@@ -274,6 +274,7 @@ app.controller("LedgerController", function ($scope, API) {
           allowOutsideClick: false,
           allowEscapeKey: true,
         });
+        $scope.GetGeneratedBill();
       } else {
         Swal.fire({
           icon: "error",
@@ -285,6 +286,52 @@ app.controller("LedgerController", function ($scope, API) {
           allowEscapeKey: true,
         });
       }
+    });
+  };
+
+  $scope.DoAutoEmaileDue = function () {
+    // var today = new Date().toISOString().split("T")[0];
+    // var lastRun = localStorage.getItem("DoAutoEmaileDueLastRun");
+
+    // if (lastRun === today) {
+    //   console.log("Auto Email already executed today. Skipping...");
+    //   return;
+    // }
+
+    Swal.fire({
+      title: "Loading...",
+      text: "Please Wait...",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    var data = {
+      client: $scope.client,
+      request_type: "DoAutoEmaileDue",
+    };
+
+    API.getApi("api/AdminAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      if (final_response) {
+        swal.close();
+        $scope.GetGeneratedBill();
+        // localStorage.setItem("DoAutoEmaileDueLastRun", today);
+        // console.log("Auto Email executed successfully for " + today);
+      }
+    });
+  };
+
+  $scope.GetGeneratedBill = function () {
+    var data = {
+      client: $scope.client,
+      request_type: "GetGeneratedBill",
+    };
+
+    API.getApi("api/LedgerAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.generated_bill = final_response;
     });
   };
 

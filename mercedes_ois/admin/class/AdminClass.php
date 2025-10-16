@@ -114,6 +114,7 @@ class AdminClass{
                 AND e.due_date = DATE_ADD(b.transaction_date, INTERVAL 30 DAY)
                 WHERE DATE_ADD(b.transaction_date, INTERVAL 30 DAY) <= CURDATE() + INTERVAL 5 DAY
                 AND (e.sent_date IS NULL OR e.sent_date < CURDATE())
+                GROUP BY c.accountnumber,  b.transaction_date
                 ";
                     
         $result = $SQL->SelectQuery($query);

@@ -48,6 +48,11 @@ try {
                     $process = $LedgerClass->GetAdjustments($client, $accountnumber);
                     $response =  base64_encode(json_encode($process));
                 break;
+                case "GetGeneratedBill":
+                    $client = $_GET['client'] ?? "";
+                    $process = $LedgerClass->GetGeneratedBill($client);
+                    $response =  base64_encode(json_encode($process));
+                break;
                 case "DoGenerateBill":
                     $client = $_GET['client'] ?? "";
                     $user = $_SESSION['username'];
