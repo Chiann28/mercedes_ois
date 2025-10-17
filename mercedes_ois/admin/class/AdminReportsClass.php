@@ -88,6 +88,26 @@ class AdminReportsClass{
 
         return $result;
     }
+
+
+    public function get_incidents($client, $datefrom, $dateto, $type) {
+        $SQL = new SQLCommands("mercedes_ois");
+        $datefrom = date('Y-m-d', strtotime($datefrom));
+        $dateto = date('Y-m-d', strtotime($dateto));
+
+        if($type == ""){
+            $filter = "";
+        }else{
+            $filter = "AND type = '$type'";
+        }
+
+        $query = "SELECT * FROM requests_and_incidents
+                    WHERE DATE(sysentrydate) BETWEEN '$datefrom' AND '$dateto'
+                    $filter";
+        $result = $SQL->SelectQuery($query);
+
+        return $result;
+    }
     
 }
 

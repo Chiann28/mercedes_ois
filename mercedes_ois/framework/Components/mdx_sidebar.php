@@ -73,7 +73,7 @@
             </li>
         </ul>
     </div>
-    
+
     <!-- Transactions End -->
     <a href="mdx_events.php" class="sidebar-icon"><i class="fa-solid fa-calendar sidebar-icon"></i><span
             class="sidebar-text ms-2">Events and Operations</span></a>
@@ -114,7 +114,7 @@
                 </a>
             </li>
             <li>
-                <a href="mdx_bill_generation.php" class="sidebar-sub-link">
+                <a href="../../mercedes_ois/admin/mdx_incident_report.php" class="sidebar-sub-link">
                     <span class="sidebar-text ms-2">Incident Logs</span>
                 </a>
             </li>

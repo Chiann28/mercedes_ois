@@ -76,6 +76,15 @@ app.controller("AdminReportsController", function ($scope, API) {
           request_type: "events",
         };
         break;
+      case "incident":
+        var data = {
+          client: $scope.client,
+          datefrom: $scope.datefrom,
+          dateto: $scope.dateto,
+          type: $scope.type,
+          request_type: "incident",
+        };
+        break;
       default:
         break;
     }

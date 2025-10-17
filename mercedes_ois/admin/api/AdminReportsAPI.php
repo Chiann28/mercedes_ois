@@ -70,6 +70,15 @@ try {
                     $process = $AdminReportsClass->events($client, $datefrom, $dateto, $event_type);
                     $response = base64_encode(json_encode($process));
                     break;
+                
+                case "incident":
+                    $client = $_GET['client'] ?? "";
+                    $datefrom = $_GET['datefrom'] ?? "";
+                    $dateto = $_GET['dateto'] ?? "";
+                    $type = $_GET['type'] ?? "";
+                    $process = $AdminReportsClass->get_incidents($client, $datefrom, $dateto, $type);
+                    $response = base64_encode(json_encode($process));
+                    break;
 
                 default:
                     $response["error"] = "Invalid request type";
