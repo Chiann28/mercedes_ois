@@ -35,7 +35,8 @@ app.controller("LoginController", function ($scope, API) {
       $scope.role = final_response.role;
 
       if ($scope.data.result && $scope.role == "admin") {
-        window.location.href = "../../mercedes_ois/admin/mdx_admin_dashboard.php";
+        window.location.href =
+          "../../mercedes_ois/admin/mdx_admin_dashboard.php";
       } else if ($scope.data.result) {
         window.location.href = "../../mercedes_ois/user/MDXUserDashboard.php";
       } else {
@@ -48,17 +49,30 @@ app.controller("LoginController", function ($scope, API) {
     console.log("Welcome User");
   };
 
-  $scope.DoAccountRequest = function () {
+  $scope.DoAccountRequest = function (form) {
+    // Prevent submission if form is invalid
+    if (!form.$valid) {
+      Swal.fire({
+        title: "Incomplete Form",
+        text: "Please fill out all required fields before submitting.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return; // stop execution
+    }
+
     console.log($scope.accreq);
+
     var data = {
       client: $scope.client,
       params: $scope.accreq,
-      //request_id : $scope.request_id,
       request_type: "DoAccountRequest",
-    }
+    };
+
     API.postApi("api/LoginAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
       $scope.response = final_response;
+
       if ($scope.response.result) {
         Swal.fire({
           title: "Success!",
@@ -79,7 +93,6 @@ app.controller("LoginController", function ($scope, API) {
         });
         $scope.isEditing = false;
       }
-      
     });
-  }
+  };
 });

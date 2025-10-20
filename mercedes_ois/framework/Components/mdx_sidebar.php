@@ -33,9 +33,38 @@
         </ul>
     </div>
 
+    <a class="sidebar-icon" data-bs-toggle="collapse" href="#propertiesMenu" role="button"
+        aria-expanded="false" aria-controls="propertiesMenu"><i class="fa-solid fa-house-chimney-user sidebar-icon"></i>
+        <span class="sidebar-text ms-2">Properties</span></a>
+
+    <div class="collapse" id="propertiesMenu">
+        <ul class="list-unstyled">
+            <li>
+                <a href="../../mercedes_ois/admin/mdx_resident_master_data.php" class="sidebar-sub-link">
+                    <i class="fa-solid fa-people-roof"></i>
+                    <span class="sidebar-text ms-2"> Property Master Data</span>
+                </a>
+            </li>
+            <li>
+                <a href="../../mercedes_ois/admin/mdx_new_property.php" class="sidebar-sub-link">
+                    <i class="fa-solid fa-house-medical"></i>
+                    <span class="sidebar-text ms-2"> New Property</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="../../mercedes_ois/admin/mdx_account_request.php" class="sidebar-sub-link">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span class="sidebar-text ms-2"> Account Requests</span>
+                </a>
+            </li> -->
+        </ul>
+    </div>
+    
+
 
     <a href="mdx_announcement.php" class="sidebar-icon"><i class="fa-solid fa-bullhorn sidebar-icon"></i> <span
             class="sidebar-text ms-2">Announcement Module</span></a>
+    
     <!-- Transactions-->
     <a class="sidebar-icon d-flex align-items-center" data-bs-toggle="collapse" href="#transactionMenu" role="button"
         aria-expanded="false" aria-controls="transactionMenu">
@@ -75,6 +104,7 @@
     </div>
     
     <!-- Transactions End -->
+
     <a href="mdx_events.php" class="sidebar-icon"><i class="fa-solid fa-calendar sidebar-icon"></i><span
             class="sidebar-text ms-2">Events and Operations</span></a>
 

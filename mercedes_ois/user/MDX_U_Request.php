@@ -91,7 +91,7 @@
                 <div class="col-12">
                   <div class="mb-3">
                     <label for="reportTitle" class="form-label">Location</label>
-                    <input type="text" class="form-control" id="reportTitle" placeholder="Location if applicable" ng-model="ri.location" required>
+                    <input type="text" class="form-control" id="reportTitle" placeholder="Location if applicable" ng-model="ri.location">
                   </div>
                 </div>
 
