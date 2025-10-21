@@ -33,6 +33,7 @@ app.controller("UserDashboardController", function ($scope, API) {
       $scope.data = final_response;
       console.log($scope.data);
       $scope.GetArrears();
+      $scope.GetNotifications();
     });
   };
 
@@ -48,5 +49,17 @@ app.controller("UserDashboardController", function ($scope, API) {
       $scope.arrears = final_response[0];
       console.log($scope.arrears);
     });
-  }
+  };
+
+  $scope.GetNotifications = function () {
+    var data = {
+      request_type: "GetNotifications",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.arrears = final_response[0];
+      console.log($scope.arrears);
+    });
+  };
 });

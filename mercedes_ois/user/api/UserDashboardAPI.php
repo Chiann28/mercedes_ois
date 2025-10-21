@@ -58,6 +58,11 @@ try {
                     $process = $UserDashboardClass->GetArrears($client, $accountnumber);
                     $response = base64_encode(json_encode($process));
                     break;
+
+                case "GetNotifications":
+                    $process = $UserDashboardClass->GetNotifications();
+                    $response = base64_encode(json_encode($process));
+                    break;
                 
                 default:
                     $response["error"] = "Invalid request type";

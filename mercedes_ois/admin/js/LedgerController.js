@@ -275,6 +275,12 @@ app.controller("LedgerController", function ($scope, API) {
           allowEscapeKey: true,
         });
         $scope.GetGeneratedBill();
+        $scope.saveNotification(
+          "Bill Generation",
+          "Generation of bill is posted, balance updated",
+          "Bill",
+          "unread"
+        );
       } else {
         Swal.fire({
           icon: "error",
@@ -290,13 +296,13 @@ app.controller("LedgerController", function ($scope, API) {
   };
 
   $scope.DoAutoEmaileDue = function () {
-    // var today = new Date().toISOString().split("T")[0];
-    // var lastRun = localStorage.getItem("DoAutoEmaileDueLastRun");
+    var today = new Date().toISOString().split("T")[0];
+    var lastRun = localStorage.getItem("DoAutoEmaileDueLastRun");
 
-    // if (lastRun === today) {
-    //   console.log("Auto Email already executed today. Skipping...");
-    //   return;
-    // }
+    if (lastRun === today) {
+      console.log("Auto Email already executed today. Skipping...");
+      return;
+    }
 
     Swal.fire({
       title: "Loading...",
@@ -317,9 +323,36 @@ app.controller("LedgerController", function ($scope, API) {
       if (final_response) {
         swal.close();
         $scope.GetGeneratedBill();
-        // localStorage.setItem("DoAutoEmaileDueLastRun", today);
-        // console.log("Auto Email executed successfully for " + today);
+        $scope.saveNotification(
+          "Payment Due Reminder",
+          "Notice have been sent via email",
+          "Reminder",
+          "unread"
+        );
       }
+    });
+    $scope.saveNotification(
+      "Payment Due Reminder",
+      "Notice have been sent via email",
+      "Reminder",
+      "unread"
+    );
+  };
+
+  $scope.saveNotification = function (title, message, type, status) {
+    var data = {
+      client: $scope.client,
+      title: title,
+      message: message,
+      type: type,
+      status: status,
+      request_type: "saveNotification",
+    };
+
+    API.postApi("api/NotificationsAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.result = final_response;
+      Swal.close();
     });
   };
 

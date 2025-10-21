@@ -54,6 +54,14 @@ class UserDashboardClass{
         return $result;
     }
 
+    public function GetNotifications() {
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT * FROM notifications WHERE type IN ('Reminder', 'Bill')
+        ";
+        $result = $SQL->SelectQuery($query);
+        return $result;
+    }
+
    
     
 }
