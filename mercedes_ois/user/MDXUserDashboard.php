@@ -14,7 +14,7 @@
 
     <script src="../../mercedes_ois/user/js/UserDashboardController.js"></script>
 
-    
+
 
 
     <!-- NASHIE CSS <3 -->
@@ -42,7 +42,7 @@
         background-position: center;"></div> -->
 
             <div class="row mt-3">
-                <div class="col-12 my-3" >
+                <div class="col-12 my-3">
                     <div class="" style="height: 100%">
                         <div class="row" style="height: 100%">
                             <!-- <div class="col-4">
@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="col-12 text-end text-light">
                                         <p class="h5 fw-normal">Arrears</p>
-                                        <p class="h3">PHP {{ arrears.balance || '0.00' }}</p>
+                                        <p class="h3">PHP {{ arrears.balance | number: 2 }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 my-3" >
+                <div class="col-12 my-3">
                     <div class="" style="height: 100%">
                         <div class="row" style="height: 100%">
 
@@ -122,7 +122,7 @@
                             </div>
 
                             <div class="col-12">
-                                
+
                                 <div class="row g-3">
 
                                     <div class="col-lg-4 d-flex">
@@ -154,7 +154,8 @@
                                                     </p>
                                                 </div>
                                                 <div class="p-2 text-end">
-                                                    <i class="fa-solid fa-bell-concierge lower-card-icon gentle-bounce" style="font-size: 5rem;"></i>
+                                                    <i class="fa-solid fa-bell-concierge lower-card-icon gentle-bounce"
+                                                        style="font-size: 5rem;"></i>
                                                 </div>
                                             </div>
                                         </a>
@@ -172,7 +173,8 @@
                                                     </p>
                                                 </div>
                                                 <div class="p-2 text-end">
-                                                    <i class="fa-solid fa-gear lower-card-icon rotate" style="font-size: 5rem;"></i>
+                                                    <i class="fa-solid fa-gear lower-card-icon rotate"
+                                                        style="font-size: 5rem;"></i>
                                                 </div>
                                             </div>
                                         </a>
@@ -200,7 +202,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
+    </script>
 </body>
 
 </html>

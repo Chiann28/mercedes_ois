@@ -128,8 +128,36 @@ app.controller("IncidentAndRequestController", function ($scope, API) {
       $scope.GetCommentById(item.id);
 
       if (final_response) {
+        $scope.saveNotification(
+          item.id,
+          "Request Update",
+          "Your request is now " + item.status,
+          "Request Update",
+          "unread"
+        );
         location.reload();
       }
+    });
+  };
+
+  $scope.saveNotification = function (id, title, message, type, status) {
+    var data = {
+      client: $scope.client,
+      id,
+      title: title,
+      message: message,
+      type: type,
+      status: status,
+      request_type: "saveNotification",
+    };
+
+    API.postApi("api/IncidentAndRequestAPI.php", data).then(function (
+      response
+    ) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.result = final_response;
+      console.log($scope.result);
+      Swal.close();
     });
   };
 

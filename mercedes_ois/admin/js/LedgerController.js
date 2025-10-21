@@ -331,12 +331,6 @@ app.controller("LedgerController", function ($scope, API) {
         );
       }
     });
-    $scope.saveNotification(
-      "Payment Due Reminder",
-      "Notice have been sent via email",
-      "Reminder",
-      "unread"
-    );
   };
 
   $scope.saveNotification = function (title, message, type, status) {

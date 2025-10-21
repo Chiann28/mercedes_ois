@@ -53,13 +53,14 @@ app.controller("UserDashboardController", function ($scope, API) {
 
   $scope.GetNotifications = function () {
     var data = {
+      accountnumber: $scope.data.accountnumber,
       request_type: "GetNotifications",
     };
 
     API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
-      $scope.arrears = final_response[0];
-      console.log($scope.arrears);
+      $scope.notif = final_response;
+      console.log($scope.notif);
     });
   };
 });

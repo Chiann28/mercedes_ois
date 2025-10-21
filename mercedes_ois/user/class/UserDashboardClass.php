@@ -54,13 +54,26 @@ class UserDashboardClass{
         return $result;
     }
 
-    public function GetNotifications() {
+    public function GetNotifications($accountnumber = null) {
         $SQL = new SQLCommands("mercedes_ois");
-        $query = "SELECT * FROM notifications WHERE type IN ('Reminder', 'Bill')
-        ";
+        //global
+        $query = "SELECT * FROM notifications WHERE type IN ('Reminder', 'Bill', 'Announcement')";
         $result = $SQL->SelectQuery($query);
-        return $result;
+        
+
+        //specific
+        $result2 = [];
+        if (!empty($accountnumber)) {
+            $query2 = "SELECT * FROM notifications 
+                       WHERE type NOT IN ('Reminder', 'Bill') 
+                       AND accountnumber = '$accountnumber'";
+            $result2 = $SQL->SelectQuery($query2);
+        }
+
+        $merged = array_merge($result, $result2);
+        return $merged;
     }
+    
 
    
     

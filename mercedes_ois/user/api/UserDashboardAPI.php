@@ -60,7 +60,8 @@ try {
                     break;
 
                 case "GetNotifications":
-                    $process = $UserDashboardClass->GetNotifications();
+                    $accountnumber = $_GET['accountnumber'] ?? "";
+                    $process = $UserDashboardClass->GetNotifications($accountnumber);
                     $response = base64_encode(json_encode($process));
                     break;
                 

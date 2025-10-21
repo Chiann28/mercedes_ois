@@ -178,6 +178,13 @@ app.controller("AnnouncementController", function ($scope, API) {
       $scope.result = final_response;
       Swal.close();
 
+      $scope.saveNotification(
+        "New Announcement",
+        "New announcement has been posted",
+        "Announcement",
+        "unread"
+      );
+
       if ($scope.result.result) {
         // Upload attachments after saving
         if ($scope.newAnnouncement.attachments.length > 0) {
@@ -204,6 +211,23 @@ app.controller("AnnouncementController", function ($scope, API) {
           confirmButtonText: "OK",
         });
       }
+    });
+  };
+
+  $scope.saveNotification = function (title, message, type, status) {
+    var data = {
+      client: $scope.client,
+      title: title,
+      message: message,
+      type: type,
+      status: status,
+      request_type: "saveNotification",
+    };
+
+    API.postApi("api/NotificationsAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.result = final_response;
+      Swal.close();
     });
   };
 

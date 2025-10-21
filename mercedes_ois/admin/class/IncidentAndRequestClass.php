@@ -101,6 +101,27 @@ class IncidentAndRequestClass{
         $result = $SQL->UpdateQuery($query);
         return $result;
     }
+
+    public function saveNotification($client, $id, $title, $message, $type, $status){
+        $SQL = new SQLCommands("mercedes_ois");
+
+        $query = "SELECT * FROM requests_and_incidents WHERE client = '$client'
+                    AND id = '$id' LIMIT 1";
+        $select = $SQL->SelectQuery($query);
+
+        $accountnumber = $select[0]['accountnumber'];
+
+        $parameters = [
+            "title" => $title,
+            "message" => $message,
+            "type" => $type,
+            "status" => $status,
+            "accountnumber" => $accountnumber
+        ];
+
+    $result = $SQL->InsertQuery("notifications", $parameters);
+    return $result;
+    }
     
 }
 

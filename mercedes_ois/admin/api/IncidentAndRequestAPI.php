@@ -59,6 +59,17 @@ try {
                     $response =  base64_encode(json_encode($process));
                 break;
 
+                case "saveNotification":
+                    $client = $postData['client'];
+                    $title = isset($postData['title']) ? $postData['title'] : null;
+                    $id = isset($postData['id']) ? $postData['id'] : null;
+                    $message = isset($postData['message']) ? $postData['message'] : null;
+                    $type = isset($postData['type']) ? $postData['type'] : null;
+                    $status = isset($postData['status']) ? $postData['status'] : null;
+                    $process = $IncidentAndRequestClass->saveNotification($client, $id, $title, $message, $type, $status);
+                    $response = base64_encode(json_encode($process));
+                    break;
+
                 default:
                     $response["error"] = "Invalid request type";
                     break;
