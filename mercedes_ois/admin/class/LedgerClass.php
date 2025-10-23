@@ -23,9 +23,18 @@ class LedgerClass{
 
     public function GetAccountDetails($client, $accountnumber){
         $SQL = new SQLCommands("mercedes_ois");
-        $query = "SELECT *, DATE(sysentrydate) AS date_registered FROM customer_details
-                WHERE client = '$client'
-                AND accountnumber = '$accountnumber'";
+        $query = "SELECT cd.*, 
+                        DATE(cd.sysentrydate) AS date_registered,
+                        p.property_code,
+                        p.property_name
+                         
+                    FROM customer_details cd
+                        LEFT JOIN properties p
+                    ON p.accountnumber = cd.accountnumber
+                    WHERE cd.client = '$client'
+                    AND cd.accountnumber = '$accountnumber'
+                ";
+        //echo($query); die();
         $result = $SQL->SelectQuery($query);
         return $result[0];
     }

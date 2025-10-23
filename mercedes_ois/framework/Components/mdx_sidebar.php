@@ -40,7 +40,7 @@
     <div class="collapse" id="propertiesMenu">
         <ul class="list-unstyled">
             <li>
-                <a href="../../mercedes_ois/admin/mdx_resident_master_data.php" class="sidebar-sub-link">
+                <a href="../../mercedes_ois/admin/mdx_property_master_data.php" class="sidebar-sub-link">
                     <i class="fa-solid fa-people-roof"></i>
                     <span class="sidebar-text ms-2"> Property Master Data</span>
                 </a>

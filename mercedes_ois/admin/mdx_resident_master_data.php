@@ -293,6 +293,35 @@
 
           </div>
 
+          <div class="col-12">
+            <div class="border border-dark-subtle bg-light rounded p-4 mt-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="fw-semibold mb-3">Property Details</h5>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-3">
+                  <label class="form-label mt-3">Property Code</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" ng-model="mdx.property_code" ng-disabled="!isEditing">
+                    <button class="btn btn-outline-secondary" type="button" ng-click="openPropModal()" ng-disabled="!isEditing">
+                      <i class="fa fa-solid fa-pencil"></i>
+                    </button>
+                  </div>
+                </div>
+
+
+
+                <div class="col-md-9">
+                  <label class="form-label mt-3">Property Name</label>
+                  <div class="col-12 d-flex align-items-center">
+                    <input type="text" class="form-control" ng-model="mdx.property_name" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="col-12" ng-show="isEditing">
             <div class="border border-dark-subtle bg-light rounded p-4 mt-4">
               <div class="d-flex gap-3 justify-content-end">
@@ -415,6 +444,73 @@
                     <tr ng-if="!accountlist || accountlist.length === 0">
                       <td colspan="4" class="text-center text-muted py-3">
                         <i class="fa-regular fa-circle-xmark me-2"></i> No transactions found.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Prop Modal -->
+       <div class="modal fade" id="propModal" tabindex="-1" aria-labelledby="propModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content shadow-lg border-0 rounded-4">
+
+            <!-- Header -->
+            <div class="modal-header bg-secondary text-white rounded-top-4">
+              <h5 class="modal-title fw-semibold" id="accountSearchLabel">
+                <i class="fa-solid fa-users me-2"></i> Select Property
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+
+              <!-- Search Bar -->
+              <div class="input-group mb-3 shadow-sm">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="fa-solid fa-search text-muted"></i>
+                </span>
+                <input type="text" class="form-control border-start-0" ng-model="accountSearch"
+                  placeholder="Search by property code">
+              </div>
+
+              <!-- Account Table -->
+              <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                  <thead class="table-primary text-dark">
+                    <tr>
+                      <th>Code</th>
+                      <th>Unit Name</th>
+                      <th>Unit Type</th>
+                      <th>Status</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="p in proplist | filter:accountSearch" class="animate__animated animate__fadeIn">
+                      <td>{{p.property_code}}</td>
+                      <td>{{p.property_name}}</td>
+                      <td>{{p.property_type}}</td>
+                      <td>{{p.property_status}}</td>
+                      <td class="text-center">
+                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"
+                          ng-click="GetPropertyDetails(p.property_code)" data-bs-dismiss="modal">
+                          <i class="fa-solid fa-check me-1"></i> Select
+                        </button>
+                      </td>
+                    </tr>
+                    <tr ng-if="!proplist || proplist.length === 0">
+                      <td colspan="4" class="text-center text-muted py-3">
+                        <i class="fa-regular fa-circle-xmark me-2"></i> No property found.
                       </td>
                     </tr>
                   </tbody>

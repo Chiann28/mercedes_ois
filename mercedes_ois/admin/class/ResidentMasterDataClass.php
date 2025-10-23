@@ -98,6 +98,7 @@ class ResidentMasterDataClass
 
 
   }
+
   public function InsertAccountDetails($username, $password, $role)
   {
     $SQL = new SQLCommands("mercedes_ois");
@@ -117,9 +118,30 @@ class ResidentMasterDataClass
     return $result;
   }
 
+  public function DoTagProperty ($client,$code,$accountnumber){
+     $SQL = new SQLCommands("mercedes_ois");
+     $query = "UPDATE properties SET accountnumber = '$accountnumber' ,property_status = 'ACTIVE'
+              WHERE client = '$client'
+              AND property_code = '$code'
+              ";
+     $result = $SQL->UpdateQuery($query);
+    return $result;
+  }
+
+  public function CheckIfActiveProperty($client,$code){
+    $SQL = new SQLCommands("mercedes_ois");
+    $query = "SELECT * FROM properties WHERE client = '$client' 
+    AND property_code = '$code'
+    AND property_status = 'ACTIVE'
+    ";
+    $result = $SQL->SelectQuery($query);
+    return $result; 
+  }
+
   public function DoUpdateAccount($params)
   {
     $SQL = new SQLCommands("mercedes_ois");
+    // print_r($params); die();
     $firstname = $params['firstname'];
     $middlename = $params['middlename'];
     $lastname = $params['lastname'];
@@ -128,6 +150,13 @@ class ResidentMasterDataClass
     $email = $params['email'];
     $contact_number = $params['contact_number'];
     $status = $params['status'];
+    $property_code = $params['property_code'];
+
+    $is_occupied = $this->CheckIfActiveProperty($client,$property_code);
+    if($is_occupied){
+      $response = ["result" => false, "message" => "Property Code '$property_code' is currently active.",];
+      return $response;
+    }
 
     $query = "UPDATE customer_details
                 SET firstname = '$firstname', middlename = '$middlename', lastname = '$lastname', contact_number = '$contact_number', email = '$email', status = '$status'
@@ -140,6 +169,7 @@ class ResidentMasterDataClass
       $response = ["result" => false, "message" => "Something Went Wrong. Account Update Failed.",];
     }else{
       $this->DoUpdateFullName($client,$accountnumber);
+      $this->DoTagProperty($client,$property_code,$accountnumber);
       $response = ["result" => true, "message" => "Account : $accountnumber Updated Successfuly", "accountnumber" => $accountnumber];
     }
     return $response;

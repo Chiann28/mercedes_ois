@@ -186,6 +186,35 @@ class PropertiesClass
     return $result;
   }
 
+  public function GetPropertiesList($client, $property_code){
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT * FROM ref_properties
+                WHERE client = '$client'
+               AND (
+                  property_code LIKE '%$property_code%'
+                  OR property_name LIKE '%$property_code%'
+                  -- OR lastname LIKE '%$property_code%'
+              )";
+        $result = $SQL->SelectQuery($query);
+        return $result;
+  }
+
+  public function GetPropertyDetails($client, $property_code){
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT a.*,
+                          b.lot_no,
+                          b.block_no,
+                          b.property_status,
+                          b.accountnumber,
+                          (SELECT CONCAT (firstname,' ',middlename,' ',lastname) FROM customer_details WHERE customer_details.accountnumber = b.accountnumber) as `owner` 
+                FROM ref_properties a
+                LEFT JOIN properties b on b.property_code = a.property_code
+                WHERE a.client = '$client'
+                  AND a.property_code = '$property_code'";
+        $result = $SQL->SelectQuery($query);
+        return $result[0];
+    }
+
 }
 
 ?>

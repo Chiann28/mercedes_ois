@@ -32,6 +32,20 @@ try {
           $response = base64_encode(json_encode($process));
           break;
 
+        case "GetPropertiesList":
+                    $client = $_GET['client'] ?? "";
+                    $property_code = $_GET['property_code'] ?? "";
+                    $process = $PropertiesClass->GetPropertiesList($client, $property_code);
+                    $response =  base64_encode(json_encode($process));
+                break;
+        
+        case "GetPropertyDetails":
+                    $client = $_GET['client'] ?? "";
+                    $property_code = $_GET['property_code'] ?? "";
+                    $process = $PropertiesClass->GetPropertyDetails($client, $property_code);
+                    $response =  base64_encode(json_encode($process));
+                break;
+
         default:
           $response["error"] = "Invalid request type";
           break;

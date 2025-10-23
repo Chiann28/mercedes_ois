@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="mdx-body-color" ng-controller="PropertiesController" ng-init="">
+<body class="mdx-body-color" ng-controller="PropertiesController" ng-init="VerifySession()">
 
   <!-- Sidebar -->
   <?php require_once '../framework/Components/mdx_sidebar.php'; ?>
@@ -84,16 +84,20 @@
                 </div>
 
 
-                <div class="col-12 my-2">
+                <div class="col-12 col-md-6 my-2">
                   <label for="unitName" class="text-muted">Unit Name</label>
                   <input type="text" class="form-control mt-2" id="unitName" placeholder="Enter unit name"
                     ng-model="new_prop.property_name" required>
                 </div>
 
-                <div class="col-12 my-2">
+                <div class="col-12 col-md-6 my-2">
                   <label for="unitName" class="text-muted">Location</label>
                   <input type="text" class="form-control mt-2" id="unitName" placeholder="Enter unit location"
                     ng-model="new_prop.location" required>
+                </div>
+                
+                <div class="my-3">
+                  <hr>
                 </div>
 
                 <div class="col-12 col-md-4 my-2">
@@ -113,13 +117,19 @@
                   <input type="text" class="form-control mt-2" id="lotNo" placeholder="Enter lot no."
                     ng-model="new_prop.lot_no">
                 </div>
-              </div>
+                 
+                <div class="my-3">
+                  <hr>
+                </div>
 
-              <div class="col-12 my-2">
+                <div class="col-12 col-md-6 my-2">
                   <label for="unitName" class="text-muted">Unit Monthly Rate</label>
                   <input type="number" class="form-control mt-2" id="unitName" placeholder="Enter unit rate"
                     ng-model="new_prop.price" required>
                 </div>
+              </div>
+
+              
 
               <!-- Submit Button (lower right) -->
               <div class="d-flex justify-content-end mt-4">
@@ -128,6 +138,8 @@
                 </button>
               </div>
             </form>
+
+           
           </div>
 
 

@@ -199,6 +199,7 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
       status: $scope.mdx.status,
       contact_number: $scope.mdx.contact_number,
       email: $scope.mdx.email,
+      property_code: $scope.mdx.property_code,
       request_type: "DoUpdateAccount",
     };
     API.postApi("api/ResidentMasterDataAPI.php", data).then(function (response) {
@@ -227,6 +228,7 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
           icon: "error",
           confirmButtonText: "OK",
         });
+        // location.reload();
         $scope.isEditing = false;
       }
     });
@@ -234,5 +236,94 @@ app.controller("ResidentMasterDataController", function ($scope, API) {
 
   $scope.InitializeUpdating = function (){
      $scope.isEditing = !$scope.isEditing;
-  }
+  };
+
+  $scope.openPropModal = function () {
+    Swal.fire({
+      title: "Loading...",
+      text: "Fetching properties list, please wait.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    var data = {
+      client: $scope.client,
+      property_code: '',
+      request_type: "GetPropertiesList",
+    };
+
+    API.getApi("api/PropertiesAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.proplist = final_response;
+      console.log($scope.proplist);
+
+      let modal;
+
+      if ($scope.proplist.length > 1) {
+        $scope.MDXSwalClose(1000);
+
+        setTimeout(function () {
+          modal = new bootstrap.Modal(
+            document.getElementById("propModal")
+          );
+          modal.show();
+        }, 1300);
+      } else if ($scope.proplist.length === 1) {
+        $scope.GetPropertyDetails(final_response[0].property_code);
+        $scope.MDXSwalClose(1000);
+      } else {
+        $scope.MDXSwalClose(1000);
+        Swal.fire({
+          icon: "warning",
+          title: "No Results",
+          text: "No property found matching your search.",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#6c757d",
+        });
+      }
+    });
+  };
+
+  $scope.GetPropertyDetails = function (property_code) {
+    // console.log(property_code);
+    Swal.fire({
+      title: "Loading...",
+      text: "Fetching property list, please wait.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    var data = {
+      client: $scope.client,
+      property_code: property_code,
+      request_type: "GetPropertyDetails",
+    };
+
+    API.getApi("api/PropertiesAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.property = final_response;
+
+      $scope.mdx.property_code = $scope.property.property_code;
+      $scope.mdx.property_name = $scope.property.property_name;
+
+      // if (final_response.date_registered) {
+      //   final_response.date_registered = new Date(
+      //     final_response.date_registered
+      //   );
+      // }
+
+      if (final_response) {
+        console.log($scope.property);
+      }
+
+      //set time out, yung swal kasi ambilis mawala parang engot hahahah
+      $scope.MDXSwalClose(1000);
+    });
+  };
+
+
 });

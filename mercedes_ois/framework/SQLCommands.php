@@ -86,7 +86,7 @@ require_once "Connection.php";
 				{
 						$data[] = $this->clean_string($rows);
 				}	
-				
+				// echo($query); die();
 				return $data;
 		}
 
