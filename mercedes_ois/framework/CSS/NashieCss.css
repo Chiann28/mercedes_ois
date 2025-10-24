@@ -207,6 +207,12 @@
   border-left: 3px solid #f55355;
 }
 
+.sidebar-active {
+  background: #343a40 !important;
+  color: #fff !important;
+  border-left: 3px solid #f55355 !important;
+}
+
 .sidebar a i {
   min-width: 30px;
   text-align: center;

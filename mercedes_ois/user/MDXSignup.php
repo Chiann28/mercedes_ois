@@ -14,7 +14,7 @@
   <!-- FONTAWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
   <!-- SweetAlert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- JAVASCRIPT -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
   <script src="../../mercedes_ois/user/js/LoginController.js"></script>
@@ -50,9 +50,9 @@
           <!-- <li class="nav-item">
                         <a class="nav-link text-light mdx-text-hover" href="MDXSignup.php">Sign up</a>
                     </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link text-dark mdx-text-hover" href="MDXLogin.php" style="cursor: pointer;">Login</a>
-          </li>
+          </li> -->
           <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -69,102 +69,114 @@
     </div>
   </nav>
 
-<form name="accountRequestForm" ng-submit="DoAccountRequest(accountRequestForm)" novalidate>
-  <div class="container mt-5">
+  <form name="accountRequestForm" ng-submit="DoAccountRequest(accountRequestForm)" novalidate>
+    <div class="container mt-5">
 
-    <!-- Section 1: Overview -->
-    <div class="col-12 border p-3 my-3 rounded shadow">
-      <p class="h3 fw-light">1. Overview</p>
-      <div class="row mt-3">
+      <div class="col-12 border p-4 rounded shadow-sm">
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="h2 fw-normal">
+            Account Creation Form
+          </p>
 
-        <div class="col-12 col-md-6 my-2">
-          <label for="firstname"><span class="text-muted">First Name</span></label>
-          <input type="text" class="form-control mt-2" id="firstname" placeholder="First Name"
-            ng-model="accreq.firstname" required>
+          <a href="MDXLogin.php" type="button" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-left-long me-2"></i>Back to Login
+          </a>
         </div>
 
-        <div class="col-12 col-md-6 my-2">
-          <label for="lastname"><span class="text-muted">Last Name</span></label>
-          <input type="text" class="form-control mt-2" id="lastname" placeholder="Last Name"
-            ng-model="accreq.lastname" required>
-        </div>
-
-        <div class="col-12 my-2">
-          <label for="email"><span class="text-muted">Email</span></label>
-          <input type="email" class="form-control mt-2" id="email" placeholder="Email"
-            ng-model="accreq.email" required>
-        </div>
-
-        <div class="col-12 col-md-6 my-2">
-          <label for="phone"><span class="text-muted">Mobile Number</span></label>
-          <input id="phone" type="tel" class="form-control mt-2" placeholder="09xxxxxxxxx"
-            ng-model="accreq.mobile_no" required>
-        </div>
-
-        <div class="col-12 col-md-6 my-2">
-          <label for="telephone"><span class="text-muted">Telephone</span></label>
-          <input type="number" class="form-control mt-2" id="telephone" placeholder="Telephone Number"
-            ng-model="accreq.tel_no" required>
-        </div>
 
       </div>
-    </div>
+      <!-- Section 1: Overview -->
+      <div class="col-12 border p-3 my-3 rounded shadow-sm">
+        <p class="h3 fw-light">1. Overview</p>
+        <div class="row mt-3">
 
-    <!-- Section 2: Account Information -->
-    <div class="col-12 border p-3 my-3 rounded shadow">
-      <p class="h3 fw-light">2. Account Information</p>
-      <div class="row mt-3">
+          <div class="col-12 col-md-6 my-2">
+            <label for="firstname"><span class="text-muted">First Name</span></label>
+            <input type="text" class="form-control mt-2" id="firstname" placeholder="First Name"
+              ng-model="accreq.firstname" required>
+          </div>
 
-        <div class="col-12 my-2">
-          <label for="username"><span class="text-muted">Username</span></label>
-          <input type="text" class="form-control mt-2" id="username" placeholder="Username"
-            ng-model="accreq.username" required>
-        </div>
+          <div class="col-12 col-md-6 my-2">
+            <label for="lastname"><span class="text-muted">Last Name</span></label>
+            <input type="text" class="form-control mt-2" id="lastname" placeholder="Last Name"
+              ng-model="accreq.lastname" required>
+          </div>
 
-        <div class="col-12 col-md-6 my-2">
-          <label for="ref_name"><span class="text-muted">Reference Name</span></label>
-          <input type="text" class="form-control mt-2" id="ref_name" placeholder="Reference Name"
-            ng-model="accreq.ref_name" required>
-        </div>
+          <div class="col-12 my-2">
+            <label for="email"><span class="text-muted">Email</span></label>
+            <input type="email" class="form-control mt-2" id="email" placeholder="Email" ng-model="accreq.email"
+              required>
+          </div>
 
-        <div class="col-12 col-md-6 my-2">
-          <label for="ref_contact"><span class="text-muted">Reference Contact No.</span></label>
-          <input type="text" class="form-control mt-2" id="ref_contact" placeholder="Reference Contact"
-            ng-model="accreq.ref_contact" required>
-        </div>
+          <div class="col-12 col-md-6 my-2">
+            <label for="phone"><span class="text-muted">Mobile Number</span></label>
+            <input id="phone" type="tel" class="form-control mt-2" placeholder="09xxxxxxxxx" ng-model="accreq.mobile_no"
+              required>
+          </div>
 
-        <div class="col-12 my-2">
-          <label for="unittype"><span class="text-muted">Unit Type</span></label>
-          <input type="text" class="form-control mt-2" id="unittype" placeholder=""
-            ng-model="accreq.unittype" required>
-        </div>
+          <div class="col-12 col-md-6 my-2">
+            <label for="telephone"><span class="text-muted">Telephone</span></label>
+            <input type="number" class="form-control mt-2" id="telephone" placeholder="Telephone Number"
+              ng-model="accreq.tel_no" required>
+          </div>
 
-        <div class="col-12 col-md-6 my-2">
-          <label for="lot_no"><span class="text-muted">Lot No.</span></label>
-          <input type="text" class="form-control mt-2" id="lot_no" placeholder=""
-            ng-model="accreq.lot_no" required>
-        </div>
-
-        <div class="col-12 col-md-6 my-2">
-          <label for="house_no"><span class="text-muted">House No.</span></label>
-          <input type="text" class="form-control mt-2" id="house_no" placeholder=""
-            ng-model="accreq.house_no" required>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Submit Button -->
-    <div class="col-12 border p-3 my-3 rounded shadow">
-      <div class="bg-light">
-        <div class="d-flex gap-3 justify-content-end">
-          <button type="submit" class="btn btn-success">Submit</button>
         </div>
       </div>
-    </div>
 
-  </div>
-</form>
+      <!-- Section 2: Account Information -->
+      <div class="col-12 border p-3 my-3 rounded shadow-sm">
+        <p class="h3 fw-light">2. Account Information</p>
+        <div class="row mt-3">
+
+          <div class="col-12 my-2">
+            <label for="username"><span class="text-muted">Username</span></label>
+            <input type="text" class="form-control mt-2" id="username" placeholder="Username" ng-model="accreq.username"
+              required>
+          </div>
+
+          <div class="col-12 col-md-6 my-2">
+            <label for="ref_name"><span class="text-muted">Reference Name</span></label>
+            <input type="text" class="form-control mt-2" id="ref_name" placeholder="Reference Name"
+              ng-model="accreq.ref_name" required>
+          </div>
+
+          <div class="col-12 col-md-6 my-2">
+            <label for="ref_contact"><span class="text-muted">Reference Contact No.</span></label>
+            <input type="text" class="form-control mt-2" id="ref_contact" placeholder="Reference Contact"
+              ng-model="accreq.ref_contact" required>
+          </div>
+
+          <!-- <div class="col-12 my-2">
+            <label for="unittype"><span class="text-muted">Unit Type</span></label>
+            <input type="text" class="form-control mt-2" id="unittype" placeholder="" ng-model="accreq.unittype"
+              required>
+          </div>
+
+          <div class="col-12 col-md-6 my-2">
+            <label for="lot_no"><span class="text-muted">Lot No.</span></label>
+            <input type="text" class="form-control mt-2" id="lot_no" placeholder="" ng-model="accreq.lot_no" required>
+          </div>
+
+          <div class="col-12 col-md-6 my-2">
+            <label for="house_no"><span class="text-muted">House No.</span></label>
+            <input type="text" class="form-control mt-2" id="house_no" placeholder="" ng-model="accreq.house_no"
+              required>
+          </div> -->
+
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-12 border p-3 my-3 rounded shadow-sm">
+        <div class="bg-light">
+          <div class="d-flex gap-3 justify-content-end">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
 
 
 
