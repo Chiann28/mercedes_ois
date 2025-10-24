@@ -59,8 +59,23 @@ app.controller("UserDashboardController", function ($scope, API) {
 
     API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
       var final_response = JSON.parse(atob(response.data));
-      $scope.notif = final_response;
-      console.log($scope.notif);
+      $scope.notifications = final_response;
+      console.log($scope.notifications);
+    });
+  };
+
+  $scope.MarkAsRead = function (id) {
+    var data = {
+      accountnumber: $scope.data.accountnumber,
+      notif_id: id,
+      request_type: "MarkAsRead",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.notifications = final_response;
+      console.log($scope.notifications);
+      $scope.GetNotifications();
     });
   };
 });
