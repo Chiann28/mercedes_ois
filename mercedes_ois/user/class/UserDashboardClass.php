@@ -56,22 +56,57 @@ class UserDashboardClass{
 
     public function GetNotifications($accountnumber = null) {
         $SQL = new SQLCommands("mercedes_ois");
-        //global
-        $query = "SELECT * FROM notifications WHERE type IN ('Reminder', 'Bill', 'Announcement')";
+    
+        //Global notifications (Reminder, Bill, Announcement)
+        $query = "
+            SELECT n.* 
+            FROM notifications n
+            WHERE n.type IN ('Reminder', 'Bill', 'Announcement')
+            AND NOT EXISTS (
+                SELECT 1 
+                FROM notification_users nu
+                WHERE nu.notification_id = n.id
+                  AND nu.accountnumber = '$accountnumber'
+            )
+        ";
         $result = $SQL->SelectQuery($query);
-        
-
-        //specific
+    
+        // 🔹 Specific notifications (Request, Update, etc.)
         $result2 = [];
         if (!empty($accountnumber)) {
-            $query2 = "SELECT * FROM notifications 
-                       WHERE type NOT IN ('Reminder', 'Bill') 
-                       AND accountnumber = '$accountnumber'";
+            $query2 = "
+                SELECT n.*
+                FROM notifications n
+                WHERE n.type NOT IN ('Reminder', 'Bill', 'Announcement')
+                  AND n.accountnumber = '$accountnumber'
+                  AND NOT EXISTS (
+                      SELECT 1 
+                      FROM notification_users nu
+                      WHERE nu.notification_id = n.id
+                        AND nu.accountnumber = '$accountnumber'
+                  )
+            ";
             $result2 = $SQL->SelectQuery($query2);
         }
-
+    
         $merged = array_merge($result, $result2);
         return $merged;
+    }
+    
+
+    public function MarkAsRead($id, $accountnumber, $user_id){
+        $SQL = new SQLCommands("mercedes_ois");
+        
+        $parameters = [
+            'notification_id' => $id,
+            'user_id' => $user_id,
+            'accountnumber' => $accountnumber,
+            'status' => "read"
+        ];
+        
+        $result = $SQL->InsertQuery('notification_users', $parameters);
+        
+        return $result;
     }
     
 

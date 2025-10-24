@@ -65,6 +65,14 @@ try {
                     $response = base64_encode(json_encode($process));
                     break;
                 
+                case "MarkAsRead":
+                    $accountnumber = $_GET['accountnumber'] ?? "";
+                    $notif_id = $_GET['notif_id'] ?? "";
+                    $user_id = $_SESSION['user_id'] ?? "";
+                    $process = $UserDashboardClass->MarkAsRead($notif_id, $accountnumber, $user_id);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
                 default:
                     $response["error"] = "Invalid request type";
                     break;
