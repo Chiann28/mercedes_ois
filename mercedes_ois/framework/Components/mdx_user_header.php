@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     fetch("../../mercedes_ois/admin/api/AdminAPI.php", {
                             method: "POST",
                             headers: {
-                                =
+                                
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({

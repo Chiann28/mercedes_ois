@@ -35,14 +35,43 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
 
       switch (type) {
         case "incident":
+          $scope.GetNotifications();
           $scope.GetReportTicket($scope.data.accountnumber);
           break;
         case "request":
           $scope.GetRequestTicket($scope.data.accountnumber);
+          $scope.GetNotifications();
           break;
         default:
           break;
       }
+    });
+  };
+
+  $scope.GetNotifications = function () {
+    var data = {
+      accountnumber: $scope.data.accountnumber,
+      request_type: "GetNotifications",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.notifications = final_response;
+      console.log($scope.notifications);
+    });
+  };
+  $scope.MarkAsRead = function (id) {
+    var data = {
+      accountnumber: $scope.data.accountnumber,
+      notif_id: id,
+      request_type: "MarkAsRead",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.notifications = final_response;
+      console.log($scope.notifications);
+      $scope.GetNotifications();
     });
   };
 
@@ -100,10 +129,10 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
         $scope.data = final_response;
         console.log($scope.data);
 
-        // Close the loader
+
         Swal.close();
 
-        // Show result alert
+
         if ($scope.data.result) {
           Swal.fire({
             icon: "success",
@@ -111,6 +140,8 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
             text: "Your report has been successfully submitted.",
             timer: 2000,
             showConfirmButton: false,
+          }).then(() => {
+          window.location.href = "MDXUserDashboard.php";
           });
         } else {
           Swal.fire({
@@ -166,6 +197,8 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
             text: "Your request has been successfully submitted.",
             timer: 2000,
             showConfirmButton: false,
+          }).then(() => {
+          window.location.href = "MDXUserDashboard.php";
           });
         } else {
           Swal.fire({

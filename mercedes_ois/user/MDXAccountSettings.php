@@ -26,6 +26,11 @@
   <?php require_once '../framework/Components/mdx_user_header.php'; ?>
 
   <div class="container-md mb-3 py-5" style="min-height: 87vh">
+    <div class="text-end">
+      <a href="MDXUserDashboard.php" type="button" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-left-long me-2"></i>Back
+          </a>
+    </div>
     <div class="p-5 mt-3 shadow-sm rounded border d-flex justify-content-between align-items-center">
       <h1 class="fw-semiboold"><i class="fa-solid fa-gear lower-card-icon-rotate me-1"></i>Profile</h1>
       <div>

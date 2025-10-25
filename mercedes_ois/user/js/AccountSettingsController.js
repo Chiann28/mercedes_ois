@@ -32,6 +32,34 @@ app.controller("AccountSettingsController", function ($scope, API) {
       var final_response = JSON.parse(atob(response.data));
       $scope.data = final_response;
       console.log($scope.data);
+      $scope.GetNotifications();
+    });
+  };
+
+  $scope.GetNotifications = function () {
+    var data = {
+      accountnumber: $scope.data.accountnumber,
+      request_type: "GetNotifications",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.notifications = final_response;
+      console.log($scope.notifications);
+    });
+  };
+  $scope.MarkAsRead = function (id) {
+    var data = {
+      accountnumber: $scope.data.accountnumber,
+      notif_id: id,
+      request_type: "MarkAsRead",
+    };
+
+    API.getApi("api/UserDashboardAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.notifications = final_response;
+      console.log($scope.notifications);
+      $scope.GetNotifications();
     });
   };
 

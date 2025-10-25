@@ -117,6 +117,7 @@ class U_IncidentAndRequestClass
     $SQL = new SQLCommands("mercedes_ois");
     $accountResult = $this->getAccountName($accountnumber);
     $accountname = isset($accountResult[0]['fullname']) ? strtoupper($accountResult[0]['fullname']) : 'Unknown';
+    $location = isset($request['location']) ? $request['location'] : '' ;
     
     $parameters = [
       'client' => $client,
@@ -128,7 +129,7 @@ class U_IncidentAndRequestClass
       'description' => $request['description'],
       'priority' => 'Medium',
       'status' => 'New',
-      'location' => $request['location']
+      'location' => $location
     ];
 
     $result = $SQL->InsertQuery("requests_and_incidents", $parameters);

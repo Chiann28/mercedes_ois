@@ -26,6 +26,11 @@
   <?php require_once '../framework/Components/mdx_user_header.php'; ?>
 
   <div class="container-md mb-3 py-5" style="min-height: 87vh">
+    <div class="text-end">
+      <a href="MDXUserDashboard.php" type="button" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-left-long me-2"></i>Back
+          </a>
+    </div>
     <div class="p-5 mt-3 shadow-sm rounded border d-flex justify-content-between align-items-center">
       <h1 class="fw-semiboold"><i class="fa-solid fa-bell-concierge lower-card-icon-rotate me-1"></i>Requests</h1>
       <div>
@@ -73,7 +78,7 @@
                       <option selected disabled>Select a category</option>
                       <option value="maintenance">MAINTENANCE</option>
                       <option value="security">SECURITY</option>
-                      <option value="medical">MEDICAL</option>
+                      <option value="health">HEALTH</option>
                       <option value="utility">UTILITY</option>
                       <!-- <option value="noise">NOISE COMPLAINT</option> -->
                       <option value="others">OTHERS</option>
@@ -139,7 +144,7 @@
                           <i class="fa-solid text-secondary fs-4" ng-class="{
                                     'fa-wrench' : tix.category === 'maintenance',
                                     'fa-shield' : tix.category === 'security',
-                                    'fa-user-nurse' : tix.category === 'medical',
+                                    'fa-user-nurse' : tix.category === 'health',
                                     'fa-broom' : tix.category === 'utility',
                                     'fa-volume-high' : tix.category === 'noise',
                                     'fa-flag' : tix.category === 'others'
