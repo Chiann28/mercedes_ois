@@ -78,4 +78,19 @@ app.controller("UserDashboardController", function ($scope, API) {
       $scope.GetNotifications();
     });
   };
+
+  $scope.notif_click = function(type) {
+  switch (type) {
+    case 'Incident Update':
+      window.location.href = "MDX_U_Incident.php";
+      break;
+    case 'Request Update':
+      window.location.href = "MDX_U_Request.php";
+      break;
+    default:
+      console.log("Unknown notification type:", type);
+      break;
+  }
+};
+
 });

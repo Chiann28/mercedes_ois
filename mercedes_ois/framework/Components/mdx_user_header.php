@@ -17,9 +17,10 @@
                         aria-expanded="false" ng-click="LoadNotifications()">
                         <i class="fa-solid fa-bell"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            ng-if="notifications.length > 0">
-                            {{notifications.length}}
+                            ng-if="(notifications | filter:{n_status:'unread'}).length > 0">
+                            {{ (notifications | filter:{n_status:'unread'}).length }}
                         </span>
+
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notifDropdown"
@@ -27,25 +28,44 @@
                         <li ng-if="notifications.length === 0" class="dropdown-item text-center text-muted">
                             No new notifications
                         </li>
-                        <li ng-repeat="notif in notifications"
-                            class="dropdown-item border-bottom small d-flex align-items-start">
-                            <span class="me-2 fs-5" ng-switch="notif.type">
-                                <i ng-switch-when="Reminder" class="fa-solid fa-clock text-warning"></i>
-                                <i ng-switch-when="Request" class="fa-solid fa-envelope text-info"></i>
-                                <i ng-switch-when="Update" class="fa-solid fa-rotate text-primary"></i>
-                                <i ng-switch-when="Announcement" class="fa-solid fa-bullhorn text-success"></i>
-                                <i ng-switch-default class="fa-solid fa-bell text-secondary"></i>
-                            </span>
+                        <li ng-repeat="notif in notifications" class="dropdown-item border-bottom"
+                            style="cursor: pointer;">
+                            <a class="text-decoration-none text-dark" ng-click="notif_click(notif.type)">
+                                <div class="col-12 d-flex align-items-center">
 
-                            <div class="flex-grow-1">
-                                <strong>{{notif.title}}</strong><br>
-                                <span>{{notif.message}}</span><br>
-                                <small class="text-muted">{{notif.created_at | date:'medium'}}</small>
-                            </div>
-                            <button class="btn btn-sm btn-outline-secondary ms-2" ng-click="MarkAsRead(notif.id)"
-                                title="Mark as Read">
-                                <i class="fa-solid fa-check"></i>
-                            </button>
+                                    <span class="me-2 fs-5" ng-switch="notif.type">
+                                        <i ng-switch-when="Reminder" class="fa-solid fa-clock text-warning fs-2"></i>
+                                        <i ng-switch-when="Request" class="fa-solid fa-envelope text-info fs-2"></i>
+                                        <i ng-switch-when="Update" class="fa-solid fa-rotate text-primary fs-2"></i>
+                                        <i ng-switch-when="Announcement"
+                                            class="fa-solid fa-bullhorn text-success fs-2"></i>
+                                        <i ng-switch-default class="fa-solid fa-bell text-secondary fs-2"></i>
+                                    </span>
+                                    <div class="w-100 ms-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="mb-0" ng-class="{'fw-bold' : notif.n_status === 'unread'}">{{
+                                                    notif.title }} </p>
+                                                <p class="mb-0 small"
+                                                    ng-class="{'fw-semibold' : notif.n_status === 'unread'}">{{
+                                                    notif.message }}</p>
+                                            </div>
+                                            <a type="btn" class="ms-2 text-secondary"
+                                                ng-show="notif.n_status === 'unread'" ng-click="MarkAsRead(notif.id)"
+                                                title="Mark as Read">
+                                                <i class="fa-solid fa-check-double"></i>
+                                            </a>
+                                        </div>
+                                        <p class="text-muted small mb-0">{{notif.formatted_datetime | date:'medium'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
                         </li>
                     </ul>
                 </li>
@@ -61,57 +81,56 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const logoutBtn = document.getElementById("logout_button");
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", function() {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "Do you really want to log out?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, log out",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // 🔹 Step 2: Call the API only if confirmed
-                    fetch("../../mercedes_ois/admin/api/AdminAPI.php", {
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutBtn = document.getElementById("logout_button");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", function () {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "Do you really want to log out?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, log out",
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // 🔹 Step 2: Call the API only if confirmed
+                        fetch("../../mercedes_ois/admin/api/AdminAPI.php", {
                             method: "POST",
                             headers: {
-                                
+
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
                                 request_type: "Logout"
                             }),
                         })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.result) {
-                                Swal.fire({
-                                    title: "Logged Out",
-                                    text: "You have been successfully logged out.",
-                                    icon: "success",
-                                    confirmButtonText: "OK"
-                                }).then(() => {
-                                    sessionStorage.clear();
-                                    localStorage.clear();
-                                    window.location.href =
-                                        "../../mercedes_ois/user/MDXLogin.php";
-                                });
-                            } else {
-                                Swal.fire("Error", "Logout failed. Please try again.",
-                                    "error");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Logout failed", err);
-                            Swal.fire("Error", "Something went wrong.", "error");
-                        });
-                }
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.result) {
+                                    Swal.fire({
+                                        title: "Logged Out",
+                                        text: "You have been successfully logged out.",
+                                        icon: "success",
+                                        confirmButtonText: "OK"
+                                    }).then(() => {
+                                        sessionStorage.clear();
+                                        localStorage.clear();
+                                        window.location.href =
+                                            "../../mercedes_ois/user/MDXLogin.php";
+                                    });
+                                } else {
+                                    Swal.fire("Error", "Logout failed. Please try again.",
+                                        "error");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Logout failed", err);
+                                Swal.fire("Error", "Something went wrong.", "error");
+                            });
+                    }
+                });
             });
-        });
-    }
-});
+        }
+    });
 </script>

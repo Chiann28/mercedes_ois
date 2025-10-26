@@ -108,6 +108,8 @@ app.controller("IncidentAndRequestController", function ($scope, API) {
   };
 
   $scope.DoSaveChanges = function (item) {
+    console.log(item);
+   
     var data = {
       id: item.id,
       description: item.description,
@@ -128,11 +130,15 @@ app.controller("IncidentAndRequestController", function ($scope, API) {
       $scope.GetCommentById(item.id);
 
       if (final_response) {
+
+        
+        let type = item.type.charAt(0).toUpperCase() + item.type.slice(1);//gagawin uppercase ung first letter, i.e request -> Request
+        
         $scope.saveNotification(
           item.id,
-          "Request Update",
-          "Your request is now " + item.status,
-          "Request Update",
+          `${type} ID: ${item.id} Update`,
+          `Your ${item.type} ticket is now ${item.status}` ,
+          `${type} Update`,
           "unread"
         );
         location.reload();

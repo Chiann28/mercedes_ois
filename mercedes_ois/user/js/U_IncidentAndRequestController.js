@@ -74,6 +74,19 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
       $scope.GetNotifications();
     });
   };
+  $scope.notif_click = function (type) {
+    switch (type) {
+      case "Incident Update":
+        window.location.href = "MDX_U_Incident.php";
+        break;
+      case "Request Update":
+        window.location.href = "MDX_U_Request.php";
+        break;
+      default:
+        console.log("Unknown notification type:", type);
+        break;
+    }
+  };
 
   $scope.GetReportTicket = function (accountnumber) {
     var data = {
@@ -129,9 +142,7 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
         $scope.data = final_response;
         console.log($scope.data);
 
-
         Swal.close();
-
 
         if ($scope.data.result) {
           Swal.fire({
@@ -141,7 +152,7 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
             timer: 2000,
             showConfirmButton: false,
           }).then(() => {
-          window.location.href = "MDXUserDashboard.php";
+            window.location.href = "MDXUserDashboard.php";
           });
         } else {
           Swal.fire({
@@ -198,7 +209,7 @@ app.controller("U_IncidentAndRequestController", function ($scope, API) {
             timer: 2000,
             showConfirmButton: false,
           }).then(() => {
-          window.location.href = "MDXUserDashboard.php";
+            window.location.href = "MDXUserDashboard.php";
           });
         } else {
           Swal.fire({

@@ -145,7 +145,7 @@ class U_IncidentAndRequestClass
   public function GetRequestTicket($client,$accountnumber)
   {
     $SQL = new SQLCommands("mercedes_ois");
-    $query = "SELECT * FROM requests_and_incidents WHERE client = 'mercedes' AND accountnumber = '$accountnumber' AND type = 'request'
+    $query = "SELECT * FROM requests_and_incidents WHERE client = 'mercedes' AND accountnumber = '$accountnumber' AND type = 'request' ORDER BY sysentrydate DESC
       ";
     $result = $SQL->SelectQuery($query);
     return $result;
