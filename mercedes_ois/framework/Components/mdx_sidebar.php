@@ -7,7 +7,7 @@
     <a href="../../mercedes_ois/admin/mdx_admin_dashboard.php" class="sidebar-icon" id="sidebarDashboard"><i
             class="fa-solid fa-chart-line sidebar-icon"></i> <span class="sidebar-text ms-2">Dashboard</span></a>
     
-    <a href="../../mercedes_ois/admin/mdx_admin_registration.php" class="sidebar-icon" id="sidebarDashboard"><i
+    <a href="../../mercedes_ois/admin/mdx_admin_registration.php" class="sidebar-icon" id="sidebarAdminRegistration"><i
             class="fa-solid fa-user-tie sidebar-icon"></i> <span class="sidebar-text ms-2">Admin Registration</span></a>
 
 
@@ -174,6 +174,7 @@
 
 <script>
     let sidebarDashboard = document.getElementById('sidebarDashboard');
+    let adminRegistration  = document.getElementById('sidebarAdminRegistration');
 
     let residentInformationMenu = document.getElementById('residentInformationMenu');
     let rmd = document.getElementById('rmdSideButton');
@@ -207,6 +208,9 @@
     switch (pageName) {
         case 'mdx_admin_dashboard':
             sidebarDashboard.classList.add("sidebar-active");
+            break;
+        case 'mdx_admin_registration':
+            adminRegistration.classList.add("sidebar-active");
             break;
         case 'mdx_resident_master_data':
             residentInformationMenu.classList.add("show");
