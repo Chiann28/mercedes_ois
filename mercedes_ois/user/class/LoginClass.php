@@ -19,14 +19,14 @@ class LoginClass
                 AND `password` = '$password'
                 LIMIT 1";
         $result = $SQL->SelectQuery($query);
-        
-        
+
+
         if (empty($result) || count($result) == 0) {
             return [
                 "result" => false,
                 "message" => "Invalid Username or Password",
                 "username" => $username
-                
+
             ];
         }
 
@@ -37,7 +37,7 @@ class LoginClass
                 "result" => true,
                 "message" => "Login successful",
                 "username" => $username,
-                "role"     => "admin",
+                "role" => "admin",
                 "user_id" => $user["user_id"] ?? ""
             ];
         } else {
@@ -45,7 +45,7 @@ class LoginClass
                 "result" => true,
                 "message" => "Login successful",
                 "username" => $username,
-                "role"     => $user['role'] ?? "user",
+                "role" => $user['role'] ?? "user",
                 "user_id" => $user["user_id"] ?? ""
             ];
         }
@@ -96,6 +96,29 @@ class LoginClass
             return ["result" => true, "message" => "Success",];
         }
 
+    }
+
+    public function PWResetCheckIfValid($client, $input)
+    {
+        $SQL = new SQLCommands("mercedes_ois");
+        $query = "SELECT ua.*,cd.email 
+                    FROM user_accounts ua 
+                    LEFT JOIN customer_details cd ON cd.accountnumber = ua.accountnumber
+                    WHERE ua.client = '$client' 
+                    AND (ua.username = '$input' OR cd.email = '$input')
+                    ";
+        $result = $SQL->SelectQuery($query);
+        if (!empty($result)) {
+            return [
+                "response" => true,
+                "data" => $result[0]
+            ];
+        } else {
+            return [
+                "response" => false,
+                "message" => "No matching account or email found."
+            ];
+        }
     }
 
 }

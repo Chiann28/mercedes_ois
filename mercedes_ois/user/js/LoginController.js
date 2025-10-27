@@ -95,4 +95,33 @@ app.controller("LoginController", function ($scope, API) {
       }
     });
   };
+
+  $scope.PWResetCheckIfValid = function () {
+    
+    if (!$scope.pwr.input || $scope.pwr.input === "") {
+      $scope.pwr.message = "Email or username can't be empty!";
+      $scope.pwr.showMessage = true;
+      return;
+    }
+    var data = {
+      client: $scope.client,
+      input: $scope.pwr.input,
+      request_type: "PWResetCheckIfValid",
+    };
+    API.getApi("api/LoginAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.pwrresponse = final_response;
+      $scope.pwr.email = final_response.data.email;
+      if (!final_response.response) {
+        $scope.pwr.message = final_response.message;
+        $scope.pwr.showMessage = true;
+      }else{
+        
+        document.getElementById('pwr_step1').style.display = "none";
+        console.log(final_response);
+        
+        document.getElementById('pwr_step2').style.display = "block";
+      }
+    });
+  };
 });

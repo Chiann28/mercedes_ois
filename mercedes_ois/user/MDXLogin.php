@@ -125,13 +125,13 @@
                                 <i
                                     class="fa-regular fa-eye fs-5 position-absolute top-50 end-0 translate-middle-y me-1"></i>
                             </div>
-                            <div class="mb-3 d-flex justify-content-between">
-                                <div class="form-check">
+                            <div class="mb-3 d-flex justify-content-end">
+                                <!-- <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label small" for="exampleCheck1">Remember me</label>
-                                </div>
+                                </div> -->
 
-                                <a href="" class="text-decoration-none small mdx-text-scarlet">Forgot Password?</a>
+                                <a href="MDXResetPassword.php" class="text-decoration-none small mdx-text-scarlet">Forgot Password?</a>
                             </div>
 
                             <div class="text-md-center mt-5">

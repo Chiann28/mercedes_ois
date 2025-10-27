@@ -25,6 +25,13 @@ try {
                     $process = $LoginClass->getData($client);
                     $response = base64_encode(json_encode($process));
                     break;
+                
+                 case "PWResetCheckIfValid":
+                    $client = $_GET['client'] ?? "";
+                    $input = $_GET['input'] ?? "";
+                    $process = $LoginClass->PWResetCheckIfValid($client, $input);
+                    $response = base64_encode(json_encode($process));
+                    break;
 
                 default:
                     $response["error"] = "Invalid request type";
