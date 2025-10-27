@@ -197,12 +197,12 @@ class AdminClass{
         $query = "SELECT 
                         DATE_FORMAT(transaction_date, '%M') AS month_name,
                         SUM(amount_paid) AS total_amount
-                        FROM transactions
-                        WHERE client = '$client'
-                        GROUP BY MONTH(transaction_date)
-                        ORDER BY MONTH(transaction_date)";
+                    FROM transactions
+                    WHERE client = '$client'
+                    GROUP BY MONTH(transaction_date)
+                    ORDER BY MONTH(transaction_date)";
         $result = $SQL->SelectQuery($query);
-        
+
         $months = [
             'January' => 0,
             'February' => 0,
@@ -215,16 +215,25 @@ class AdminClass{
             'September' => 0,
             'October' => 0,
             'November' => 0,
-            'December' => 0
+            'December' => 0,
+            'Total' => 0
         ];
-        
+
+        $total = 0;
+
         foreach ($result as $row) {
             $month = $row['month_name'];
-            $months[$month] = (float)$row['total_amount'];
+            $amount = (float)$row['total_amount'];
+            $months[$month] = $amount;
+            $total += $amount;
         }
-    
+
+        $months['Total'] = $total;
+
         return $months;
+
     }
+
 
     
 }
