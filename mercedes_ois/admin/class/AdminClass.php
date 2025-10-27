@@ -189,6 +189,43 @@ class AdminClass{
             echo "Could not send email to $to. Error: {$mail->ErrorInfo}<br>";
         }
     }
+
+    public function GetCollectionPerMonth($client) {
+        $SQL = new SQLCommands("mercedes_ois");
+        $date = date('Y-m-d');
+
+        $query = "SELECT 
+                        DATE_FORMAT(transaction_date, '%M') AS month_name,
+                        SUM(amount_paid) AS total_amount
+                        FROM transactions
+                        WHERE client = '$client'
+                        GROUP BY MONTH(transaction_date)
+                        ORDER BY MONTH(transaction_date)";
+        $result = $SQL->SelectQuery($query);
+        
+        $months = [
+            'January' => 0,
+            'February' => 0,
+            'March' => 0,
+            'April' => 0,
+            'May' => 0,
+            'June' => 0,
+            'July' => 0,
+            'August' => 0,
+            'September' => 0,
+            'October' => 0,
+            'November' => 0,
+            'December' => 0
+        ];
+        
+        foreach ($result as $row) {
+            $month = $row['month_name'];
+            $months[$month] = (float)$row['total_amount'];
+        }
+    
+        return $months;
+    }
+
     
 }
 

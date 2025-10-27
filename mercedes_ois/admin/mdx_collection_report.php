@@ -17,7 +17,7 @@
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
     <script src="../../mercedes_ois/admin/js/AdminReportsController.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
     .ref-col {
         max-width: 200px;
@@ -83,14 +83,14 @@
                     </div>
                 </div>
                 <!-- Export Buttons -->
-                <!-- <div class="d-flex justify-content-end mt-3">
-                    <button class="btn btn-success me-2" ng-click="ExportExcel()">
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-success me-2" ng-click="ExportExcel('collection')">
                         <i class="fa fa-file-excel me-1"></i> Export Excel
                     </button>
-                    <button class="btn btn-danger" ng-click="ExportPDF()">
+                    <!-- <button class="btn btn-danger" ng-click="ExportPDF()">
                         <i class="fa fa-file-pdf me-1"></i> Export PDF
-                    </button>
-                </div> -->
+                    </button> -->
+                </div>
 
                 <!-- Summary Cards -->
                 <div class="row my-4">

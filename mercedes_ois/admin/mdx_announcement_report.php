@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../framework/CSS/NashieCss.css">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
     <script src="../../mercedes_ois/admin/js/AdminReportsController.js"></script>
@@ -68,14 +69,14 @@
                 </div>
 
                 <!-- Export Buttons -->
-                <!-- <div class="d-flex justify-content-end mt-3">
-                    <button class="btn btn-success me-2" ng-click="ExportExcel()">
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-success me-2" ng-click="ExportExcel('announcement')">
                         <i class="fa fa-file-excel me-1"></i> Export Excel
                     </button>
-                    <button class="btn btn-danger" ng-click="ExportPDF()">
+                    <!-- <button class="btn btn-danger" ng-click="ExportPDF()">
                         <i class="fa fa-file-pdf me-1"></i> Export PDF
-                    </button>
-                </div> -->
+                    </button> -->
+                </div>
 
                 <!-- Summary Cards -->
                 <div class="row mb-4">

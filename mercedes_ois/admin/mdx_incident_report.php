@@ -67,14 +67,14 @@
                 </div>
 
                 <!-- Export Buttons -->
-                <!-- <div class="d-flex justify-content-end mt-3">
-                    <button class="btn btn-success me-2" ng-click="ExportExcel()">
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-success me-2" ng-click="ExportExcel('incidents')">
                         <i class="fa fa-file-excel me-1"></i> Export Excel
                     </button>
                     <button class="btn btn-danger" ng-click="ExportPDF()">
                         <i class="fa fa-file-pdf me-1"></i> Export PDF
                     </button>
-                </div> -->
+                </div>
 
                 <!-- Summary Cards -->
                 <div class="row mb-4">

@@ -42,6 +42,21 @@ app.controller("AdminController", function ($scope, API) {
     // $scope.DoAutoPostAnnouncement();
     $scope.DoGetEventDashboard();
     // $scope.DoAutoEmaileDue();
+    $scope.GetCollectionPerMonth();
+  };
+
+  $scope.GetCollectionPerMonth = function () {
+    var data = {
+      client: $scope.client,
+      request_type: "GetCollectionPerMonth",
+    };
+    API.getApi("api/AdminAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      if (final_response) {
+        $scope.CollectionPerMonth = final_response;
+        console.log($scope.CollectionPerMonth);
+      }
+    });
   };
 
   $scope.DoAutoPostAnnouncement = function () {

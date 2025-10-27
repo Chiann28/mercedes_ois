@@ -53,6 +53,12 @@ try {
                     $response = base64_encode(json_encode($process));
                     break;
                 
+                case "GetCollectionPerMonth":
+                    $client = $_GET['client'] ?? "";
+                    $process = $AdminClass->GetCollectionPerMonth($client);
+                    $response = base64_encode(json_encode($process));
+                    break;
+                
 
                 default:
                     $response["error"] = "Invalid request type";
