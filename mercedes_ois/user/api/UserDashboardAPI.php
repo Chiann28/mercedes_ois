@@ -93,7 +93,14 @@ try {
                         "message" => "Logged out successfully"
                     ];
                     break;
+                case "DoUpdatePassword":
+                    $client = $postData["client"];
+                    $password = $postData["password"];
+                    $accountnumber = $postData["accountnumber"];
+                    $process = $UserDashboardClass->DoUpdatePassword($client,$accountnumber,$password);
+                    $response = base64_encode(json_encode($process));
                     break;
+                
 
                 default:
                     $response["error"] = "Invalid request type";

@@ -111,7 +111,7 @@
                             </h3>
                             <div class="mdx-body-color p-3 rounded border border-dark-subtle">
                                 <div class="row" id="myTab" role="tablist">
-                                    <div class="col-md-6 mt-3 mt-lg-0">
+                                    <div class="col-md-12 mt-3 mt-lg-0">
                                         <div class="p-3 bg-light rounded nav-link active" id="tab1-tab"
                                             data-bs-toggle="tab" data-bs-target="#tab1" role="tab"
                                             style="cursor: pointer; min-height: 15vh;">
@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 mt-3 mt-lg-0">
+                                    <!-- <div class="col-md-6 mt-3 mt-lg-0">
                                         <div class="p-3 bg-light rounded nav-link" id="tab1-tab" data-bs-toggle="tab"
                                             data-bs-target="#tab2" role="tab"
                                             style="cursor: pointer; min-height: 15vh;">
@@ -148,7 +148,7 @@
                                                 from this month </p>
 
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -159,12 +159,12 @@
                                         <canvas id="myChart" width="400" height="222" class="my-4"></canvas>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="tab2" role="tabpanel">
+                                <!-- <div class="tab-pane" id="tab2" role="tabpanel">
                                     <div class="col-12">
                                         <canvas id="myChart2" width="400" height="222" class="my-4"></canvas>
 
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
 
@@ -295,137 +295,137 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx = document.getElementById('myChart');
+        // const ctx = document.getElementById('myChart');
 
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [
-                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                ],
+        // new Chart(ctx, {
+        //     type: 'line',
+        //     data: {
+        //         labels: [
+        //             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        //             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        //         ],
 
-                datasets: [{
-                    label: '',
-                    data: [20, 35, 30, 45, 40, 55, 50, 65, 60, 75, 70, 85],
-                    borderWidth: 3,
-                    tension: 0.4,
-                    borderColor: '#f55355',
-                    fill: false,
+        //         datasets: [{
+        //             label: '',
+        //             data: [20, 35, 30, 45, 40, 55, 50, 65, 60, 75, 70, 85],
+        //             borderWidth: 3,
+        //             tension: 0.4,
+        //             borderColor: '#f55355',
+        //             fill: false,
 
-                }],
-
-
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        min: 1, // lowest value
-                        max: 100, // highest value
-                        ticks: {
-                            stepSize: 20
-                        },
-                    }
-                }
-            }
-
-        });
-
-        const ctx2 = document.getElementById('myChart2');
-        new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: [
-                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                ],
-
-                datasets: [{
-                    label: '',
-                    data: [20, 35, 30, 45, 40, 70, 50, 35, 25, 75, 70, 85],
-                    borderWidth: 3,
-                    tension: 0.4,
-                    borderColor: '#6474ffff',
-                    fill: false,
-
-                }],
+        //         }],
 
 
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    },
+        //     },
+        //     options: {
+        //         plugins: {
+        //             legend: {
+        //                 display: false
+        //             },
 
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        min: 1, // lowest value
-                        max: 100, // highest value
-                        ticks: {
-                            stepSize: 20
-                        },
-                    }
-                }
-            }
+        //         },
+        //         scales: {
+        //             x: {
+        //                 grid: {
+        //                     display: false
+        //                 }
+        //             },
+        //             y: {
+        //                 min: 1, // lowest value
+        //                 max: 100, // highest value
+        //                 ticks: {
+        //                     stepSize: 20
+        //                 },
+        //             }
+        //         }
+        //     }
 
-        });
+        // });
 
-        const ctx3 = document.getElementById('roundChart');
-        new Chart(ctx3, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [75, 25], // 75% filled, 25% empty
-                    backgroundColor: ['#28a745', '#e9ecef'], // green and light gray
-                    borderWidth: 0,
-                    borderRadius: 10
-                }]
-            },
-            options: {
-                responsive: false,
-                cutout: '80%', // thickness of ring
-                plugins: {
-                    legend: { display: false }, // hide legend
-                    tooltip: { enabled: false }, // disable tooltip
-                }
-            },
-            plugins: [{
-                // Custom text in center
-                id: 'textCenter',
-                beforeDraw(chart) {
-                    const { width } = chart;
-                    const { height } = chart;
-                    const ctx = chart.ctx;
-                    ctx.restore();
-                    const fontSize = (height / 100).toFixed(2);
-                    ctx.font = fontSize + "em sans-serif";
-                    ctx.textBaseline = "middle";
-                    const text = "75%";
-                    const textX = Math.round((width - ctx.measureText(text).width) / 2);
-                    const textY = height / 2;
-                    ctx.fillText(text, textX, textY);
-                    ctx.save();
-                }
-            }]
-        });
+        // const ctx2 = document.getElementById('myChart2');
+        // new Chart(ctx2, {
+        //     type: 'line',
+        //     data: {
+        //         labels: [
+        //             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        //             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        //         ],
+
+        //         datasets: [{
+        //             label: '',
+        //             data: [20, 35, 30, 45, 40, 70, 50, 35, 25, 75, 70, 85],
+        //             borderWidth: 3,
+        //             tension: 0.4,
+        //             borderColor: '#6474ffff',
+        //             fill: false,
+
+        //         }],
+
+
+        //     },
+        //     options: {
+        //         plugins: {
+        //             legend: {
+        //                 display: false
+        //             },
+
+        //         },
+        //         scales: {
+        //             x: {
+        //                 grid: {
+        //                     display: false
+        //                 }
+        //             },
+        //             y: {
+        //                 min: 1, // lowest value
+        //                 max: 100, // highest value
+        //                 ticks: {
+        //                     stepSize: 20
+        //                 },
+        //             }
+        //         }
+        //     }
+
+        // });
+
+        // const ctx3 = document.getElementById('roundChart');
+        // new Chart(ctx3, {
+        //     type: 'doughnut',
+        //     data: {
+        //         datasets: [{
+        //             data: [75, 25], // 75% filled, 25% empty
+        //             backgroundColor: ['#28a745', '#e9ecef'], // green and light gray
+        //             borderWidth: 0,
+        //             borderRadius: 10
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: false,
+        //         cutout: '80%', // thickness of ring
+        //         plugins: {
+        //             legend: { display: false }, // hide legend
+        //             tooltip: { enabled: false }, // disable tooltip
+        //         }
+        //     },
+        //     plugins: [{
+        //         // Custom text in center
+        //         id: 'textCenter',
+        //         beforeDraw(chart) {
+        //             const { width } = chart;
+        //             const { height } = chart;
+        //             const ctx = chart.ctx;
+        //             ctx.restore();
+        //             const fontSize = (height / 100).toFixed(2);
+        //             ctx.font = fontSize + "em sans-serif";
+        //             ctx.textBaseline = "middle";
+        //             const text = "75%";
+        //             const textX = Math.round((width - ctx.measureText(text).width) / 2);
+        //             const textY = height / 2;
+        //             ctx.fillText(text, textX, textY);
+        //             ctx.save();
+        //         }
+        //     }]
+        // });
     </script>
 
 

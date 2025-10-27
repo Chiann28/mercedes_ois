@@ -15,7 +15,7 @@ class UserDashboardClass
     {
         $SQL = new SQLCommands("mercedes_ois");
 
-        $query = "SELECT cd.* FROM user_accounts u
+        $query = "SELECT cd.*, u.is_otp FROM user_accounts u
                     LEFT JOIN customer_details cd
                     ON cd.client = u.client
                     AND cd.accountnumber = u.accountnumber
@@ -149,6 +149,42 @@ class UserDashboardClass
         $result = $SQL->InsertQuery('notification_users', $parameters);
 
         return $result;
+    }
+
+
+    public function DoUpdatePassword($client, $accountnumber, $password)
+    {
+        // Validate password before updating
+        if (!$this->isValidPassword($password)) {
+            return array(
+                "success" => false,
+                "message" => "Password must be at least 8 characters long, contain at least one uppercase letter, and one number."
+            );
+        }
+
+        $SQL = new SQLCommands("mercedes_ois");
+
+        // Escape values to prevent SQL injection (better if you use prepared statements)
+        $client = addslashes($client);
+        $accountnumber = addslashes($accountnumber);
+        $password = addslashes($password);
+
+        $query = "
+        UPDATE user_accounts
+        SET password = '$password', is_otp = '0'
+        WHERE client = '$client'
+        AND accountnumber = '$accountnumber'
+        ";
+
+        $result = $SQL->UpdateQuery($query);
+        return array("success" => $result);
+    }
+
+    private function isValidPassword($password)
+    {
+        // At least 8 chars, 1 uppercase, 1 number
+        $pattern = '/^(?=.*[A-Z])(?=.*\d).{8,}$/';
+        return preg_match($pattern, $password);
     }
 
 

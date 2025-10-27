@@ -199,9 +199,60 @@
     <?php require_once '../framework/Components/mdx_footer.php'; ?>
 
 
+    <!-- password prompt modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="forceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Password</h5>
+                </div>
+
+                <div class="modal-body">
+                    <p class="fw-light">
+                        Password update is required when logging in for the first time or when your account has been
+                        reset.
+                    </p>
+
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label fw-semibold">New Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="newPassword" ng-model="updatePassword"
+                                placeholder="Enter new password" />
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary w-100 fw-semibold" ng-click="DoUpdatePassword()">
+                        Update Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+
+    <script>
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("newPassword");
+
+        togglePassword.addEventListener("click", function () {
+            const isPassword = passwordInput.type === "password";
+            passwordInput.type = isPassword ? "text" : "password";
+
+            // Toggle the eye / eye-slash icon
+            this.innerHTML = isPassword
+                ? '<i class="fa-solid fa-eye-slash"></i>'
+                : '<i class="fa-solid fa-eye"></i>';
+        });
     </script>
 </body>
 

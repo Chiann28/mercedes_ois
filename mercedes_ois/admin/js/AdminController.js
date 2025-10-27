@@ -19,7 +19,7 @@ app.service("API", function ($http) {
 });
 
 // Controller Start
-app.controller("AdminController", function ($scope, API) {
+app.controller("AdminController", function ($scope, $timeout, API) {
   $scope.client = "mercedes";
   $scope.VerifySession = function () {
     console.log("Welcome Admin");
@@ -55,6 +55,13 @@ app.controller("AdminController", function ($scope, API) {
       if (final_response) {
         $scope.CollectionPerMonth = final_response;
         console.log($scope.CollectionPerMonth);
+
+        $scope.labels = Object.keys($scope.CollectionPerMonth).filter(
+          (key) => key !== "Total"
+        );
+        $scope.values = Object.values($scope.CollectionPerMonth).slice(0, -1);
+
+        $scope.LoadChart($scope.labels,$scope.values);
       }
     });
   };
@@ -123,4 +130,146 @@ app.controller("AdminController", function ($scope, API) {
       }
     });
   };
+
+  // chart controls
+
+  //collection chart
+  $scope.LoadChart = function (label,values) {
+    const ctx = document.getElementById("myChart");
+    console.log($scope.labels);
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: label,
+
+        datasets: [
+          {
+            label: "",
+            data: values,
+            borderWidth: 3,
+            tension: 0.4,
+            borderColor: "#f55355",
+            fill: false,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            min: 0,
+            max: 50000,
+            ticks: {
+              stepSize: 5000,
+            },
+          },
+        },
+      },
+    });
+  };
+
+  const ctx2 = document.getElementById("myChart2");
+  new Chart(ctx2, {
+    type: "line",
+    data: {
+      labels: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+
+      datasets: [
+        {
+          label: "",
+          data: [20, 35, 30, 45, 40, 70, 50, 35, 25, 75, 70, 85],
+          borderWidth: 3,
+          tension: 0.4,
+          borderColor: "#6474ffff",
+          fill: false,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+        y: {
+          min: 1, // lowest value
+          max: 100, // highest value
+          ticks: {
+            stepSize: 20,
+          },
+        },
+      },
+    },
+  });
+
+  const ctx3 = document.getElementById("roundChart");
+  new Chart(ctx3, {
+    type: "doughnut",
+    data: {
+      datasets: [
+        {
+          data: [75, 25], // 75% filled, 25% empty
+          backgroundColor: ["#28a745", "#e9ecef"], // green and light gray
+          borderWidth: 0,
+          borderRadius: 10,
+        },
+      ],
+    },
+    options: {
+      responsive: false,
+      cutout: "80%", // thickness of ring
+      plugins: {
+        legend: { display: false }, // hide legend
+        tooltip: { enabled: false }, // disable tooltip
+      },
+    },
+    plugins: [
+      {
+        // Custom text in center
+        id: "textCenter",
+        beforeDraw(chart) {
+          const { width } = chart;
+          const { height } = chart;
+          const ctx = chart.ctx;
+          ctx.restore();
+          const fontSize = (height / 100).toFixed(2);
+          ctx.font = fontSize + "em sans-serif";
+          ctx.textBaseline = "middle";
+          const text = "75%";
+          const textX = Math.round((width - ctx.measureText(text).width) / 2);
+          const textY = height / 2;
+          ctx.fillText(text, textX, textY);
+          ctx.save();
+        },
+      },
+    ],
+  });
 });

@@ -99,7 +99,8 @@ class NewApplicationClass
       'password' => $password,
       'firstname' => $firstname,
       'lastname' => $lastname,
-      'role' => 'user'
+      'role' => 'user',
+      'is_otp' => '1'
     ];
 
     $result = $SQL->InsertQuery('user_accounts', $parameters);
