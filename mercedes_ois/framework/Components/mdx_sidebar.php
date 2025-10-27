@@ -5,7 +5,10 @@
 
 
     <a href="../../mercedes_ois/admin/mdx_admin_dashboard.php" class="sidebar-icon" id="sidebarDashboard"><i
-            class="fa-solid fa-chart-line sidebar-icon"></i> <span class="sidebar-text ms-2">Admin Dashboard</span></a>
+            class="fa-solid fa-chart-line sidebar-icon"></i> <span class="sidebar-text ms-2">Dashboard</span></a>
+    
+    <a href="../../mercedes_ois/admin/mdx_admin_registration.php" class="sidebar-icon" id="sidebarDashboard"><i
+            class="fa-solid fa-user-tie sidebar-icon"></i> <span class="sidebar-text ms-2">Admin Registration</span></a>
 
 
     <a class="sidebar-icon" data-bs-toggle="collapse" href="#residentInformationMenu" role="button"
@@ -170,7 +173,6 @@
 </div>
 
 <script>
-    // BOOM! PARANG NENENG B ANG KANYANG KATAWAN
     let sidebarDashboard = document.getElementById('sidebarDashboard');
 
     let residentInformationMenu = document.getElementById('residentInformationMenu');

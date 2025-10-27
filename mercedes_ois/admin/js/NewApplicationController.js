@@ -143,6 +143,53 @@ app.controller("NewApplicationController", function ($scope, API) {
     $scope.newapp = '';
   }
 
+  $scope.DoCreateAdmin = function (form) {
+    // Prevent submission if form is invalid
+    if (!form.$valid) {
+      Swal.fire({
+        title: "Incomplete Form",
+        text: "Please fill out all required fields before submitting.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return; // stop execution
+    }
+
+    console.log($scope.accreq);
+
+    var data = {
+      client: $scope.client,
+      params: $scope.adminreq,
+      request_type: "DoCreateAdmin",
+    };
+
+    API.postApi("api/NewApplicationAPI.php", data).then(function (response) {
+      var final_response = JSON.parse(atob(response.data));
+      $scope.response = final_response;
+
+      if ($scope.response.result) {
+        Swal.fire({
+          title: "Success!",
+          text: $scope.response.message,
+          icon: "success",
+          confirmButtonText: "Done",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            // location.reload();
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: $scope.response.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        $scope.isEditing = false;
+      }
+    });
+  };
+
   
 
 });

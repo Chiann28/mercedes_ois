@@ -198,6 +198,24 @@ class NewApplicationClass
     return $result;
   }
 
+  public function DoCreateAdmin($client,$params){
+    $SQL = new SQLCommands("mercedes_ois");
+    $parameters = [
+            'client' => $client,
+            'username' => $params['username'],
+            'password' => $params['password'],
+            'firstname' => $params['firstname'],
+            'lastname' => $params['lastname'],
+            'role' => 'admin'
+        ];
+        $result = $SQL->InsertQuery('user_accounts', $parameters);
+        if (!$result) {
+            return ["result" => false, "message" => "Failed",];
+        } else {
+            return ["result" => true, "message" => "Success",];
+        }
+  }
+
 }
 
 ?>

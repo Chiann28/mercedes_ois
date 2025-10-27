@@ -50,6 +50,15 @@ try {
           $process = $NewApplicationClass->CreateAccount($user, $params, $client, $request_id );
           $response = base64_encode(json_encode($process));
           break;
+        
+        case "DoCreateAdmin":
+                    // $user = $_SESSION['username'];
+                    $params = $postData['params'];
+                    $client = $postData['client'];
+                    // $request_id = isset($postData['request_id']) ? $postData['request_id'] : null;
+                    $process = $NewApplicationClass->DoCreateAdmin($client,$params );
+                    $response = base64_encode(json_encode($process));
+                    break;
 
         default:
           $response["error"] = "Invalid request type";
