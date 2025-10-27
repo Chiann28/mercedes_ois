@@ -1,6 +1,9 @@
 <?php
 
 require_once __DIR__ . "/../../framework/SQLCommands.php";
+require_once __DIR__. "/../../framework/PHPMailer-master/src/PHPMailer.php";
+require_once __DIR__. "/../../framework/PHPMailer-master/src/SMTP.php";
+require_once __DIR__. "/../../framework/PHPMailer-master/src/Exception.php";
 
 class NewApplicationClass
 {
@@ -126,7 +129,10 @@ class NewApplicationClass
                 AND request_id = '$request_id'";
           $result = $SQL->UpdateQuery($query);
         }
-        return ["result" => true, "message" => "Account Created",];
+
+        $sent = $this->SendRegistrationEmail($email, $firstname, $username, $password);
+
+        return ["result" => true, "message" => "Account Created", "sent" => $sent];
       } else {
         return ["result" => false, "message" => "Failed Account Creation",];
       }
@@ -136,6 +142,46 @@ class NewApplicationClass
     }
 
   }
+
+  private function SendRegistrationEmail($to, $firstname, $username, $password)
+{
+    $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'dgrtsaganmeow@gmail.com';
+        $mail->Password   = 'xzab bfpp sgcg ldyx'; // Gmail App Password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        // Recipients
+        $mail->setFrom('dgrtsaganmeow@gmail.com', 'Mercedes Billing');
+        $mail->addAddress($to);
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = "Welcome to Mercedes - Your Account Details";
+        $mail->Body = "
+            Dear <b>$firstname</b>,<br><br>
+            Your account has been successfully created.<br><br>
+            <b>Login Credentials:</b><br>
+            Username: <b>$username</b><br>
+            Password: <b>$password</b><br><br>
+            Please keep this information secure.<br><br>
+            Thank you,<br>
+            Mercedes Billing Team
+        ";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        error_log("Failed to send registration email to $to: " . $mail->ErrorInfo);
+        return false;
+    }
+}
+
 
   public function GetAccountRequest($client)
   {
